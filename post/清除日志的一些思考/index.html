@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>清除日志的一些思考 - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="Linux 想到入侵到别人服务器..那么擦屁股的事情肯定要做的..即使你挂了代理之类的. 我们用的常见的思路 1.直接删除日志文件 2.删除我们自己 ip 的日志" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/%E6%B8%85%E9%99%A4%E6%97%A5%E5%BF%97%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="清除日志的一些思考" />
+<meta property="og:description" content="Linux 想到入侵到别人服务器..那么擦屁股的事情肯定要做的..即使你挂了代理之类的. 我们用的常见的思路 1.直接删除日志文件 2.删除我们自己 ip 的日志" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/%E6%B8%85%E9%99%A4%E6%97%A5%E5%BF%97%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" />
+<meta property="article:published_time" content="2019-11-25T18:47:11&#43;00:00"/>
+<meta property="article:modified_time" content="2019-11-25T18:47:11&#43;00:00"/>
+
+<meta itemprop="name" content="清除日志的一些思考">
+<meta itemprop="description" content="Linux 想到入侵到别人服务器..那么擦屁股的事情肯定要做的..即使你挂了代理之类的. 我们用的常见的思路 1.直接删除日志文件 2.删除我们自己 ip 的日志">
+
+
+<meta itemprop="datePublished" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="wordCount" content="1266">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="清除日志的一些思考"/>
+<meta name="twitter:description" content="Linux 想到入侵到别人服务器..那么擦屁股的事情肯定要做的..即使你挂了代理之类的. 我们用的常见的思路 1.直接删除日志文件 2.删除我们自己 ip 的日志"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">清除日志的一些思考</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows">windows</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="linux">Linux</h2>
+
+<p>想到入侵到别人服务器..那么擦屁股的事情肯定要做的..即使你挂了代理之类的.</p>
+
+<p>我们用的常见的思路</p>
+
+<ul>
+<li>1.直接删除日志文件<br /></li>
+<li>2.删除我们自己 ip 的日志内容<br /></li>
+<li>3.rm -rf / (dangerous)<br />
+<br /></li>
+</ul>
+
+<p>如果直接删除文件,那么管理员也会从别的地方下手.或者恢复文件之类的.</p>
+
+<p>我的想法是替换自己的 ip 为随机 ip</p>
+
+<p>先编写一个生成随机数的函数, 等会儿我们直接调用就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">function rand(){
+    min=$1
+    max=$(($2-$min+1))
+    num=$(date +%s%N)
+    echo $(($num%$max+$min))
+}</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/1557045839258.png" alt="Alt text" /></p>
+
+<p>再使用11-253的范围 ip 地址,  rand1-rand4 每次生成都是随机数, 通过 echo 返回最终 ip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rnd1=$(rand 11 253)
+rnd2=$(rand 11 253)
+rnd3=$(rand 11 253)
+rnd4=$(rand 11 253)
+echo $rnd1.$rnd2.$rnd3.$rnd4</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/1557045875786.png" alt="Alt text" /></p>
+
+<p>那么我们要考虑的就是如何生成多个 ip 供我们使用..我们编写一个函数 result, 每次调用就新生成 ip 即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">function result(){
+    rnd1=$(rand 11 253)
+    rnd2=$(rand 11 253)
+    rnd3=$(rand 11 253)
+    rnd4=$(rand 11 253)
+    echo $rnd1.$rnd2.$rnd3.$rnd4
+}</pre></td></tr></table>
+</div>
+</div>
+<p>最终.我们的生成随机 ip 就成功了.我们把 ip 通过 sed 插入到文件中.但是 sed 是不具备每次插入不一样的值得.我们调用 for 循环多次取 result 函数的值. 然后多次替换即可.<br />
+为了判断 for 循环次数 .我们通过 grep |wc 命令来决定执行次数.</p>
+
+<p>完整代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">ip</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">file</span><span class="o">=</span><span class="s1">&#39;access.log&#39;</span>
+<span class="nv">ip</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$ip</span><span class="p">|</span>sed <span class="s1">&#39;s/\./\\./g&#39;</span><span class="k">)</span>
+<span class="k">function</span> rand<span class="o">(){</span>
+    <span class="nv">min</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nv">max</span><span class="o">=</span><span class="k">$((</span><span class="nv">$2</span><span class="o">-</span><span class="nv">$min</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+    <span class="nv">num</span><span class="o">=</span><span class="k">$(</span>date +%s%N<span class="k">)</span>
+    <span class="nb">echo</span> <span class="k">$((</span><span class="nv">$num</span><span class="o">%</span><span class="nv">$max</span><span class="o">+</span><span class="nv">$min</span><span class="k">))</span>
+<span class="o">}</span>
+
+<span class="k">function</span> result<span class="o">(){</span>
+    <span class="nv">rnd1</span><span class="o">=</span><span class="k">$(</span>rand <span class="m">11</span> <span class="m">253</span><span class="k">)</span>
+    <span class="nv">rnd2</span><span class="o">=</span><span class="k">$(</span>rand <span class="m">11</span> <span class="m">253</span><span class="k">)</span>
+    <span class="nv">rnd3</span><span class="o">=</span><span class="k">$(</span>rand <span class="m">11</span> <span class="m">253</span><span class="k">)</span>
+    <span class="nv">rnd4</span><span class="o">=</span><span class="k">$(</span>rand <span class="m">11</span> <span class="m">253</span><span class="k">)</span>
+    <span class="nb">echo</span> <span class="nv">$rnd1</span>.<span class="nv">$rnd2</span>.<span class="nv">$rnd3</span>.<span class="nv">$rnd4</span>
+<span class="o">}</span>
+
+<span class="k">for</span> i in <span class="sb">`</span>seq <span class="k">$(</span>cat <span class="nv">$file</span><span class="p">|</span>grep <span class="nv">$ip</span> <span class="p">|</span>wc -l<span class="k">)</span><span class="sb">`</span><span class="p">;</span><span class="k">do</span> sed -i <span class="s2">&#34;1,/</span><span class="nv">$ip</span><span class="s2">/{s/</span><span class="nv">$ip</span><span class="s2">/`result`/}&#34;</span> <span class="nv">$file</span><span class="p">;</span><span class="k">done</span></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果如图:</p>
+
+<p>本来有10.10.10.2的 ip 入侵记录<br />
+<img src="https://img.04z.net/img/1557045882741.png" alt="Alt text" /></p>
+
+<p>通过执行脚本后, 没有10.10.10.2的记录了</p>
+
+<p><img src="https://img.04z.net/img/1557045890733.png" alt="Alt text" /></p>
+
+<p>当然.我还是建议使用 python 完成这项工作..当日志超过10w 或者100w 级以上的数量 . bash 的执行速度就会显得极其鸡肋.</p>
+
+<p>如需在目标机上使用.建议使用 pyinstaller 完成这项工作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">import random
+import sys
+import os
+
+
+def getip():
+    ip1 = random.randrange(11, 254)
+    ip2 = random.randrange(11, 254)
+    ip3 = random.randrange(11, 254)
+    ip4 = random.randrange(11, 254)
+    return(&#34;%s.%s.%s.%s&#34; % (ip1, ip2, ip3, ip4))
+
+
+def main():
+    if len(sys.argv) == 1:
+        print(&#39;\nip.exe filepath ip&#39;)
+        sys.exit()
+    try:
+        with open(sys.argv[1]) as f:
+            filecode = f.read()
+    except IOError as e:
+        print(&#34;\nMay not have %s\n&#34; % sys.argv[1])
+        sys.exit()
+
+    ipnum = filecode.count(sys.argv[2])
+    if ipnum:
+        for i in range(ipnum):
+            newip = getip()
+            filecode = filecode.replace(sys.argv[2], newip, 1)
+        with open(sys.argv[1], &#39;w&#39;) as f:
+            f.write(filecode)
+    else:
+        print(&#39;No ip can be replaced&#39;)
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</pre></td></tr></table>
+</div>
+</div>
+<h2 id="windows">windows</h2>
+
+<p><strong>特别注意: (暂只支持 log 或者 txt 文件)</strong></p>
+
+<p>本来想研究清除 evtx 的事件 id 对应的 ip..暂时没有发现适合编辑 evtx 的脚本代码.<br />
+所以文中结尾的 powershell 脚本就出来了</p>
+
+<p>那么思路和上次 linux 一样..清除 ip 或者替换 ip 记录</p>
+
+<p>编写一个函数getip, 用于获取随机 ip 地址.那么每次使用,只需要调用这个函数即可<br />
+.在 powershell 直接输出好像有点问题..所以我们暂时找到一个备用方案.用单引号引起来即可</p>
+
+<p>编写另一个替换内容的函数ip, <code>param($path,$oldip)</code>,是用于直接 ip 方法时捕获-path 和-oldip 内容, 使用 count获取文件行数.</p>
+
+<p>因为 powershell 没有每次替换一行的命令. 非常难受.所以我查询了下.网上没有相关的方法.</p>
+
+<p>那么我们想一下.for 循环赋值<code>$x</code>递增.如果<code>$_.ReadCount</code>等于<code>$x</code>, 每次只替换当前行不就行了么.当然也可以这么写<code>if ($_.ReadCount -ge 2 -and $_.ReadCount -le 13)</code> 判断行数在第二行到13行.那么就执行后面的语句.</p>
+
+<p>最终使用<code>$_ -replace $oldip,$nip</code> -replace 替换旧的 ip 即可..执行效果如下<br />
+初始文件内容<br />
+<img src="https://img.04z.net/img/1557474737314.png" alt="Alt text" /></p>
+
+<p>使用ip 方法进行替换<br />
+<img src="https://img.04z.net/img/1557474788136.png" alt="Alt text" /></p>
+
+<p>最终效果, 不多说了.大家都懂<br />
+<img src="https://img.04z.net/img/1557474777728.png" alt="Alt text" /></p>
+
+<p>完整代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Function getip(){
+    $num1 = Get-Random -Minimum 11 -Maximum 253
+    $num2 = Get-Random -Minimum 11 -Maximum 253
+    $num3 = Get-Random -Minimum 11 -Maximum 253
+    $num4 = Get-Random -Minimum 11 -Maximum 253
+    $newip = Write-Output $num1&#39;.&#39;$num2&#39;.&#39;$num3&#39;.&#39;$num4
+    $newip
+}
+
+Function ip(){
+    param($path,$oldip)
+    $filecode = Get-Content $path
+    $lines = ($filecode).Count
+    $fornum = [regex]::Matches([IO.File]::ReadAllText($path, [Text.Encoding]::Default),$oldip).Count
+    For ( $x=1; $x -le $lines;$x++)
+    {
+        $filecode | ForEach-Object {
+            if ($_.ReadCount -ne $x) {
+                $nip = getip
+                $_ -replace $oldip,$nip
+            } else {
+                $_
+            }
+        } |
+        Set-Content $path
+    }
+}
+#ip -path C:\WWW\PHPTutorial\Apache\logs\error.log -oldid 200.999.999.99;</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%BB%A5%E7%94%A8sudo%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">
+            <span class="next-text nav-default">滥用 sudo 导致的权限提升</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

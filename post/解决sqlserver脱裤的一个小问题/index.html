@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>解决 SqlServer 脱裤的一个小问题 - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="sql server配置管理器中, 为了安全设置.server 协议可以禁用固定的端口.采用随机端口运行 mssql 例如说绑定一个固定端口 目的 在成功获取到一个 webshell" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/%E8%A7%A3%E5%86%B3sqlserver%E8%84%B1%E8%A3%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%97%AE%E9%A2%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="解决 SqlServer 脱裤的一个小问题" />
+<meta property="og:description" content="sql server配置管理器中, 为了安全设置.server 协议可以禁用固定的端口.采用随机端口运行 mssql 例如说绑定一个固定端口 目的 在成功获取到一个 webshell" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/%E8%A7%A3%E5%86%B3sqlserver%E8%84%B1%E8%A3%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%97%AE%E9%A2%98/" />
+<meta property="article:published_time" content="2019-11-25T18:47:11&#43;00:00"/>
+<meta property="article:modified_time" content="2019-11-25T18:47:11&#43;00:00"/>
+
+<meta itemprop="name" content="解决 SqlServer 脱裤的一个小问题">
+<meta itemprop="description" content="sql server配置管理器中, 为了安全设置.server 协议可以禁用固定的端口.采用随机端口运行 mssql 例如说绑定一个固定端口 目的 在成功获取到一个 webshell">
+
+
+<meta itemprop="datePublished" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-25T18:47:11&#43;00:00" />
+<meta itemprop="wordCount" content="801">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="解决 SqlServer 脱裤的一个小问题"/>
+<meta name="twitter:description" content="sql server配置管理器中, 为了安全设置.server 协议可以禁用固定的端口.采用随机端口运行 mssql 例如说绑定一个固定端口 目的 在成功获取到一个 webshell"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">解决 SqlServer 脱裤的一个小问题</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#目的">目的</a>
+<ul>
+<li><a href="#想法1">想法1:</a></li>
+<li><a href="#想法2">想法2:</a></li>
+<li><a href="#想法3">想法3:</a></li>
+<li><a href="#想法4">想法4:</a></li>
+</ul></li>
+<li><a href="#峰回路转">峰回路转</a></li>
+<li><a href="#使用sqlcmd备份还原sqlserver数据库">使用sqlcmd备份还原sqlserver数据库</a></li>
+<li><a href="#导入到本地发现又出现新的问题">导入到本地发现又出现新的问题</a></li>
+<li><a href="#结语">结语:</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>sql server配置管理器中, 为了安全设置.server 协议可以禁用固定的端口.采用随机端口运行 mssql</p>
+
+<p>例如说绑定一个固定端口<br />
+<img src="https://img.04z.net/img/1551083545764.png" alt="Alt text" /></p>
+
+<h2 id="目的">目的</h2>
+
+<p>在成功获取到一个 webshell 的前提下.服务器没有开放1433端口..怎么把数据库脱下来</p>
+
+<h3 id="想法1">想法1:</h3>
+
+<p>利用 socks5转发. 使用 navicat 连接服务器..但是发现使用 ashx 脚本 socks5丢失 udp 的数据包. 失败.继而使用了自用的 sock5的程序反向代理到 vps..但是还是失败.</p>
+
+<h3 id="想法2">想法2:</h3>
+
+<p>查找本地备份sql文件.失败</p>
+
+<h3 id="想法3">想法3:</h3>
+
+<p>使用aspx大马导出..发现能导出成功.但是文件缺失严重..数据不全..[可能是大马的问题]. 失败</p>
+
+<h3 id="想法4">想法4:</h3>
+
+<p>使用 sqlcmd 导出导入.成功</p>
+
+<hr />
+
+<h2 id="峰回路转">峰回路转</h2>
+
+<p>通过 <code>tasklist</code> 查看进程中 sql server 的信息发现两个 pid</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">tasklist /svc
+
+  sqlservr.exe      6666 MSSQL$SQLEXPRESS 
+  fdlauncher.exe    6667 MSSQLFDLauncher$SQLEXPRESS     </pre></td></tr></table>
+</div>
+</div>
+<p>通过<code>netstat</code>发现存在端口开放情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">netstat -ano |findstr &#39;6666&#39;
+
+  TCP  0.0.0.0:45392  0.0.0.0:0    LISTENING    6666
+  TCP  [::]:45392     [::]:0       LISTENING    6666</pre></td></tr></table>
+</div>
+</div>
+<p>利用常用的大马中 mssql 管理功能<br />
+<code>server=localhost;UID=sa;PWD=;database=master;Provider=SQLOLEDB</code><br />
+变更为<br />
+<code>server=localhost\SQLEXPRESS;port=45392;UID=sa;PWD=sapassword;database=dbname;Provider=SQLOLEDB</code></p>
+
+<p>成功连接..但是发现利用导出 backup database 功能实在是不好用&hellip;导出继续失败<br />
+利用 set 查看到 mssql 有相关环境变量<br />
+这里我就不放图了.大家都懂.</p>
+
+<h2 id="使用sqlcmd备份还原sqlserver数据库">使用sqlcmd备份还原sqlserver数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">备份：
+
+sqlcmd -S localhost\SQLEXPRESS,45392 -U sa -P sapassword -d  dbname -Q&#34;BACKUP DATABASE dbname to disk=&#39;c:/backup/dbname.bak&#39;&#34;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">还原：
+
+sqlcmd -S localhost\SQLEXPRESS,45392 -U sa -P sapassword -d  dbname -Q&#34;RESTORE DATABASE dbname FROM disk=&#39;c:/dbname.bak&#39;&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>至于其中的目录斟酌修改..</p>
+
+<hr />
+
+<h2 id="导入到本地发现又出现新的问题">导入到本地发现又出现新的问题</h2>
+
+<p>问题1.1: RESTORE 无法处理数据库 &lsquo;dbname&rsquo;，因为它正由此会话使用。建议在执行此操作时使用 master 数据库。</p>
+
+<p>问题1.2: 消息 3013，级别 16，状态 1，服务器 localhost\SQLEXPRESS，第 1 行<br />
+RESTORE DATABASE 正在异常终止。</p>
+
+<p><code>sqlcmd -S localhost\SQLEXPRESS,45392 -U sa -P sapassword -d  dbname -Q&quot;use master; RESTORE DATABASE dbname FROM disk='c:/dbname.bak' with REPLACE&quot;</code></p>
+
+<p>如果还是不行<br />
+说明你的服务器sqlserver版本和对方的服务器版本不同.</p>
+
+<p>解决办法: 升级同级别或者更高版本的环境</p>
+
+<hr />
+
+<h2 id="结语">结语:</h2>
+
+<p>上面的步骤虽然失败.但是给我提供了很大帮助.server 及 port 的指定</p>
+
+<p>例如 navicat 没有指定端口的选项.<br />
+就在 server 中填写<code>localhost,port</code></p>
+
+<p>连接 server 中使用 localhost 失败 ,localhost\SQLEXPRESS 成功 等等&hellip;</p>
+
+<p>就这样</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E8%A7%A3%E5%86%B3https%E8%AF%81%E4%B9%A6%E5%A4%B1%E6%95%88%E8%8F%9C%E5%88%80%E8%BF%9E%E4%B8%8D%E4%B8%8A/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">解决 HTTPS 证书失效菜刀连不上</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/%E5%88%A9%E7%94%A8mysql%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/">
+            <span class="next-text nav-default">利用MySQL读取文件内容</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

