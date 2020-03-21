@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Yulong Hids Bash Install - Evi1oX</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Evi1oX" /><meta name="description" content="最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题. 例如" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
+
+
+<link rel="canonical" href="https://04z.net/post/yulong-hids-bash-install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.983f84a7.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Yulong Hids Bash Install" />
+<meta property="og:description" content="最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题. 例如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://04z.net/post/yulong-hids-bash-install/" />
+<meta property="article:published_time" content="2020-03-21T17:45:46&#43;08:00"/>
+<meta property="article:modified_time" content="2020-03-21T17:45:46&#43;08:00"/>
+
+<meta itemprop="name" content="Yulong Hids Bash Install">
+<meta itemprop="description" content="最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题. 例如">
+
+
+<meta itemprop="datePublished" content="2020-03-21T17:45:46&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-21T17:45:46&#43;08:00" />
+<meta itemprop="wordCount" content="2531">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yulong Hids Bash Install"/>
+<meta name="twitter:description" content="最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题. 例如"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Evi1oX</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/friends">
+        <li class="mobile-menu-item">Friends</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Evi1oX</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/friends">Friends</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Yulong Hids Bash Install</h1>
+
+      <div class="post-meta">
+        
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#0-plan">0.plan</a></li>
+<li><a href="#1-elasticsearch">1.elasticsearch</a></li>
+<li><a href="#2-golang">2.golang</a></li>
+<li><a href="#3-mongodb">3.MongoDB</a></li>
+<li><a href="#4-agent-pcap">4.agent-pcap</a></li>
+<li><a href="#5-agent-web">5.agent-web</a></li>
+<li><a href="#6-error-log">6.error-log</a></li>
+<li><a href="#7-kernel">7.kernel</a></li>
+<li><a href="#8-start-code">8.start code</a></li>
+<li><a href="#9-web-init">9.web init</a></li>
+<li><a href="#10-monitor-and-code">10.Monitor and ✅code</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题.<br />
+例如容器的内存太小会启动失败之类的. 必须修改docker启动的内存大小<br />
+例如server端的rpc数据传输映射ip问题, agent连接的是docker容器内网ip, 那么就导致始终连接不到server. 当然, 解决办法也有, 就是使用hosts.</p>
+
+<h2 id="0-plan">0.plan</h2>
+
+<p>必须要解决第一个问题是内存限制, 所以虚拟机环境运行的内存大小(建议是2gb及以上),2个cpu核心<br />
+笔者实验环境是ubunut16.04 , 大家根据自己实际情况更改脚本哦<br />
+这里就不提供软件下载地址了, 大家到官网下载即可</p>
+
+<h2 id="1-elasticsearch">1.elasticsearch</h2>
+
+<p>说几个点</p>
+
+<ul>
+<li>部署 Elasticsearch (5.x，驭龙暂不兼容6.x版本)<br /></li>
+<li>执行bin/elasticsearch java环境变量问题<br /></li>
+<li>elasticsearch.yml<br />
+<br /></li>
+</ul>
+
+<p>笔者之前没看到官方文档, 直接使用了Elasticsearch 6.x的版本, 导致一直接收不到agent的数据<br />
+官方给的elasticsearch.yml文件存在一下几项是需要稍作修改的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf">xpack.security.enabled: false
+xpack.monitoring.enabled: false
+xpack.ml.enabled: false
+xpack.graph.enabled: false
+xpack.watcher.enabled: false</code></pre></td></tr></table>
+</div>
+</div>
+<p>docker-compose.yml 拉取的是 docker.elastic.co/elasticsearch/elasticsearch:5.5.1<br />
+所以下载下来的elasticsearch是存在xpack的, 而默认情况一些安全设置是存在http basic登录, 所以作者是把这个选项关闭了</p>
+
+<p>所以在这里踩了一些坑, 一直以为基础环境中必须使用xpack, 但是默认情况只有一个月license, 所以折腾了一会儿破解版, 后来发现根本没用到哈哈哈嗝</p>
+
+<p>bin/elasticsearch 文件中建议增加 <code>ES_JAVA_OPTS=&quot;-Xms1g -Xmx1g&quot;</code>, 避免内存太小问题, 当然根据报错大家可以到网上一搜一大堆解决方案</p>
+
+<p>java环境我这边使用的是1.8以上的jdk (jdk-8u201-linux-x64.tar.gz), 在systemctl启动的时候是没有获取到env的, 所以我在启动脚本里面添加了source /etc/profile</p>
+
+<p>部分安装代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="nv">$DIRNAME</span>
+mkdir -p /usr/java/
+tar zxf elasticsearch/jdk-8u201-linux-x64.tar.gz -C /usr/java/
+<span class="nb">echo</span> -e <span class="s1">&#39;export JAVA_HOME=/usr/java/jdk1.8.0_201\nexport JRE_HOME=$JAVA_HOME/jre\nCLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib\nPATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin\nexport JAVA_HOME JRE_HOME CLASS_PATH PATH&#39;</span> &gt;&gt; /etc/profile
+cp -f elasticsearch/gosu-amd64 /usr/local/bin/gosu
+chmod +x /usr/local/bin/gosu
+rm -rf /elasticsearch
+tar zxf elasticsearch/elasticsearch-5.6.13.tar.gz -C /tmp/
+mv -f /tmp/elasticsearch-5.6.13 /elasticsearch
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;`cat /etc/passwd|grep elasticsearch`&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+	useradd elasticsearch
+<span class="k">fi</span>
+sed -i <span class="s1">&#39;2a source /etc/profile&#39;</span>  /elasticsearch/bin/elasticsearch
+chown -R elasticsearch:elasticsearch /elasticsearch
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=/elasticsearch/bin:$PATH&#39;</span> &gt;&gt; /etc/profile</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="2-golang">2.golang</h2>
+
+<p>安装这个应该没啥问题, 从官网下载, 然后设置个环境变量就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="nv">$DIRNAME</span>
+tar -C /usr/local -xzf golang/go1.14.1.linux-amd64.tar.gz
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=&#34;/usr/local/go/bin:$PATH&#34;&#39;</span> &gt;&gt; /etc/profile
+<span class="nb">echo</span> <span class="s1">&#39;export GOPATH=/go&#39;</span> &gt;&gt; /etc/profile
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=&#34;$GOPATH/bin:/usr/local/go/bin:$PATH&#34;&#39;</span> &gt;&gt; /etc/profile
+<span class="nb">source</span> /etc/profile
+mkdir -p <span class="s2">&#34;</span><span class="nv">$GOPATH</span><span class="s2">/src&#34;</span> <span class="s2">&#34;</span><span class="nv">$GOPATH</span><span class="s2">/bin&#34;</span> <span class="o">&amp;&amp;</span> chmod -R <span class="m">777</span> <span class="s2">&#34;</span><span class="nv">$GOPATH</span><span class="s2">&#34;</span>
+<span class="nb">cd</span> <span class="nv">$GOPATH</span>
+go version</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="3-mongodb">3.MongoDB</h2>
+
+<p>去官网下载最新压缩包tgz(或者deb), tar解压设置环境变量即可(不兼容2.x版本, 笔者用的是4.2.3最新版)<br />
+唯一需要注意的是 server运行设置 -db 连接的ip地址并非127.0.0.1, 又不能设置认证(有能力改server源码), 所以建议可以适当降权, 或者不要是生产的重要机器<br />
+所以在配置里面可以修改绑定host (bind_ip = 当前服务器ip或者0.0.0.0)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="nv">$DIRNAME</span>
+rm -rf /usr/local/mongodb/*
+tar -xf mongo/mongodb-linux-x86_64-ubuntu1604-4.2.3.tgz -C /tmp
+mv -f /tmp/mongodb-linux-x86_64-ubuntu1604-4.2.3 /usr/local/mongodb
+mkdir -p /usr/local/mongodb/data  /usr/local/mongodb/data/db /usr/local/mongodb/log /usr/local/mongodb/conf
+<span class="nb">echo</span> <span class="s1">&#39;export MONGODB_HOME=/usr/local/mongodb&#39;</span> &gt;&gt; /etc/profile
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/mongodb/bin:$PATH&#39;</span> &gt;&gt; /etc/profile
+
+cat&gt;/usr/local/mongodb/conf/mongodb.conf<span class="s">&lt;&lt;EOF
+</span><span class="s">dbpath = /usr/local/mongodb/data/db
+</span><span class="s">logpath = /usr/local/mongodb/log/mongodb.log
+</span><span class="s">bind_ip = 0.0.0.0
+</span><span class="s">port = 27017
+</span><span class="s">fork = true
+</span><span class="s">EOF</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="4-agent-pcap">4.agent-pcap</h2>
+
+<p>编译Agent需要先安装libpcap-devel<br />
+由于通信问题, 在windows2008及之前都可以使用winpcap, 在windows2008以后的建议使用npcap</p>
+
+<p>即使linux安装了pcap, 也不一定毫无问题, 笔者找到提issue提供的缓解建议</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/lib
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&#34;/usr/lib/libpcap.so.1&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+	ln -s /usr/lib/x86_64-linux-gnu/libpcap.so.1.7.4 libpcap.so.1
+<span class="k">fi</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="5-agent-web">5.agent-web</h2>
+
+<p>启动web程序之前, 必须确定存在几个文件,分别是conf/app.conf, https_cert/cert.pem, https_cert/private.pem, 缺少这几个文件都会导致web程序启动失败<br />
+现假设web程序目录在/web,启动程序是/web/web, 所以启动方式则是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd /web
+./web</pre></td></tr></table>
+</div>
+</div>
+<h2 id="6-error-log">6.error-log</h2>
+
+<p><code>invalid operator '$dateToString'。</code><br />
+笔者当时使用apt-get安装导致一直报这个错误, 后来确定是当前的 Mongodb 不支持 $dateToString 操作符，升级 Mongodb 版本就可以了。</p>
+
+<h2 id="7-kernel">7.kernel</h2>
+
+<p>笔者测试centos7的内核存在溢出直接死机情况, 所以生产环境一定要慎重啊</p>
+
+<p>官方介绍</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">我们在bin\linux-64\data.zip中已经提供了一些编译好的对应内核版本的ko文件，直接用的话需要确认内核版本完全一致。
+实际部署过程中需要 uname -r 统计下需要部署的机器linux内核版本，然后需要找到完全匹配对应版本的kernel-devel包
+下下来并安装，yum安装的不一定完全匹配。虽然软链接到不一致的版本也能编译出来ko并加载，但是不知道会不会有影响，
+稳妥起见还是参照上面的做法。
+rpm -ivh kernel-devel-3.10.0-327.el7.x86_64.rpm
+
+debian系的也类似 用 uname -r 的结果替换 4.9.0-3-amd64
+apt-get install linux-headers-4.9.0-3-amd64
+
+openSUSE
+zypper install kernel-devel
+
+安装好对应kernel-devel包后cd进目录就可以编译了
+cd /usr/local/go/src/yulong-hids/syscall_hook
+make
+
+编译好的内核和驱动需要替换进对应系统目录下的data.zip内。</pre></td></tr></table>
+</div>
+</div>
+<h2 id="8-start-code">8.start code</h2>
+
+<p>这里做了几个systemctl-service我就不放出来了, 毕竟写的太low</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/usr/local/mongodb/bin/mongod --config /usr/local/mongodb/conf/mongodb.conf<span class="p">;</span>
+su - elasticsearch -c <span class="s2">&#34;/elasticsearch/bin/elasticsearch -d&#34;</span><span class="p">;</span>
+nohup /web/web &gt;/web.log <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;;</span>
+nohup /server-start.sh &gt;/server.log <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;;</span>
+sleep infinity<span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="9-web-init">9.web init</h2>
+
+<p>默认登录的账户名:yulong-hids<br />
+默认登录的密码:All_life_is_a_game_of_luck.</p>
+
+<p>需要修改的自己修改下 web/conf/app.conf, 密码是md5加密的</p>
+
+<p>1.访问 <a href="https://web">https://web</a> 使用默认账户密码登录, 记得不要占用80,443端口,点击初始化</p>
+
+<p><img src="https://img.04z.net/img/yulong-web-install-1.png" alt="Alt text" /></p>
+
+<p>2.初始化规则直接使用官方项目根目录的rules.json, 也可以参考自己写<br />
+<img src="https://img.04z.net/img/yulong-web-install-2.png" alt="Alt text" /></p>
+
+<p>3.上传对应的文件, 这里的是上传压缩包, 可以到官方release里面下载最新的, 也可以参考安装文档中自行编译<br />
+<img src="https://img.04z.net/img/yulong-web-install-3.png" alt="Alt text" /></p>
+
+<p>4.最后,服务器是linux并且安装了openssl后, 直接点击生成证书,然后点击完成<br />
+<img src="https://img.04z.net/img/yulong-web-install-4.png" alt="Alt text" /></p>
+
+<p>5.重启web服务使之生效</p>
+
+<h2 id="10-monitor-and-code">10.Monitor and ✅code</h2>
+
+<p>切换到主机列表, 使用代码安装就行了<br />
+<img src="https://img.04z.net/img/yulong-web-install-5.png" alt="Alt text" /></p>
+
+<p>贴一张 创建一个ssh账户, 然后登录的监控记录<br />
+<img src="https://img.04z.net/img/yulong-web-install-6.png" alt="Alt text" /></p>
+
+<p>最后,代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">if [ &#34;$(id -u)&#34; != &#34;0&#34; ];then
+	echo &#39;Permission is not root!&#39;;
+    exit;
+fi
+DIRNAME=&#34;/root/yulong-sh&#34;
+sed -i &#39;s/mirrors.tuna.tsinghua.edu.cn/mirrors.aliyun.com/g&#39; /etc/apt/sources.list
+apt-get update &amp;&amp; apt-get install -y --no-install-recommends \
+		ca-certificates \
+		curl \
+		netbase \
+		wget \
+		gnupg \
+		dirmngr \
+		git \
+		mercurial \
+		openssh-client \
+		subversion \
+		procps \
+		g++ \
+		gcc \
+		libc6-dev \
+		make \
+		pkg-config \
+		libpcap-dev \
+		tzdata \
+		openssl
+
+update-ca-certificates
+
+cd $DIRNAME
+tar -C /usr/local -xzf golang/go1.14.1.linux-amd64.tar.gz
+echo &#39;export PATH=&#34;/usr/local/go/bin:$PATH&#34;&#39; &gt;&gt; /etc/profile
+echo &#39;export GOPATH=/go&#39; &gt;&gt; /etc/profile
+echo &#39;export PATH=&#34;$GOPATH/bin:/usr/local/go/bin:$PATH&#34;&#39; &gt;&gt; /etc/profile
+source /etc/profile
+mkdir -p &#34;$GOPATH/src&#34; &#34;$GOPATH/bin&#34; &amp;&amp; chmod -R 777 &#34;$GOPATH&#34;
+cd $GOPATH
+go version
+
+cd $DIRNAME
+mkdir -p /usr/java/
+tar zxf elasticsearch/jdk-8u201-linux-x64.tar.gz -C /usr/java/
+echo -e &#39;export JAVA_HOME=/usr/java/jdk1.8.0_201\nexport JRE_HOME=$JAVA_HOME/jre\nCLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib\nPATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin\nexport JAVA_HOME JRE_HOME CLASS_PATH PATH&#39; &gt;&gt; /etc/profile
+
+cd $DIRNAME
+cp -f elasticsearch/gosu-amd64 /usr/local/bin/gosu
+chmod +x /usr/local/bin/gosu
+rm -rf /elasticsearch
+tar zxf elasticsearch/elasticsearch-5.6.13.tar.gz -C /tmp/
+mv -f /tmp/elasticsearch-5.6.13 /elasticsearch
+if [ -z &#34;`cat /etc/passwd|grep elasticsearch`&#34; ];then
+	useradd elasticsearch
+fi
+sed -i &#39;2a source /etc/profile&#39;  /elasticsearch/bin/elasticsearch
+chown -R elasticsearch:elasticsearch /elasticsearch
+echo &#39;export PATH=/elasticsearch/bin:$PATH&#39; &gt;&gt; /etc/profile
+
+cd /usr/lib
+if [ ! -f &#34;/usr/lib/libpcap.so.1&#34; ];then
+	ln -s /usr/lib/x86_64-linux-gnu/libpcap.so.1.7.4 libpcap.so.1
+fi
+
+cd $DIRNAME
+cp -rf yulong-hids /go/src/
+cd /go/src/yulong-hids
+go build -o ./server/server --ldflags=&#39;-w -s -linkmode external -extldflags &#34;-static&#34;&#39; ./server/server.go &gt; /dev/null 2&gt;&amp;1
+cp -f /go/src/yulong-hids/server/server /
+
+mkdir -p /web/conf
+go build -o ./web/web --ldflags=&#39;-w -s -linkmode external -extldflags &#34;-static&#34;&#39; ./web/main.go &gt; /dev/null  2&gt;&amp;1
+cp -rf /go/src/yulong-hids/web /
+cp -f /go/src/yulong-hids/web/web /web
+
+cd $DIRNAME
+rm -rf /usr/local/mongodb/*
+tar -xf mongo/mongodb-linux-x86_64-ubuntu1604-4.2.3.tgz -C /tmp
+mv -f /tmp/mongodb-linux-x86_64-ubuntu1604-4.2.3 /usr/local/mongodb
+mkdir -p /usr/local/mongodb/data  /usr/local/mongodb/data/db /usr/local/mongodb/log /usr/local/mongodb/conf
+echo &#39;export MONGODB_HOME=/usr/local/mongodb&#39; &gt;&gt; /etc/profile
+echo &#39;export PATH=/usr/local/mongodb/bin:$PATH&#39; &gt;&gt; /etc/profile
+
+cat&gt;/usr/local/mongodb/conf/mongodb.conf&lt;&lt;EOF
+dbpath = /usr/local/mongodb/data/db
+logpath = /usr/local/mongodb/log/mongodb.log
+bind_ip = 0.0.0.0
+port = 27017
+fork = true
+EOF</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%B8%85%E9%99%A4%E6%97%A5%E5%BF%97%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+            <span class="next-text nav-default">清除日志的一些思考</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+<div class="copyright">
+  <a href="http://www.beian.miit.gov.cn">苏ICP备18058679号</a>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ae3e3272.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-153178075-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
