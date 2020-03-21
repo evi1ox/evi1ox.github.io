@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2020-03-21T17:45:46&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-21T17:45:46&#43;08:00" />
-<meta itemprop="wordCount" content="2531">
+<meta itemprop="wordCount" content="2575">
 
 
 
@@ -133,9 +133,9 @@
 <li><a href="#5-agent-web">5.agent-web</a></li>
 <li><a href="#6-error-log">6.error-log</a></li>
 <li><a href="#7-kernel">7.kernel</a></li>
-<li><a href="#8-start-code">8.start code</a></li>
+<li><a href="#8-startup-code">8.startup code</a></li>
 <li><a href="#9-web-init">9.web init</a></li>
-<li><a href="#10-monitor-and-code">10.Monitor and ✅code</a></li>
+<li><a href="#10-monitor-code">10.Monitor &amp; ✅code</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -145,8 +145,8 @@
       
 
 <p>最近折腾一堆事情, 都没碰到电脑, 刚好老铁找到我, 本来是解决这个yulong-hids 安装bug的, 然后聊到docker安装存在一些问题.<br />
-例如容器的内存太小会启动失败之类的. 必须修改docker启动的内存大小<br />
-例如server端的rpc数据传输映射ip问题, agent连接的是docker容器内网ip, 那么就导致始终连接不到server. 当然, 解决办法也有, 就是使用hosts.</p>
+例如elasticsearch容器的内存太小会启动失败之类的. 必须修改docker启动的内存大小<br />
+例如server端的rpc数据传输映射, agent连接的是docker容器内网ip, 那么就导致始终连接不到server. 当然, 解决办法也有, 就是使用hosts.</p>
 
 <h2 id="0-plan">0.plan</h2>
 
@@ -259,7 +259,7 @@ go version</code></pre></td></tr></table>
 <h2 id="3-mongodb">3.MongoDB</h2>
 
 <p>去官网下载最新压缩包tgz(或者deb), tar解压设置环境变量即可(不兼容2.x版本, 笔者用的是4.2.3最新版)<br />
-唯一需要注意的是 server运行设置 -db 连接的ip地址并非127.0.0.1, 又不能设置认证(有能力改server源码), 所以建议可以适当降权, 或者不要是生产的重要机器<br />
+唯一需要注意的是 server -db 连接的ip地址不能使用127.0.0.1, 又没有认证参数(有能力改server源码), 所以建议可以适当降权, 或者不要是生产的重要机器<br />
 所以在配置里面可以修改绑定host (bind_ip = 当前服务器ip或者0.0.0.0)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -381,9 +381,58 @@ make
 编译好的内核和驱动需要替换进对应系统目录下的data.zip内。</pre></td></tr></table>
 </div>
 </div>
-<h2 id="8-start-code">8.start code</h2>
+<h2 id="8-startup-code">8.startup code</h2>
 
 <p>这里做了几个systemctl-service我就不放出来了, 毕竟写的太low</p>
+
+<p>server-start.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">DIRNAME</span><span class="o">=</span><span class="sb">`</span>dirname <span class="nv">$0</span><span class="sb">`</span>
+<span class="nv">mongohost</span><span class="o">=</span><span class="sb">`</span>/sbin/ifconfig<span class="p">|</span>sed -n <span class="s1">&#39;/inet addr/s/^[^:]*:\([0-9.]\{7,15\}\) .*/\1/p&#39;</span><span class="p">|</span>grep -v <span class="m">127</span>.0.0.1<span class="p">|</span>head -1<span class="sb">`</span>
+
+<span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">1</span> <span class="m">10</span><span class="k">)</span><span class="p">;</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&#34;Wait for ElasticSearch Start...</span><span class="nv">$i</span><span class="s2">&#34;</span>
+    curl -s http://127.0.0.1:9200&gt; /dev/null
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="o">=</span> <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+        break<span class="p">;</span>
+    <span class="k">fi</span>
+    sleep <span class="m">5</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$i</span> -ge <span class="m">10</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&#34;Too much retry, exit.&#34;</span>
+        <span class="nb">exit</span> <span class="m">2</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+/server -db <span class="nv">$mongohost</span>:27017 -es <span class="m">127</span>.0.0.1:9200 &gt;&gt; server.log <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span></pre></td></tr></table>
+</div>
+</div>
+<p>启动代码如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -402,12 +451,12 @@ sleep infinity<span class="p">;</span></code></pre></td></tr></table>
 </div>
 <h2 id="9-web-init">9.web init</h2>
 
-<p>默认登录的账户名:yulong-hids<br />
-默认登录的密码:All_life_is_a_game_of_luck.</p>
+<p>默认登录的账户名:   yulong<br />
+默认登录的密码:    All_life_is_a_game_of_luck.</p>
 
 <p>需要修改的自己修改下 web/conf/app.conf, 密码是md5加密的</p>
 
-<p>1.访问 <a href="https://web">https://web</a> 使用默认账户密码登录, 记得不要占用80,443端口,点击初始化</p>
+<p>1.访问 <a href="https://web">https://web</a>, 记得不要占用80,443端口, 点击初始化</p>
 
 <p><img src="https://img.04z.net/img/yulong-web-install-1.png" alt="Alt text" /></p>
 
@@ -422,7 +471,7 @@ sleep infinity<span class="p">;</span></code></pre></td></tr></table>
 
 <p>5.重启web服务使之生效</p>
 
-<h2 id="10-monitor-and-code">10.Monitor and ✅code</h2>
+<h2 id="10-monitor-code">10.Monitor &amp; ✅code</h2>
 
 <p>切换到主机列表, 使用代码安装就行了<br />
 <img src="https://img.04z.net/img/yulong-web-install-5.png" alt="Alt text" /></p>
