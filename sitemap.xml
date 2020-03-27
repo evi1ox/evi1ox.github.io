@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://04z.net/post/generate-reverse-shell/</loc>
+    <lastmod>2020-03-27T14:37:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://04z.net/post/yulong-hids-bash-install/</loc>
     <lastmod>2020-03-21T17:45:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -184,14 +191,14 @@
   
   <url>
     <loc>https://04z.net/</loc>
-    <lastmod>2020-03-21T17:45:46+08:00</lastmod>
+    <lastmod>2020-03-27T14:37:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://04z.net/post/</loc>
-    <lastmod>2020-03-21T17:45:46+08:00</lastmod>
+    <lastmod>2020-03-27T14:37:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

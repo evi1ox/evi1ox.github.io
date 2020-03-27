@@ -6,10 +6,19 @@
     <description>Recent content on Evi1oX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Mar 2020 17:45:46 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2020 14:37:35 +0800</lastBuildDate>
     
 	<atom:link href="https://04z.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Generate Reverse Shell</title>
+      <link>https://04z.net/post/generate-reverse-shell/</link>
+      <pubDate>Fri, 27 Mar 2020 14:37:35 +0800</pubDate>
+      
+      <guid>https://04z.net/post/generate-reverse-shell/</guid>
+      <description>nodejs 在2018年p牛就分享了, 但是一直没看到, 今天看到就整理一下, 后续再更新 https://github.com/lukechilds/reverse-shell 可以通过clone当前程序, 通过 npm 安装当前 node_modules , 再通过npm sta</description>
+    </item>
     
     <item>
       <title>Yulong Hids Bash Install</title>
